@@ -1,0 +1,198 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Laboratorio di Testing Psicologico",
+    "section": "",
+    "text": "Benvenuti\nBenvenuti nel sito web dell’insegnamento di Laboratorio di Testing Psicologico, rivolto agli studenti del secondo anno del Corso di Laurea Magistrale Psicologia Clinica e della Salute e Neuropsicologia dell’Università degli Studi di Firenze.",
+    "crumbs": [
+      "Benvenuti"
+    ]
+  },
+  {
+    "objectID": "index.html#descrizione",
+    "href": "index.html#descrizione",
+    "title": "Laboratorio di Testing Psicologico",
+    "section": "Descrizione",
+    "text": "Descrizione\nIl Laboratorio di Testing Psicologico (B033300) è un corso pratico che offre agli studenti l’opportunità di applicare i concetti teorici sull’assessment psicologico appresi nel corso di Testing Psicologico. L’obiettivo principale è guidare gli studenti nella progettazione e validazione di uno strumento psicometrico, fornendo un’esperienza diretta e concreta.\nLe analisi statistiche saranno effettuate utilizzando il software R, con l’intento di sviluppare competenze pratiche nell’utilizzo di questo linguaggio, fondamentale per l’analisi dei dati nel contesto professionale della psicologia.\n\nAnno Accademico: 2024-2025\nCodice Insegnamento: B033300\nOrario e Luogo: lunedì (10:30-13:30) e giovedì (14:30-17:30), Plesso didattico La Torretta.\n\n\n\n\n\n\n\nNota\n\n\n\nQuesto sito web è la fonte ufficiale per il programma dell’insegnamento B033300 - Laboratorio di Testing Psicologico e le modalità d’esame.\n\n\nConsulta il syllabus completo per ulteriori dettagli.",
+    "crumbs": [
+      "Benvenuti"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html",
+    "href": "programmazione2024.html",
+    "title": "1  Calendario degli incontri",
+    "section": "",
+    "text": "Laboratorio 1\nIl calendario didattico prevede 14 incontri di tre ore ciascuno, con gli ultimi due incontri riservati a un esame finale e alle presentazioni dei progetti degli studenti.\nProgramma",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-1",
+    "href": "programmazione2024.html#laboratorio-1",
+    "title": "1  Calendario degli incontri",
+    "section": "",
+    "text": "Data: 3 marzo 2025\n\nOrario: 10:30–13:30\n\nArgomento: Introduzione a R.\n\n\n\n\n\n\nPresentazione delle attività del Laboratorio di Testing Psicologico.\nIntroduzione al linguaggio R.",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-2",
+    "href": "programmazione2024.html#laboratorio-2",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 2",
+    "text": "Laboratorio 2\n\n\n\n\n\n\n\nData: 6 marzo 2025\n\nOrario: 8:30–11:30\n\nArgomento: Esplorazione dei dati (Exploratory Data Analysis, EDA)\n\n\n\n\nProgramma\n\nOrganizzazione di un progetto di analisi dei dati:\n\nPresentazione e discussione di:\n\nData Preparation [Yu & Barter (2024); cap. 4]\n\n\nValidazione di una scala psicometrica\n\nIntroduzione all’articolo Scale validation in applied health research: tutorial for a 6-step R-based psychometrics protocol (Dima, 2018).\n\nAnalisi preliminari\n\nEsercitazione sulle funzioni di \\(\\mathsf{R}\\): rnorm(), dnorm(), pnorm(), qnorm().\n\nVerifica della normalità:\n\nCreazione e interpretazione di un qq-plot per i dati FAI.\n\n\nCalcolo e interpretazione di:\n\nIndici di curtosi e asimmetria.\n\n\nStatistiche descrittive e verifica dei dati mancanti.\n\nOutlier e distanza di Mahalanobis\n\nIndividuazione e gestione degli outliers negli item FAI tramite boxplot e distanza di Mahalanobis.\n\nCareless responding\n\nPresentazione e discussione di articoli chiave sul tema:\n\nDealing with careless responding in survey data: Prevention, identification, and recommended best practices (Ward & Meade, 2023).\n\nCareless responding: Why many findings are spurious or spuriously inflated (Stosic et al., 2024).\n\nThe Conscientious Responders Scale: A new tool for discriminating between conscientious and random responders (Marjanovic et al., 2014).\n\n\nApplicazione dei principi di individuazione del careless responding ai dati FAI.",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-3",
+    "href": "programmazione2024.html#laboratorio-3",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 3",
+    "text": "Laboratorio 3\n\n\n\n\n\n\n\nData: 11 marzo 2025\n\nOrario: 10:30–13:30\n\nArgomento: Teoria Classica dei Test (Classical Test Theory, CTT)\n\n\n\n\nProgramma\n\nIntroduzione alla regressione lineare bivariata\n\nSpiegazione del modello di regressione lineare bivariata:\n\nLogica del calcolo dei coefficienti tramite il metodo dei minimi quadrati.\n\nInterpretazione dei principali parametri statistici del modello lineare: errore standard della regressione; scomposizione della devianza; coefficiente di determinazione (\\(R^2\\)).\n\n\nEstensione alla regressione multipla\n\nDiscussione del modello di regressione multipla con focus su:\n\nInterpretazione dei coefficienti parziali di regressione.\n\nCollegamento tra coefficienti parziali di regressione e coefficienti parziali di correlazione.\n\n\nSimulazione in \\(\\mathsf{R}\\) per la CTT\n\nIntroduzione ai concetti fondamentali della Teoria Classica dei Test tramite simulazioni pratiche.\n\nCalcolo delle quantità chiave della CTT\n\nApplicazione ai dati FAI per ottenere:\n\nattendibilità (\\(\\alpha\\) di Cronbach); SEM (Standard Error of Measurement); stima del punteggio vero tramite il metodo di Kelley; intervalli di confidenza del punteggio vero.\n\n\nConfronto tra approcci metodologici\n\nPresentazione e discussione dell’articolo Depressive and anxiety symptoms in refugees: Insights from classical test theory, item response theory and network analysis (Schlechter et al., 2021) per un confronto tra metodi CTT, IRT e network analysis.\n\nReliable Change Index (RCI)\n\nCalcolo dell’RCI basato sul SEM e presentazione dell’articolo Reliable Change: Extending Jacobson and Truax’s index (Blampied, 2022).\n\nGestione dei dati mancanti\n\nDiscussione degli approcci per gestire i dati mancanti con riferimento ai seguenti articoli:\n\nMultiple imputation of missing data in large studies with many variables: A fully conditional specification approach using partial least squares (Grund et al., 2024).\n\nRebutting existing misconceptions about multiple imputation as a method for handling missing data (Van Ginkel et al., 2020).\n\n\nApplicazione pratica dell’imputazione multipla\n\nImplementazione dell’imputazione multipla sui dati FAI con i pacchetti \\(\\mathsf{R}\\) mice e missRanger.",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-4",
+    "href": "programmazione2024.html#laboratorio-4",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 4",
+    "text": "Laboratorio 4\n\n\n\n\n\n\n\nData: 13 marzo 2025\n\nOrario: 8:30–11:30\n\nArgomento: Mokken Scale Analysis (MSA)\n\n\n\n\n\nProgramma\n\nRegressione logistica\n\nIntroduzione ai concetti fondamentali:\n\nDefinizione del modello di regressione logistica.\n\nSpiegazione dell’AUC (Area Under the Curve) come misura di performance.\n\n\nApplicazione pratica del modello ai dati FAI.\n\nMokken Scale Analysis (MSA)\n\nIntroduzione alla MSA:\n\nSpiegazione dei concetti principali (scalabilità, monotonicità, invarianza locale).\n\n\nApplicazione della MSA ai dati FAI:\n\nSelezione degli item basata sui criteri della MSA.\n\n\nPresentazione dell’articolo A Mokken Scale Analysis of the Last Series of the Standard Progressive Matrices (SPM-LS) (Myszkowski, 2020).\n\nReplica delle analisi di validazione descritte in (Myszkowski, 2020).",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-5",
+    "href": "programmazione2024.html#laboratorio-5",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 5",
+    "text": "Laboratorio 5\n\n\n\n\n\n\n\nData: 18 marzo 2025\n\nOrario: 10:30–13:30\n\nArgomento: Teoria di Risposta agli Item (Item Response Theory, IRT) e validità.\n\n\n\n\nProgramma\n\nIntroduzione al modello di Rasch\n\nSpiegazione dei concetti fondamentali del modello di Rasch.\n\nReplica dei risultati del modello di Rasch descritti in (Pallentin et al., 2024).\n\nModelli IRT: 1PL, 2PL, 3PL\n\nSpiegazione delle caratteristiche principali di ciascun modello:\n\n1PL (Modello logistico a un parametro).\n\n2PL (Modello logistico a due parametri).\n\n3PL (Modello logistico a tre parametri).\n\n\nConfronto tra modelli IRT\n\nAnalisi comparativa dei modelli 1PL, 2PL e 3PL.\n\nReplica dei risultati riportati nell’articolo Analysing Standard Progressive Matrices (SPM-LS) with Bayesian Item Response Models (Bürkner, 2020).\n\nApplicazione pratica dei modelli IRT ai dati FAI.\n\nPresentazione degli Standards for Educational and Psychological Testing\n\nIntroduzione ai principi fondamentali degli Standards disponibili su Testing Standards.\n\nDiscussione degli articoli:\n\nA Short Tutorial on Validation in Educational and Psychological Assessment (Arias, 2024).\n\n“Color-neutral” is not a thing: Redefining construct definition and representation through a justice-oriented critical antiracist lens (Randall, 2021).\n\nDisrupting white supremacy in assessment: Toward a justice-oriented, antiracist validity framework (Randall et al., 2023).\n\n\nApplicazione dei concetti presentati negli Standards e negli articoli ai dati FAI, con focus sulla validità.",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-6",
+    "href": "programmazione2024.html#laboratorio-6",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 6",
+    "text": "Laboratorio 6\n\n\n\n\n\n\n\nData: 20 marzo 2025\nOrario: 8:30-11:30\nArgomento: Algebra lineare e analisi delle componenti principali.\n\n\n\n\nProgramma\n\nRegressione bivariata con algebra matriciale.\nRegressione multipla con algebra matriciale.\nSpiegazione geometrica degli autovalori e autovettori.\nSimulazione e applicazione della PCA.\nAnalisi PCA per i dati di Greenacre et al. (2022).\nDiscussione dell’articolo di Caron & Lemardelet (2021).",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-7",
+    "href": "programmazione2024.html#laboratorio-7",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 7",
+    "text": "Laboratorio 7\n\n\n\n\n\n\n\nData: 25 marzo 2025\n\nOrario: 10:30–13:30\n\nArgomento: Path Analysis e Analisi Fattoriale\n\n\n\n\n\nProgramma\n\nIntroduzione alla Path Analysis:\n\nPresentazione dei concetti base (Loehlin, 2017, Capitolo 1).\n\nEsercizi pratici:\n\nSvolgimento degli esercizi del capitolo 1 di (Loehlin, 2017).\nReplicare le analisi di Weiss et al. (2018).\n\nCorrelazione parziale:\n\nSimulazione in R per illustrare il concetto e il calcolo della correlazione parziale.\n\nAnalisi fattoriale sui dati FAI:\n\nApplicazione del metodo delle componenti principali tramite algebra matriciale, con estrazione di due fattori.\n\nReplica dei risultati utilizzando il pacchetto lavaan.\n\nMatrici di pattern e struttura:\n\nCostruzione e interpretazione delle matrici di pattern e struttura basate sui dati analizzati.\n\nValidazione psicometrica:\n\nDiscussione e replica delle analisi di validazione di:\n\n(Clement & Bradley-Garcia, 2022).\n\n(Guidotti et al., 2024).",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-8",
+    "href": "programmazione2024.html#laboratorio-8",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 8",
+    "text": "Laboratorio 8\n\n\n\n\n\n\n\nData: 27 marzo 2025\n\nOrario: 8:30-11:30\n\nArgomento: Analisi fattoriale esplorativa e confermativa. Invarianza di misurazione tra gruppi.\n\n\n\n\nProgramma\n\nTecniche di analisi della dimensionalità\n\nApplicazione ai dati della scala FAI, utilizzando item selezionati con la tecnica MSA.\n\nAnalisi fattoriale esplorativa (EFA) e rotazione fattoriale\n\nEsecuzione di un’analisi esplorativa su due sottoscale della FAI.\n\nConfronto tra rotazione ortogonale e rotazione obliqua.\n\nCalcolo dei punteggi fattoriali\n\nCalcolo dei punteggi fattoriali e del punteggio totale (total score) per la scala FAI.\n\nDiscussione dell’articolo di riferimento: McNeish & Wolf (2020).\n\nAnalisi Fattoriale Confermativa (CFA)\n\nDiscussione e replica delle analisi proposte in Brauer & Proyer (2024):\n\nModello CFA unidimensionale.\n\nModello a 3 fattori correlati.\n\nModello di secondo ordine.\n\n\nConfronto tra i modelli.\n\n\nAnalisi dell’invarianza di misurazione tra gruppi:\n\nConfigurale, metrica e scalare.\n\nCalcolo del coefficiente omega di McDonald per la valutazione dell’attendibilità:\n\nUtilizzo della funzione ci.reliability() del pacchetto MBESS.\n\nReplica dei risultati utilizzando la formula classica basata sulle saturazioni fattoriali.\n\n\nDiscussione degli indici di adattamento (GOF), residui e indici di modifica (MI)\n\nCalcolo e interpretazione di:\n\nIndici di adattamento globale (GOF).\n\nResidui.\n\nIndici di modifica (MI).\n\n\nApplicazione sia ai dati di Brauer & Proyer (2024) sia ai dati della scala FAI.\n\nConfronto tra modelli di misurazione\n\nConfronto tra i seguenti modelli applicati ai dati di Holzinger & Swineford (1939): Modello congenerico, modello tau-equivalente, modello parallelo (Hirschfeld & Von Brachel, 2014).\nDiscussione dell’articolo di Widaman & Revelle (2023).\nConfronto tra i modelli congenerico, tau-equivalente e parallelo per i dati FAI.",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-9",
+    "href": "programmazione2024.html#laboratorio-9",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 9",
+    "text": "Laboratorio 9\n\n\n\n\n\n\n\nData: 1 aprile 2025\n\nOrario: 10:30–13:30\n\nArgomento: Costruzione e validazione di test. Higher-order factor analysis. Bifactor model. Attendibilità.\n\n\n\n\nProgramma\n\nCostruzione e validazione di test:\n\nPresentazione della costruzione dell’IDAS (Watson et al., 2007).\nDiscussione e replica delle analisi di validazione:\n\nIDAS-II (Wester et al., 2022).\n\nDERS (Erez & Gordon, 2024).\n\n\nHigher-Order Factor Analysis e Bifactor Model:\n\ndiscussione e replica delle analisi di validazione di Blume et al. (2025).\n\nCalcolo dell’attendibilità:\n\nStime di attendibilità con Alpha di Cronbach, Omega di McDonald, Coefficiente \\(\\rho\\) di Mokken.\nApplicazione alla scala FAI.\n\nCFA per dati non normali o categorici:\n\nConfronto tra adattamento basato su MLR e modelli per dati categorici;\nApplicazione alla scala FAI.\n\nModification Indices:\n\nApplicazioni ai dati della scala FAI.\n\nGestione dei dati mancanti:\n\nSimulazioni con la scala FAI:\n\nImputazione preliminare con mice.\nUso di FIML (Full Information Maximum Likelihood).",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-10",
+    "href": "programmazione2024.html#laboratorio-10",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 10",
+    "text": "Laboratorio 10\n\n\n\n\n\n\n\nData: 3 aprile 2025\nOrario: 8:30-11:30\nArgomento: Introduzione ai modelli di equazioni strutturali (SEM).\n\n\n\n\nProgramma\n\nIntroduzione ai modelli SEM: Presentare i principi e le applicazioni dei modelli di equazioni strutturali (SEM) secondo Kline (2023).\n\nAnalisi dell’invarianza fattoriale tra gruppi: Discutere i livelli di invarianza fattoriale (configurale, metrica, scalare, e stretta), con un focus sui seguenti studi:\nPresentare e replicare l’analisi proposta da Lasker (2024).\nPresentare e replicare l’analisi condotta da McDanal et al. (2023).\nReplicare e commentare l’analisi discussa nel capitolo Structural Equation Modeling with R for Education Scientists di Saqr & López-Pernas (2024).\n\nAnalisi della potenza statistica nei SEM: Esaminare e applicare i concetti di power analysis nei SEM seguendo il tutorial di Jobst et al. (2023). 3.Esplorazione dell’ESEM: Presentare i principi e l’applicazione del modello di equazioni strutturali esplorative (ESEM).",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-11",
+    "href": "programmazione2024.html#laboratorio-11",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 11",
+    "text": "Laboratorio 11\n\n\n\n\n\n\n\nData: 8 aprile 2025\nArgomento: Test di intelligenza. Bias nei test. Protocollo EMA.\nOrario: 10:30-13:30\n\n\n\n\nProgramma\n\nTest d’intelligenza\n\nPresentazione del capitolo Intellectual Assessment del testo di Petersen (2024).\nDiscussione dei concetti di curva ROC e indice AUC.\nPresentazione del capitolo Test Bias del testo di Petersen (2024).\nReplica e discussione delle analisi di Schubert et al. (2024).\n\nEcological Momentary Assessment\n\nPresentazione del capitolo Psychophysiological and Ambulatory Assessment del testo di Petersen (2024).",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-12",
+    "href": "programmazione2024.html#laboratorio-12",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 12",
+    "text": "Laboratorio 12\n\n\n\n\n\n\n\nData: 10 aprile 2025\nArgomento: Modelli multilivello, attendibilità longitudinale, modelli di crescita latente.\nOrario: 8:30-11:30\n\n\n\n\nProgramma\n\nAnalisi del progetto Popularity Data: Eseguire e commentare l’analisi multilivello del progetto discusso nel secondo capitolo di Multilevel Analysis: Techniques and Applications (Hox et al., 2017). Per supporto pratico, consultare il tutorial in R disponibile su questo blog.\nAnalisi multilivello sui dati di self-compassion di stato: Eseguire l’analisi multilivello sui dati provenienti da uno studio EMA sulla self-compassion di stato. Commentare i risultati interpretandoli alla luce delle ipotesi discusse nell’articolo di Neff (2022).\nReplica del modello di crescita latente: Replicare in R il modello di crescita latente presentato da Gudmundsdottir et al. (2024) e discutere i risultati ottenuti, mettendoli in relazione con i contenuti dell’articolo.",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-13",
+    "href": "programmazione2024.html#laboratorio-13",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 13",
+    "text": "Laboratorio 13\n\n\n\n\n\n\n\nData: 15 aprile 2025\nArgomento: Quiz su Moodle e presentazioni finali degli studenti.\nOrario: 10:30-13:30\n\n\n\n\nProgramma\n\nQuiz Moodle.\nPresentazioni dei progetti degli studenti.",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#laboratorio-14",
+    "href": "programmazione2024.html#laboratorio-14",
+    "title": "1  Calendario degli incontri",
+    "section": "Laboratorio 14",
+    "text": "Laboratorio 14\n\n\n\n\n\n\n\nData: 17 aprile 2025\nArgomento: Presentazioni finali degli studenti.\nOrario: 8:30-11:30\n\n\n\n\nProgramma\n\nPresentazioni dei progetti degli studenti.",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  },
+  {
+    "objectID": "programmazione2024.html#bibliografia",
+    "href": "programmazione2024.html#bibliografia",
+    "title": "1  Calendario degli incontri",
+    "section": "Bibliografia",
+    "text": "Bibliografia\n\n\n\n\nBlampied, N. M. (2022). Reliable change and the reliable change index: still useful after all these years? The Cognitive Behaviour Therapist, 15, e50.\n\n\nBlume, F., Buhr, L., Kuehnhausen, J., Köpke, R., Weber, L. A., Fallgatter, A. J., Ethofer, T., & Gawrilow, C. (2025). Validation of the Self-Report Version of the German Strengths and Weaknesses of ADHD Symptoms and Normal Behavior Scale (SWAN-DE-SB). Assessment, 32(1), 130–146.\n\n\nBrauer, K., & Proyer, R. T. (2024). Assessing Jealousy: Factor Analyses, Measurement Invariance, Nomological Validity, and Longitudinal APIM Analyses of the Multidimensional Jealousy Scale. Assessment, 1–15.\n\n\nBürkner, P.-C. (2020). Analysing standard progressive matrices (SPM-LS) with Bayesian item response models. Journal of Intelligence, 8(1), 5.\n\n\nCaron, P.-O., & Lemardelet, L. (2021). The variance sum law and its implications for modelling. The Quantitative Methods for Psychology, 17(2), 80–86.\n\n\nClement, L. M., & Bradley-Garcia, M. (2022). A step-by-step tutorial for performing a moderated mediation analysis using PROCESS. The Quantitative Methods for Psychology, 18(3), 258–271.\n\n\nDima, A. L. (2018). Scale validation in applied health research: Tutorial for a 6-step R-based psychometrics protocol. Health Psychology and Behavioral Medicine, 6(1), 136–161.\n\n\nErez, C., & Gordon, I. (2024). The Imperfect Yet Valuable Difficulties in Emotion Regulation Scale: Factor Structure, Dimensionality, and Possible Cutoff Score. Assessment, 10731911241261168.\n\n\nGreenacre, M., Groenen, P. J., Hastie, T., d’Enza, A. I., Markos, A., & Tuzhilina, E. (2022). Principal component analysis. Nature Reviews Methods Primers, 2(1), 100.\n\n\nGrund, S., Lüdtke, O., & Robitzsch, A. (2024). Multiple imputation of missing data in large studies with many variables: A fully conditional specification approach using partial least squares. Psychological Methods.\n\n\nGudmundsdottir, G. R., Pfund, G. N., Hill, P. L., & Olaru, G. (2024). Reciprocal associations between sense of purpose and subjective well-being in old age. European Journal of Personality, 38(3), 391–404.\n\n\nGuidotti, S., Fiduccia, A., & Pruneti, C. (2024). Introversion, alexithymia, and hostility: a path analysis from personality to suicidal ideation among university students. Psychological Reports, 00332941241247526.\n\n\nHirschfeld, G., & Von Brachel, R. (2014). Improving Multiple-Group confirmatory factor analysis in R–A tutorial in measurement invariance with continuous and ordinal indicators. Practical Assessment, Research, and Evaluation, 19(1).\n\n\nHox, J., Moerbeek, M., & Van de Schoot, R. (2017). Multilevel analysis: Techniques and applications. Routledge.\n\n\nJobst, L. J., Bader, M., & Moshagen, M. (2023). A tutorial on assessing statistical power and determining sample size for structural equation models. Psychological Methods, 28(1), 207.\n\n\nKline, R. B. (2023). Principles and practice of structural equation modeling. Guilford publications.\n\n\nLasker, J. (2024). Measurement Invariance Testing Works. Applied Psychological Measurement, 48(6), 257–275. https://doi.org/10.1177/01466216241261708\n\n\nLoehlin, J. C. (2017). Latent variable models: An introduction to factor, path, and structural equation analysis. Psychology Press.\n\n\nMarjanovic, Z., Struthers, C. W., Cribbie, R., & Greenglass, E. R. (2014). The Conscientious Responders Scale: A new tool for discriminating between conscientious and random responders. Sage Open, 4(3), 2158244014545964.\n\n\nMcDanal, R., Schleider, J. L., Fox, K. R., & Eaton, N. R. (2023). Loneliness in gender-diverse and sexual orientation–diverse adolescents: Measurement invariance analyses and between-group comparisons. Assessment, 30(3), 706–727.\n\n\nMcNeish, D., & Wolf, M. G. (2020). Thinking twice about sum scores. Behavior Research Methods, 52, 2287–2305.\n\n\nMyszkowski, N. (2020). A Mokken scale analysis of the last series of the standard progressive matrices (SPM-LS). Journal of Intelligence, 8(2), 22.\n\n\nNeff, K. D. (2022). The differential effects fallacy in the study of self-compassion: Misunderstanding the nature of bipolar continuums. Mindfulness, 13(3), 572–576.\n\n\nPallentin, V. S., Danner, D., Lesche, S., & Rummel, J. (2024). Validation of the Short Parallel and Extra-Short Form of the Heidelberg Figural Matrices Test (HeiQ). Journal of Intelligence, 12(10), 100.\n\n\nPetersen, I. T. (2024). Principles of psychological assessment: With applied examples in R. CRC Press.\n\n\nRandall, J. (2021). «Color-neutral» is not a thing: Redefining construct definition and representation through a justice-oriented critical antiracist lens. Educational Measurement: Issues and Practice, 40(4), 82–90.\n\n\nRandall, J., Slomp, D., Poe, M., & Oliveri, E. (2023). Disrupting white supremacy in assessment: Toward a justice-oriented, antiracist validity framework. In Twin Pandemics (pp. 78–86). Routledge.\n\n\nSaqr, M., & López-Pernas, S. (2024). Learning analytics methods and tutorials: A practical guide using R. Springer Nature.\n\n\nSchlechter, P., Wilkinson, P. O., Knausenberger, J., Wanninger, K., Kamp, S., Morina, N., & Hellmann, J. H. (2021). Depressive and anxiety symptoms in refugees: Insights from classical test theory, item response theory and network analysis. Clinical Psychology & Psychotherapy, 28(1), 169–181.\n\n\nSchubert, A.-L., Löffler, C., Wiebel, C., Kaulhausen, F., & Baudson, T. G. (2024). Don’t waste your time measuring intelligence: Further evidence for the validity of a three-minute speeded reasoning test. Intelligence, 102, 101804.\n\n\nStosic, M. D., Murphy, B. A., Duong, F., Fultz, A. A., Harvey, S. E., & Bernieri, F. (2024). Careless responding: Why many findings are spurious or spuriously inflated. Advances in Methods and Practices in Psychological Science, 7(1), 25152459241231581.\n\n\nVan Ginkel, J. R., Linting, M., Rippe, R. C., & Van Der Voort, A. (2020). Rebutting existing misconceptions about multiple imputation as a method for handling missing data. Journal of Personality Assessment, 102(3), 297–308.\n\n\nWard, M. K., & Meade, A. W. (2023). Dealing with careless responding in survey data: Prevention, identification, and recommended best practices. Annual Review of Psychology, 74(1), 577–596.\n\n\nWatson, D., O’Hara, M. W., Simms, L. J., Kotov, R., Chmielewski, M., McDade-Montez, E. A., Gamez, W., & Stuart, S. (2007). Development and validation of the Inventory of Depression and Anxiety Symptoms (IDAS). Psychological Assessment, 19(3), 253–268.\n\n\nWeiss, N. H., Forkus, S. R., Contractor, A. A., & Schick, M. R. (2018). Difficulties regulating positive emotions and alcohol and drug misuse: A path analysis. Addictive Behaviors, 84, 45–52.\n\n\nWester, R. A., Rubel, J., Zimmermann, J., Hall, M., Kaven, L., & Watson, D. (2022). Development and validation of the Inventory of Depression and Anxiety Symptoms–II—German version. Psychological Assessment, 34(12), e88.\n\n\nWidaman, K. F., & Revelle, W. (2023). Thinking thrice about sum scores, and then some more about measurement and analysis. Behavior Research Methods, 55(2), 788–806.\n\n\nYu, B., & Barter, R. L. (2024). Veridical data science: The practice of responsible data analysis and decision making. MIT Press.",
+    "crumbs": [
+      "Calendario",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Calendario degli incontri</span>"
+    ]
+  }
+]
