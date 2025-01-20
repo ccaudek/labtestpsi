@@ -21,17 +21,19 @@ editor:
   render-on-save: false
 ---
 
+\pagebreak
+
 ### Descrizione sintetica
 
-Il **Laboratorio di Testing Psicologico** (B033300) è un corso pratico in cui gli studenti applicano concetti teorici di psicometria, appresi nel corso di Testing Psicologico, per costruire e validare uno strumento psicometrico. Le analisi statistiche saranno svolte utilizzando `R`, con l’obiettivo di preparare gli studenti all’uso di questo linguaggio statistico nel contesto professionale psicologico.
+Il **Laboratorio di Testing Psicologico** (B033300) è un corso pratico in cui gli studenti applicano concetti teorici relativi all'assessment psicologico, appresi nel corso di **Testing Psicologico**, per costruire e validare uno strumento psicometrico. Le analisi statistiche saranno svolte utilizzando `R`, con l’obiettivo di preparare gli studenti all’uso di questo linguaggio statistico nel contesto professionale psicologico.
 
 ### Obiettivi Formativi
 
-Il laboratorio guida gli studenti attraverso tutte le fasi di costruzione e validazione di un test psicometrico. Al termine del corso, gli studenti svilupperanno un progetto di gruppo in cui applicheranno le conoscenze acquisite per analizzare un dataset reale e presentare i risultati in modo chiaro e rigoroso. In linea con le linee guida di @strand2023error e @bennett2014collaboration, il progetto promuove competenze trasversali, come la collaborazione, la comunicazione e la risoluzione dei problemi. Gli studenti definiranno un problema di validazione, condurranno analisi autonomamente e presenteranno i risultati sia in forma scritta che orale, dimostrando la loro capacità di lavorare in team.
+Il Laboratorio guida gli studenti attraverso tutte le fasi di costruzione e validazione di un test psicometrico. Durante il corso, gli studenti svilupperanno un progetto di gruppo in cui applicheranno le conoscenze acquisite per analizzare un dataset reale e presentare i risultati in modo chiaro e rigoroso. In linea con le linee guida di @strand2023error e @bennett2014collaboration, il progetto promuove competenze trasversali, come la collaborazione, la comunicazione e la risoluzione dei problemi. Gli studenti definiranno un problema di validazione, condurranno analisi autonomamente e presenteranno i risultati sia in forma scritta che orale, dimostrando la loro capacità di lavorare in team.
 
 ### Filosofia Didattica
 
-Il corso adotta una metodologia pragmatica orientata alla pratica, rendendo `R` accessibile a studenti con livelli diversi di preparazione matematica. Il laboratorio seguirà il modello della [flipped classroom](https://it.wikipedia.org/wiki/Insegnamento_capovolto), in cui gli studenti svolgono esercitazioni guidate prima delle lezioni in aula e poi presentano i propri lavori durante gli incontri. Questo approccio permette di dedicare il tempo in classe a discussioni e risoluzione di problemi pratici, favorendo un ambiente di apprendimento interattivo.
+Il corso adotta una metodologia pragmatica orientata alla pratica, rendendo `R` accessibile a studenti con livelli diversi di preparazione di base. Il laboratorio seguirà il modello della [flipped classroom](https://it.wikipedia.org/wiki/Insegnamento_capovolto), in cui gli studenti svolgono esercitazioni guidate prima delle lezioni in aula e poi presentano i propri lavori durante gli incontri. Questo approccio permette di dedicare il tempo in classe a discussioni e risoluzione di problemi pratici, favorendo un ambiente di apprendimento interattivo.
 
 ### Materiali Didattici
 
@@ -51,7 +53,7 @@ L'apprendimento seguirà un approccio in due fasi: studio individuale e lavoro c
 
 - Studiare il materiale assegnato;
 - Svolgere le analisi richieste;
-- Collegare teoria e pratica attraverso i testi di Petersen e il materiale di Testing Psicologico;
+- Collegare teoria e pratica attraverso il testo di @petersen2024principles e i materiali didattici di [Testing Psicologico](https://ccaudek.github.io/testing_psicologico/);
 - Preparare domande o chiarimenti da discutere in classe.
 
 **Lavoro di Gruppo**: Ogni studente sarà assegnato a un gruppo per discutere problemi specifici e sviluppare un progetto di gruppo che verrà presentato negli ultimi incontri.
@@ -66,7 +68,7 @@ L'apprendimento seguirà un approccio in due fasi: studio individuale e lavoro c
 
 Per un apprendimento efficace, è essenziale combinare la partecipazione attiva con uno studio strutturato:
 
-1. Leggere il testo di @petersen2024principles e il materiale di Testing Psicologico.
+1. Leggere il testo di @petersen2024principles e il materiali didattici dell'insegnamento [Testing Psicologico](https://ccaudek.github.io/testing_psicologico/).
 2. Svolgere gli esercizi in `R`.
 3. Partecipare attivamente, proponendo chiarimenti e approfondimenti.
 
@@ -78,71 +80,63 @@ L’uso di tutor virtuali come ChatGPT o Claude è consigliato per agevolare il 
 
 ### Sviluppo delle Abilità
 
-L’apprendimento della programmazione richiede precisione e metodo. Strumenti di intelligenza artificiale come ChatGPT offrono supporto per la risoluzione di problemi e la comprensione dei processi, ma il vero valore dell’IA si esprime quando è utilizzata come tutor attivo e non come semplice risolutore di problemi. Alcuni esempi di domande che stimolano un uso efficace dell’IA includono: "Quali alternative di implementazione sono possibili per questo codice?"; "Quali sono i vantaggi di ciascuna soluzione?"; "Come posso ristrutturare questo codice per renderlo più leggibile?" Utilizzare l’IA come supporto attivo incoraggia un apprendimento più profondo e consapevole.
+L’apprendimento della programmazione richiede precisione e metodo. Strumenti di intelligenza artificiale come ChatGPT e Claude offrono supporto per la risoluzione di problemi e la comprensione dei processi, ma il vero valore dell’IA si esprime quando è utilizzata come tutor attivo e non come semplice risolutore di problemi. Alcuni esempi di domande che stimolano un uso efficace dell’IA includono: "Quali alternative di implementazione sono possibili per questo codice?"; "Quali sono i vantaggi di ciascuna soluzione?"; "Come posso ristrutturare questo codice per renderlo più leggibile?" Utilizzare l’IA come supporto attivo incoraggia un apprendimento più profondo e consapevole.
 
 ### Procedure di Valutazione dell'Apprendimento
 
-Il corso prevede due percorsi di valutazione:
+Il corso offre due modalità di valutazione.
 
-1. **Percorso di Formazione Strutturata con Supervisione**
+#### A. Percorso di Formazione Strutturata con Supervisione
 
-  **Laboratori settimanali**
+**Laboratori settimanali**  
 
-  - Ogni gruppo consegnerà un file `.Rmd` o `.qmd` con le soluzioni ai problemi assegnati prima di ogni incontro. Nell'appendice del report andrà indicato il contributo di ciascun membro del gruppo.
-  - Durante ciascun laboratorio, saranno discussi 2-3 problemi per ogni ora di lezione.
-  - Un gruppo sarà selezionato a caso per presentare la soluzione di ciascun problema alla classe.
-  - La presentazione riceverà una valutazione complessiva per il gruppo.
+- Ogni gruppo di studenti dovrà consegnare un file `.Rmd` o `.qmd` contenente le soluzioni ai problemi assegnati, prima di ogni incontro. Nel report, un’appendice deve specificare il contributo di ciascun membro del gruppo.  
+- Durante i laboratori saranno discussi i problemi previsti dal Calendario degli incontri.  
+- Per ogni laboratorio, un gruppo sarà selezionato casualmente per presentare alla classe le soluzioni proposte. La presentazione riceverà una valutazione complessiva per l’intero gruppo.  
 
-  **Quiz Moodle**
+**Quiz Moodle**  
 
-  Il quiz Moodle, utilizzato in entrambi i percorsi, coprirà tutti i contenuti del testo di Petersen e dei materiali del corso, e includerà:
-      
-  - Domande a scelta multipla, con penalità per risposte errate.
-  - Ordine sequenziale obbligatorio.
-  - Distribuzione casuale delle domande.
-  - Limite di tempo.
-      
-  Il quiz prevede sia analisi pratiche in `R` che domande teoriche. È vietato l’uso di strumenti di intelligenza artificiale durante la prova.
+Il quiz Moodle è utilizzato in entrambi i percorsi e copre tutti i contenuti del libro di @petersen2024principles e dei materiali del corso. Il quiz include:  
 
-  **Progetto di gruppo**
+- Domande a scelta multipla con penalità per risposte errate.  
+- Ordine sequenziale obbligatorio.  
+- Distribuzione casuale delle domande.  
+- Un limite di tempo predefinito.  
 
-  Gli studenti svilupperanno un progetto di validazione psicometrica, da presentare in forma scritta e orale. È consentito l'uso di IA per migliorare la qualità del progetto.
+Il quiz integra analisi pratiche in `R` con domande teoriche. L’uso di strumenti di intelligenza artificiale è rigorosamente vietato durante la prova.  
 
-  La partecipazione alle lezioni è consigliata, ma non obbligatoria. Gli studenti che superano le verifiche sono esonerati dalle prove ufficiali d'esame.
+**Progetto di gruppo**  
 
-2. **Percorso di Formazione Autonoma**
+Gli studenti realizzeranno un progetto di validazione psicometrica, che dovrà essere presentato sia in forma scritta che orale. In questa fase è consentito l’uso di strumenti di intelligenza artificiale per migliorare la qualità del lavoro.  
 
-  **Esame ufficiale:** Consiste nel Quiz Moodle. Gli studenti dovranno portare un computer portatile per l'esame, che sarà svolto a libri chiusi e senza accesso a risorse esterne.
+**Frequenza e verifiche**  
+
+La partecipazione alle lezioni è consigliata, ma non obbligatoria. Gli studenti che completano con successo tutte le verifiche previste in questo percorso sono esonerati dalle prove ufficiali d’esame.
+
+#### B. Percorso di Formazione Autonoma
+
+**Esame ufficiale**  
+
+Gli studenti che scelgono questo percorso sosterranno esclusivamente il quiz Moodle come esame ufficiale.  
+
+- L’esame si svolgerà in modalità a libro chiuso e senza accesso a risorse esterne.  
+- È obbligatorio l’uso di un computer portatile personale per completare la prova.
 
 ### Valutazione Finale
 
-#### Percorso Strutturato
+- **Percorso Strutturato**  
+  - **Quiz Moodle**: 1/3 del voto finale.  
+  - **Laboratori settimanali**: 1/3 del voto finale.  
+  - **Progetto di gruppo**: 1/3 del voto finale.  
 
-- **Quiz Moodle**: 1/3 del voto finale.
-- **Laboratori settimanali**: 1/3 del voto finale.
-- **Progetto di gruppo**: 1/3 del voto finale.
-
-#### Percorso Autonomo
-
-- **Quiz Moodle**: 100% del voto finale.
-
+- **Percorso Autonomo**  
+  - **Quiz Moodle**: 100% del voto finale.  
 
 ### Esperienza di Laboratorio e Bonus
 
-Gli studenti del percorso strutturato possono ottenere un bonus di 2 punti partecipando a un’esperienza di laboratorio (circa 5 ore). L’iscrizione richiede un codice personale, composto da lettere del nome, cognome, data di nascita e numero di cellulare.
+Gli studenti iscritti al percorso strutturato possono acquisire un bonus di 2 punti partecipando a un’esperienza di laboratorio della durata di circa 5 ore. La partecipazione richiede la generazione di un **codice personale**, composto da lettere del nome e cognome, data di nascita e numero di cellulare, che sarà creato attraverso il completamento di un modulo Google. Le istruzioni per la compilazione del modulo saranno fornite durante le lezioni.
 
-Per iscriversi all'esperienza di laboratorio, è necessario utilizzare un **codice personale** che dovrà essere inserito nel modulo di iscrizione ai gruppi. Il codice sarà formato come segue:
-
-- Prime due lettere del nome,
-- Prime due lettere del cognome,
-- Data di nascita (formato: anno_mese_giorno),
-- Ultime tre cifre del numero di cellulare,
-- Genere,
-- Separatore: trattino basso.
-
-**Esempio**: Mario Rossi, nato il 6 marzo 1999, telefono 320 2294312 → Codice: ma_ro_1999_03_06_312_m.
-
-Durante il laboratorio saranno utilizzate tecniche di analisi per rilevare comportamenti negligenti (*careless responding*). In caso di rilevamento, l’esperienza sarà invalidata e lo studente dovrà sostenere un'integrazione orale.
+Nel corso del laboratorio verranno applicate tecniche di analisi volte a rilevare eventuali comportamenti negligenti (*careless responding*). Qualora venissero rilevati tali comportamenti, l’esperienza sarà considerata non valida e lo studente dovrà sostenere un’integrazione orale per il recupero.
 
 ### Informazioni Supplementari
 

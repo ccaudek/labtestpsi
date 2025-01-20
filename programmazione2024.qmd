@@ -4,23 +4,27 @@ Il calendario didattico prevede 14 incontri di tre ore ciascuno, con gli ultimi 
 
 ## Laboratorio 1 {.unnumbered}
 
+::: {.callout .no-title}
 - **Data:** 3 marzo 2025  
 - **Orario:** 10:30–13:30  
 - **Argomento:** Introduzione a R.
+:::
 
 **Programma**
 
 1. Presentazione delle attività del *Laboratorio di Testing Psicologico*.
-2. **Introduzione al linguaggio R**
+2. Introduzione al linguaggio R.
 
 <!-- DONE -->
 
 
 ## Laboratorio 2 {.unnumbered}
 
+::: {.callout .no-title}
 - **Data:** 6 marzo 2025  
 - **Orario:** 8:30–11:30  
 - **Argomento:** Esplorazione dei dati (*Exploratory Data Analysis*, EDA)
+:::
 
 **Programma**
 
@@ -53,9 +57,11 @@ Il calendario didattico prevede 14 incontri di tre ore ciascuno, con gli ultimi 
 
 ## Laboratorio 3 {.unnumbered}
 
+::: {.callout .no-title}
 - **Data:** 11 marzo 2025  
 - **Orario:** 10:30–13:30  
 - **Argomento:** Teoria Classica dei Test (*Classical Test Theory*, CTT)
+:::
 
 **Programma**
 
@@ -95,9 +101,11 @@ Il calendario didattico prevede 14 incontri di tre ore ciascuno, con gli ultimi 
 
 ## Laboratorio 4 {.unnumbered}  
 
+::: {.callout .no-title}
 - **Data:** 13 marzo 2025  
 - **Orario:** 8:30–11:30  
 - **Argomento:** Mokken Scale Analysis (*MSA*)  
+:::
 
 **Programma**
 
@@ -118,9 +126,11 @@ Il calendario didattico prevede 14 incontri di tre ore ciascuno, con gli ultimi 
 
 ## Laboratorio 5 {.unnumbered}  
 
+::: {.callout .no-title}
 - **Data:** 18 marzo 2025  
 - **Orario:** 10:30–13:30  
-- **Argomento:** Teoria di Risposta agli Item (*Item Response Theory*, IRT) e validità  
+- **Argomento:** Teoria di Risposta agli Item (*Item Response Theory*, IRT) e validità.
+:::
 
 **Programma**  
 
@@ -150,44 +160,44 @@ Il calendario didattico prevede 14 incontri di tre ore ciascuno, con gli ultimi 
 
 ## Laboratorio 6 {.unnumbered} 
 
+::: {.callout .no-title}
 - **Data:** 20 marzo 2025
-- **Argomento:** Algebra lineare e analisi delle componenti principali.
-
-  - A. Regressione bivariata con algebra matriciale.
-  - B. Regressione multipla con algebra matriciale.
-  - C. Spiegazione geometrica degli autovalori e autovettori.
-  - D. Simulazione e applicazione della PCA.
-  - E. Analisi PCA per i dati di @greenacre2022principal.
-  - F. Discussione dell’articolo di @caron2021variance.
-
 - **Orario:** 8:30-11:30
+- **Argomento:** Algebra lineare e analisi delle componenti principali.
+:::
+
+**Programma**
+
+1. Regressione bivariata con algebra matriciale.
+2. Regressione multipla con algebra matriciale.
+3. Spiegazione geometrica degli autovalori e autovettori.
+4. Simulazione e applicazione della PCA.
+5. Analisi PCA per i dati di @greenacre2022principal.
+6. Discussione dell’articolo di @caron2021variance.
 
 
 ## Laboratorio 7 {.unnumbered}
 
+::: {.callout .no-title}
 - **Data:** 25 marzo 2025  
 - **Orario:** 10:30–13:30  
 - **Argomento:** Path Analysis e Analisi Fattoriale  
+:::
 
-**Programma:**
+**Programma**
 
 1. **Introduzione alla Path Analysis:**  
    - Presentazione dei concetti base [@loehlin2017latent, cap. 1].
-
 2. **Esercizi pratici:**  
    - Svolgimento degli esercizi del capitolo 1 di [@loehlin2017latent].
    - Replicare le analisi di @weiss2018difficulties.
-
 3. **Correlazione parziale:**  
    - Simulazione in R per illustrare il concetto e il calcolo della correlazione parziale.
-
 4. **Analisi fattoriale sui dati FAI:**  
    - Applicazione del metodo delle componenti principali tramite algebra matriciale, con estrazione di due fattori.  
    - Replica dei risultati utilizzando il pacchetto `lavaan`.
-
 5. **Matrici di pattern e struttura:**  
    - Costruzione e interpretazione delle matrici di pattern e struttura basate sui dati analizzati.
-
 6. **Validazione psicometrica:**  
    - Discussione e replica delle analisi di validazione di:
      - [@clement2022step].  
@@ -196,79 +206,70 @@ Il calendario didattico prevede 14 incontri di tre ore ciascuno, con gli ultimi 
 
 ## Laboratorio 8 {.unnumbered}
 
+::: {.callout .no-title}
 - **Data:** 27 marzo 2025  
 - **Orario:** 8:30-11:30  
 - **Argomento:** Analisi fattoriale esplorativa e confermativa. Invarianza di misurazione tra gruppi. 
+:::
 
 **Programma**
 
 1. **Tecniche di analisi della dimensionalità**
    - Applicazione ai dati della scala FAI, utilizzando item selezionati con la tecnica MSA.
-
 2. **Analisi fattoriale esplorativa (EFA) e rotazione fattoriale**
    - Esecuzione di un’analisi esplorativa su due sottoscale della FAI.  
    - Confronto tra rotazione ortogonale e rotazione obliqua.
-
 3. **Calcolo dei punteggi fattoriali**
    - Calcolo dei punteggi fattoriali e del punteggio totale (`total score`) per la scala FAI.  
    - Discussione dell’articolo di riferimento: @mcneish2020thinking.
-
 4. **Analisi Fattoriale Confermativa (CFA)**
    - Discussione e replica delle analisi proposte in @brauer2024assessing:  
       - Modello CFA unidimensionale.  
       - Modello a 3 fattori correlati.  
       - Modello di secondo ordine.  
    - Confronto tra i modelli.  
-
 5. Analisi dell’invarianza di misurazione tra gruppi:  
       - Configurale, metrica e scalare.  
-   - Calcolo del coefficiente omega di McDonald per la valutazione dell’attendibilità:  
+   - Calcolo del coefficiente omega di McDonald per la valutazione dell’attendibilità:
       - Utilizzo della funzione `ci.reliability()` del pacchetto **MBESS**.  
       - Replica dei risultati utilizzando la formula classica basata sulle saturazioni fattoriali.
-
 6. **Discussione degli indici di adattamento (GOF), residui e indici di modifica (MI)**
    - Calcolo e interpretazione di:  
       - Indici di adattamento globale (GOF).  
       - Residui.  
       - Indici di modifica (MI).  
    - Applicazione sia ai dati di @brauer2024assessing sia ai dati della scala FAI.
-
 7. **Confronto tra modelli di misurazione**
    - Confronto tra i seguenti modelli applicati ai dati di Holzinger & Swineford (1939): Modello congenerico, modello tau-equivalente, modello parallelo [@hirschfeld2014improving]. 
    - Discussione dell'articolo di @widaman2023thinking.
    - Confronto tra i modelli congenerico, tau-equivalente e parallelo per i dati FAI.
 
-<!-- DONE -->
-
 
 ## Laboratorio 9 {.unnumbered}
 
+::: {.callout .no-title}
 - **Data:** 1 aprile 2025  
 - **Orario:** 10:30–13:30  
 - **Argomento:** Costruzione e validazione di test. Higher-order factor analysis.  Bifactor model. Attendibilità.
+:::
 
-**Programma:**
+**Programma**
 
 1. **Costruzione e validazione di test:**
    - Presentazione della costruzione dell'IDAS [@watson2007development].
    - Discussione e replica delle analisi di validazione:
      - IDAS-II [@wester2022development].  
      - DERS [@erez2024imperfect].
-
 2. **Higher-Order Factor Analysis e Bifactor Model:**
    - discussione e replica delle analisi di validazione di @blume2025validation.
-
 3. **Calcolo dell’attendibilità:**
    - Stime di attendibilità con Alpha di Cronbach, Omega di McDonald, Coefficiente $\rho$ di Mokken.
    - Applicazione alla scala FAI.
-
 4. **CFA per dati non normali o categorici:**
    - Confronto tra adattamento basato su MLR e modelli per dati categorici;
    - Applicazione alla scala FAI.
-
 5. **Modification Indices:**
    - Applicazioni ai dati della scala FAI.
-
 6. **Gestione dei dati mancanti:**
    - Simulazioni con la scala FAI:
      - Imputazione preliminare con `mice`.
@@ -277,53 +278,80 @@ Il calendario didattico prevede 14 incontri di tre ore ciascuno, con gli ultimi 
 
 ## Laboratorio 10 {.unnumbered} 
 
+::: {.callout .no-title}
 - **Data:** 3 aprile 2025 
 - **Orario:** 8:30-11:30
 - **Argomento:** Introduzione ai modelli di equazioni strutturali (SEM).
+:::
 
-- **Introduzione ai modelli SEM**: Presentare i principi e le applicazioni dei modelli di equazioni strutturali (SEM) secondo @kline2023principles.
-- **Analisi dell'invarianza fattoriale tra gruppi**: Discutere i livelli di invarianza fattoriale (configurale, metrica, scalare, e stretta), con un focus sui seguenti studi:
-  - Presentare e replicare l'analisi proposta da @lasker2024measurement.
-  - Presentare e replicare l'analisi condotta da @mcdanal2023loneliness.
-  - Replicare e commentare l'analisi discussa nel capitolo *Structural Equation Modeling with R for Education Scientists* di @saqr2024learning.
+**Programma**
 
-- **Analisi della potenza statistica nei SEM**: Esaminare e applicare i concetti di power analysis nei SEM seguendo il tutorial di @jobst2023tutorial.
-
-- **Esplorazione dell'ESEM**: Presentare i principi e l'applicazione del modello di equazioni strutturali esplorative (ESEM).
+1. **Introduzione ai modelli SEM**: Presentare i principi e le applicazioni dei modelli di equazioni strutturali (SEM) secondo @kline2023principles.
+    - **Analisi dell'invarianza fattoriale tra gruppi**: Discutere i livelli di invarianza fattoriale (configurale, metrica, scalare, e stretta), con un focus sui seguenti studi:
+    - Presentare e replicare l'analisi proposta da @lasker2024measurement.
+    - Presentare e replicare l'analisi condotta da @mcdanal2023loneliness.
+    - Replicare e commentare l'analisi discussa nel capitolo *Structural Equation Modeling with R for Education Scientists* di @saqr2024learning.
+2. **Analisi della potenza statistica nei SEM**: Esaminare e applicare i concetti di power analysis nei SEM seguendo il tutorial di @jobst2023tutorial.
+3.**Esplorazione dell'ESEM**: Presentare i principi e l'applicazione del modello di equazioni strutturali esplorative (ESEM).
 
 
 ## Laboratorio 11 {.unnumbered}
 
+::: {.callout .no-title}
 - **Data:** 8 aprile 2025
-- **Argomento:** Test di intelligenza, bias nei test, test di personalità.
+- **Argomento:** Test di intelligenza. Bias nei test. Protocollo EMA.
 - **Orario:** 10:30-13:30
+:::
 
-  - Presentare e replicare le analisi di @schubert2024don.
+**Programma**
 
+1. **Test d'intelligenza**
+    - Presentazione del capitolo *Intellectual Assessment* del testo di @petersen2024principles.
+    - Discussione dei concetti di curva ROC e indice AUC.
+    - Presentazione del capitolo *Test Bias* del testo di @petersen2024principles.
+    - Replica e discussione delle analisi di @schubert2024don.
+
+2. **Ecological Momentary Assessment**
+    - Presentazione del capitolo *Psychophysiological and Ambulatory Assessment* del testo di @petersen2024principles.
 
 ## Laboratorio 12 {.unnumbered}
 
+::: {.callout .no-title}
 - **Data:** 10 aprile 2025
 - **Argomento:** Modelli multilivello, attendibilità longitudinale, modelli di crescita latente.
 - **Orario:** 8:30-11:30
+:::
 
-  - **Analisi del progetto *Popularity Data***: Eseguire e commentare l'analisi multilivello del progetto discusso nel secondo capitolo di *Multilevel Analysis: Techniques and Applications* [@hox2017multilevel]. Per supporto pratico, consultare il tutorial in R disponibile su questo [blog](https://www.rensvandeschoot.com/tutorials/lme4/).
+**Programma**
 
-  - **Analisi multilivello sui dati di self-compassion di stato**: Eseguire l'analisi multilivello sui [dati](https://osf.io/8vg3h/?view_only=815fd6e81b8e421e84428ec23b659c95) provenienti da uno studio EMA sulla self-compassion di stato. Commentare i risultati interpretandoli alla luce delle ipotesi discusse nell'articolo di @neff2022differential.
+1. **Analisi del progetto *Popularity Data***: Eseguire e commentare l'analisi multilivello del progetto discusso nel secondo capitolo di *Multilevel Analysis: Techniques and Applications* [@hox2017multilevel]. Per supporto pratico, consultare il tutorial in R disponibile su questo [blog](https://www.rensvandeschoot.com/tutorials/lme4/).
+2. **Analisi multilivello sui dati di self-compassion di stato**: Eseguire l'analisi multilivello sui [dati](https://osf.io/8vg3h/?view_only=815fd6e81b8e421e84428ec23b659c95) provenienti da uno studio EMA sulla self-compassion di stato. Commentare i risultati interpretandoli alla luce delle ipotesi discusse nell'articolo di @neff2022differential.
+3. **Replica del modello di crescita latente**: Replicare in R il modello di crescita latente presentato da @gudmundsdottir2024reciprocal e discutere i risultati ottenuti, mettendoli in relazione con i contenuti dell'articolo.
 
-  - **Replica del modello di crescita latente**: Replicare in R il modello di crescita latente presentato da @gudmundsdottir2024reciprocal e discutere i risultati ottenuti, mettendoli in relazione con i contenuti dell'articolo.
 
 ## Laboratorio 13 {.unnumbered}
 
+::: {.callout .no-title}
 - **Data:** 15 aprile 2025
 - **Argomento:** Quiz su Moodle e presentazioni finali degli studenti.
 - **Orario:** 10:30-13:30
+:::
 
+**Programma**
+
+1. Quiz Moodle.
+2. Presentazioni dei progetti degli studenti.
 
 ## Laboratorio 14 {.unnumbered}
 
+::: {.callout .no-title}
 - **Data:** 17 aprile 2025
 - **Argomento:** Presentazioni finali degli studenti.
 - **Orario:** 8:30-11:30
+:::
+
+**Programma**
+
+1. Presentazioni dei progetti degli studenti.
 
 ## Bibliografia {.unnumbered}

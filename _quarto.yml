@@ -24,102 +24,10 @@ book:
 
   chapters:
     - index.qmd
-    - prefazione.qmd
 
     - part: "Calendario"
       chapters:
         - programmazione2024.qmd
-
-    - part: "R"
-      chapters:
-        - chapters/R/introduction_r_lang.qmd
-        - chapters/R/01_r_syntax.qmd
-        - chapters/R/02_r_programming.qmd
-        - chapters/R/03_r_packages.qmd
-        - chapters/R/04_quarto.qmd
-        - chapters/R/05_environment.qmd
-        - chapters/R/06_ai.qmd
-
-    - part: "EDA"
-      chapters:
-        - chapters/eda/introduction_eda.qmd
-        - chapters/eda/01_project_structure.qmd
-        - chapters/eda/02_data_cleaning.qmd
-        - chapters/eda/03_dplyr.qmd
-        - chapters/eda/04_exploring_qualitative_data.qmd
-        - chapters/eda/05_exploring_numeric_data.qmd
-        - chapters/eda/06_data_visualization.qmd
-        - chapters/eda/07_loc_scale.qmd
-        - chapters/eda/08_correlation.qmd
-        - chapters/eda/11_outlier.qmd
-        - chapters/eda/12_gauss.qmd
-
-    - part: "Probabilità"
-      chapters:
-        - chapters/probability/introduction_probability.qmd
-        - chapters/probability/01_intro_prob.qmd
-        - chapters/probability/02_prob_spaces.qmd
-        - chapters/probability/03_prob_on_general_spaces.qmd
-        - chapters/probability/04_conditional_prob.qmd
-        - chapters/probability/05_random_var.qmd
-        - chapters/probability/06_expval_var.qmd
-        - chapters/probability/07_bayes_theorem.qmd
-        - chapters/probability/08_sampling_distr.qmd
-        - chapters/probability/09_joint_prob.qmd
-        - chapters/probability/10_density_func.qmd
-        - chapters/probability/11_discr_rv_distr.qmd
-        - chapters/probability/12_cont_rv_distr.qmd
-        - chapters/probability/14_simulation.qmd
-
-    - part: "Regressione"
-      chapters:
-        - chapters/linear_models/introduction_linear_models.qmd
-        - chapters/linear_models/01_lin_mod_frequentist.qmd
-        - chapters/linear_models/02_two_means.qmd
-        - chapters/linear_models/03_design.qmd
-        - chapters/linear_models/04_linear_algebra.qmd
-        - chapters/linear_models/05_multreg.qmd
-        - chapters/linear_models/06_specification_error.qmd
-        - chapters/linear_models/07_interactions.qmd
-        # - chapters/linear_models/08_missing.ipynb
-
-    - part: "GLM"
-      chapters:
-        - chapters/glm/introduction_glm.qmd
-        # - chapters/glm/01_robust_regr.ipynb
-        # - chapters/glm/02_stan_binomial_regr.ipynb
-        # - chapters/glm/03_stan_logistic_regr.ipynb
-        # - chapters/glm/04_stan_poisson_regr.ipynb
-        # - chapters/glm/05_simchon_2023.ipynb
-        # - chapters/glm/06_stan_rct.ipynb
-        # - chapters/glm/07_stan_mediation.ipynb
-        # - chapters/glm/08_uses_and_abuses.ipynb
-
-    - part: "Frequentismo"
-      chapters:
-        - chapters/frequentist_inference/introduction_frequentist_inference.qmd
-        - chapters/frequentist_inference/01_intro_frequentist.qmd
-        - chapters/frequentist_inference/02_conf_interv.qmd
-        - chapters/frequentist_inference/03_sample_size.qmd
-        # - chapters/frequentist_inference/04_test_ipotesi.ipynb
-        # - chapters/frequentist_inference/05_two_ind_samples.ipynb
-
-
-    - part: "Appendice"
-      chapters:
-        - chapters/appendix/a02_shell.qmd
-        - chapters/appendix/a10_math_symbols.qmd
-        - chapters/appendix/a11_numbers.qmd
-        - chapters/appendix/a12_sum_notation.qmd
-        - chapters/appendix/a13_sets.qmd
-        - chapters/appendix/a14_combinatorics.qmd
-        - chapters/appendix/a15_calculus.qmd
-        - chapters/appendix/a44_montecarlo.qmd
-        - chapters/appendix/a46_stan_lang.qmd
-        - chapters/appendix/a50_lin_fun.qmd
-
-crossref:
-  appendix-title: "Appendice"
 
 title-prefix: ""
 toc: true
@@ -148,21 +56,6 @@ format:
       sidebar-width: 250px
       body-width: 900px
       margin-width: 300px
-
-# format:
-#   pdf:
-#     latex-tinytex: false
-#     block-headings: false
-#     pdf-engine: "pdflatex"
-#     latex-engine: "pdflatex"
-#     latex-auto-install: true
-#     documentclass: book
-#     toc-title: "Table of Contents"
-#     syntax-definitions:
-#       - ./theming/stan.xml
-#     highlight-style: tango
-#     keep-tex: false
-#     colorlinks: true
 
 editor: source
 

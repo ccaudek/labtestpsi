@@ -1,36 +1,20 @@
 # Benvenuti {.unnumbered}
 
-Benvenuti nel sito web dell'insegnamento di [Psicometria](https://www.unifi.it/index.php?module=ofform2&mode=1&cmd=3&AA=2023&afId=689762), parte del [Corso di Laurea in Scienze e Tecniche Psicologiche](https://www.psicologia.unifi.it/vp-130-scienze-e-tecniche-psicologiche-l-24.html) dell'[Università degli Studi di Firenze](https://www.unifi.it/).
+Benvenuti nel sito web dell'insegnamento di **Laboratorio di Testing Psicologico**, rivolto agli studenti del secondo anno del Corso di Laurea Magistrale [Psicologia Clinica e della Salute e Neuropsicologia](https://unifi.coursecatalogue.cineca.it/corsi/2024/3252?annoOrdinamento=2023) dell'[Università degli Studi di Firenze](https://www.unifi.it/).
 
 ## Descrizione
 
-L'insegnamento offre una formazione teorico-pratica nell'ambito dell'inferenza statistica, con un focus particolare sulle applicazioni in campo psicologico. Attraverso esercitazioni pratiche in Python e R, gli studenti acquisiranno competenze nell'analisi di dati e nell'uso di modelli statistici avanzati.
+Il **Laboratorio di Testing Psicologico** (B033300) è un corso pratico che offre agli studenti l'opportunità di applicare i concetti teorici sull’assessment psicologico appresi nel corso di **Testing Psicologico**. L’obiettivo principale è guidare gli studenti nella progettazione e validazione di uno strumento psicometrico, fornendo un’esperienza diretta e concreta.  
+
+Le analisi statistiche saranno effettuate utilizzando il software R, con l’intento di sviluppare competenze pratiche nell’utilizzo di questo linguaggio, fondamentale per l’analisi dei dati nel contesto professionale della psicologia.
 
 - **Anno Accademico**: 2024-2025
-- **Codice Insegnamento**: B000286
-- **Orario e Luogo**: Lunedì e Martedì (8:30-10:30), Giovedì (11:30-13:30), Plesso didattico La Torretta.
+- **Codice Insegnamento**: B033300
+- **Orario e Luogo**: lunedì (10:30-13:30) e giovedì (14:30-17:30), Plesso didattico La Torretta.
 
 ::: callout-note
-Questo sito web è la fonte ufficiale per il programma dell'insegnamento *B000286 - Psicometria* e le modalità d’esame.
+Questo sito web è la fonte ufficiale per il programma dell'insegnamento *B033300 - Laboratorio di Testing Psicologico* e le modalità d’esame.
 :::
 
-## Struttura dell'Insegnamento
-
-L'insegnamento è articolato in diverse sezioni, ognuna delle quali si concentra su un argomento chiave per fornire una comprensione approfondita delle metodologie e degli strumenti necessari per l'analisi statistica e la gestione dei dati.
-
-1. **Fondamenti di Statistica**: Introduzione ai concetti statistici di base, con un focus su misure descrittive, distribuzioni e visualizzazione dei dati.
-2. **Teoria della Probabilità**: Principi fondamentali della probabilità, inclusi eventi, distribuzioni di probabilità e applicazioni pratiche.
-3. **Inferenza Frequentista**: Approfondimento sull'inferenza statistica basata sulla frequenza, con applicazioni per test di ipotesi e stime puntuali e intervallari.
-4. **Inferenza Bayesiana**: Introduzione e applicazioni avanzate dell'inferenza bayesiana, con un confronto con l'approccio frequentista.
-5. **Programmazione in R**: Esercitazioni pratiche sull'utilizzo di R per l'analisi dei dati, con particolare attenzione a script replicabili e workflow efficienti.
-6. **Gestione di un Progetto di Data Analysis**: Approccio strutturato per interpretare, documentare e comunicare i risultati di un'analisi, con attenzione alla riproducibilità.
-7. **Comunicazione dei Risultati**: Tecniche per rappresentare in modo efficace i risultati statistici, inclusa la creazione di report, visualizzazioni e presentazioni.
-
-Questa struttura mira a combinare teoria e pratica, offrendo agli studenti gli strumenti necessari per affrontare le sfide dell'analisi statistica in contesti reali.
-
 [Consulta il syllabus completo](syllabus/syllabus.pdf) per ulteriori dettagli.
-
-## Materiale Didattico
-
-Il presente sito web ospita la **dispensa ufficiale del corso**, contenente tutte le note e i materiali relativi alle lezioni. Per quanto riguarda le esercitazioni pratiche e gli esempi applicativi, è possibile accedere al sito dedicato, disponibile al seguente indirizzo: [Psicometria Esercizi](https://ccaudek.github.io/psicometria-esercizi/). Entrambi i materiali sono forniti gratuitamente agli studenti, senza necessità di ulteriori acquisti.
 
