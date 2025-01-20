@@ -1,0 +1,163 @@
+####Analysis of the McDonald's omega coefficients for the Multidimensional Jealousy Scale
+#Note that paths to data files have to be renamed to the user's own file paths
+
+Open psych package
+
+library(psych)
+library(MBESS)
+
+*Data declaration
+
+MJS_S1<-read.table("C:\\Users\\BLINDED\\ownCloud\\MJS German Adaptation\\Daten\\Study 1 (Psychometrics)\\MJS_Study1_header.txt", sep = "\t", header = TRUE)
+
+MJS_S1
+
+*Item-scale assignment for Sample 1 data
+
+Cognitive_S1<- cbind( MJS_S1$MJS1,MJS_S1$MJS2, MJS_S1$MJS3, MJS_S1$MJS4, MJS_S1$MJS5, MJS_S1$MJS6, MJS_S1$MJS7, MJS_S1$MJS8)
+Cognitive_S1
+
+Emotional_S1<- cbind( MJS_S1$MJS9,MJS_S1$MJS10, MJS_S1$MJS11, MJS_S1$MJS12, MJS_S1$MJS13, MJS_S1$MJS14, MJS_S1$MJS15, MJS_S1$MJS16)
+Emotional_S1
+
+Behavior_S1<- cbind( MJS_S1$MJS17,MJS_S1$MJS18, MJS_S1$MJS19, MJS_S1$MJS20, MJS_S1$MJS21, MJS_S1$MJS22, MJS_S1$MJS23, MJS_S1$MJS24)
+Behavior_S1
+
+*Computing omega for Sample 1 data
+
+*Cognitive
+set.seed(1)
+ci.reliability(data=Cognitive_S1, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+*Emotional
+ci.reliability(data=Emotional_S1, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+*Behavior
+ci.reliability(data=Behavior_S1, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+
+#Sample 2
+
+*Data declaration
+
+MJS_S2<-read.table("C:\\Users\\BLINDED\\ownCloud\\MJS German Adaptation\\Daten\\Couples\\Couples PPK Jealousy\\MJS_Study2_header.txt", sep = "\t", header = TRUE)
+
+MJS_S2
+
+*Item-scale assignment for Sample 2 data
+
+Cognitive_S2<- cbind( MJS_S2$MJS1,MJS_S2$MJS2, MJS_S2$MJS3, MJS_S2$MJS4, MJS_S2$MJS5, MJS_S2$MJS6, MJS_S2$MJS7, MJS_S2$MJS8)
+Cognitive_S2
+
+Emotional_S2<- cbind( MJS_S2$MJS9,MJS_S2$MJS10, MJS_S2$MJS11, MJS_S2$MJS12, MJS_S2$MJS13, MJS_S2$MJS14, MJS_S2$MJS15, MJS_S2$MJS16)
+Emotional_S2
+
+Behavior_S2<- cbind( MJS_S2$MJS17,MJS_S2$MJS18, MJS_S2$MJS19, MJS_S2$MJS20, MJS_S2$MJS21, MJS_S2$MJS22, MJS_S2$MJS23, MJS_S2$MJS24)
+Behavior_S2
+
+*Computing omega for Sample 2 data
+
+*Cognitive
+set.seed(1)
+ci.reliability(data=Cognitive_S2, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+*Emotional
+ci.reliability(data=Emotional_S2, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+*Behavior
+ci.reliability(data=Behavior_S2, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+#Sample 3
+
+*Data declaration
+
+MJS_S3<-read.table("C:\\Users\\BLINDED\\ownCloud\\MJS German Adaptation\\Daten\\Study 3 (PSK_GESAMT)\\MJS_Study3_header.txt", sep = "\t", header = TRUE)
+
+MJS_S3
+
+*Item-scale assignment for Sample 3 data
+
+Cognitive_S3<- cbind( MJS_S3$MJS1,MJS_S3$MJS2, MJS_S3$MJS3, MJS_S3$MJS4, MJS_S3$MJS5, MJS_S3$MJS6, MJS_S3$MJS7, MJS_S3$MJS8)
+Cognitive_S3
+
+Emotional_S3<- cbind( MJS_S3$MJS9,MJS_S3$MJS10, MJS_S3$MJS11, MJS_S3$MJS12, MJS_S3$MJS13, MJS_S3$MJS14, MJS_S3$MJS15, MJS_S3$MJS16)
+Emotional_S3
+
+Behavior_S3<- cbind( MJS_S3$MJS17,MJS_S3$MJS18, MJS_S3$MJS19, MJS_S3$MJS20, MJS_S3$MJS21, MJS_S3$MJS22, MJS_S3$MJS23, MJS_S3$MJS24)
+Behavior_S3
+
+*Computing omega for Sample 3 data
+
+*Cognitive
+set.seed(1)
+ci.reliability(data=Cognitive_S3, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+*Emotional
+ci.reliability(data=Emotional_S3, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+*Behavior
+ci.reliability(data=Behavior_S3, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+#Sample 4 T1
+
+
+MJS_S4.1<-read.table("C:\\Users\\BLINDED\\ownCloud\\MJS German Adaptation\\Daten\\Couples\\Schräpler\\Dateien_Auswertung_PPK_Paare_Schräpler\\Retest_Merged_T1_MJS.txt", sep = "\t", header = TRUE)
+
+
+MJS_S4.1
+
+*Item-scale assignment for Sample 4.1 data
+
+Cognitive_S4.1<- cbind( MJS_S4.1$MJS1,MJS_S4.1$MJS2, MJS_S4.1$MJS3, MJS_S4.1$MJS4, MJS_S4.1$MJS5, MJS_S4.1$MJS6, MJS_S4.1$MJS7, MJS_S4.1$MJS8)
+Cognitive_S4.1
+
+Emotional_S4.1<- cbind( MJS_S4.1$MJS9,MJS_S4.1$MJS10, MJS_S4.1$MJS11, MJS_S4.1$MJS12, MJS_S4.1$MJS13, MJS_S4.1$MJS14, MJS_S4.1$MJS15, MJS_S4.1$MJS16)
+Emotional_S4.1
+
+Behavior_S4.1<- cbind( MJS_S4.1$MJS17,MJS_S4.1$MJS18, MJS_S4.1$MJS19, MJS_S4.1$MJS20, MJS_S4.1$MJS21, MJS_S4.1$MJS22, MJS_S4.1$MJS23, MJS_S4.1$MJS24)
+Behavior_S4.1
+
+*Computing omega for Sample 4.1 data
+
+*Cognitive
+set.seed(1)
+ci.reliability(data=Cognitive_S4.1, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+*Emotional
+ci.reliability(data=Emotional_S4.1, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+*Behavior
+ci.reliability(data=Behavior_S4.1, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+
+#Sample 4 T2
+
+
+MJS_S4.2<-read.table("C:\\Users\\BLINDED\\ownCloud\\MJS German Adaptation\\Daten\\Couples\\Schräpler\\Dateien_Auswertung_PPK_Paare_Schräpler\\Retest_Merged_T2_MJS.txt", sep = "\t", header = TRUE)
+
+
+MJS_S4.2
+
+*Item-scale assignment for Sample 4.1 data
+
+Cognitive_S4.2<- cbind( MJS_S4.2$MJS1,MJS_S4.2$MJS2, MJS_S4.2$MJS3, MJS_S4.2$MJS4, MJS_S4.2$MJS5, MJS_S4.2$MJS6, MJS_S4.2$MJS7, MJS_S4.2$MJS8)
+Cognitive_S4.2
+
+Emotional_S4.2<- cbind( MJS_S4.2$MJS9,MJS_S4.2$MJS10, MJS_S4.2$MJS11, MJS_S4.2$MJS12, MJS_S4.2$MJS13, MJS_S4.2$MJS14, MJS_S4.2$MJS15, MJS_S4.2$MJS16)
+Emotional_S4.2
+
+Behavior_S4.2<- cbind( MJS_S4.2$MJS17,MJS_S4.2$MJS18, MJS_S4.2$MJS19, MJS_S4.2$MJS20, MJS_S4.2$MJS21, MJS_S4.2$MJS22, MJS_S4.2$MJS23, MJS_S4.2$MJS24)
+Behavior_S4.2
+
+*Computing omega for Sample 4.2 data
+
+*Cognitive
+set.seed(1)
+ci.reliability(data=Cognitive_S4.2, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+*Emotional
+ci.reliability(data=Emotional_S4.2, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+
+*Behavior
+ci.reliability(data=Behavior_S4.2, type="omega", conf.level=0.95,interval.type="mlr",B=1000)
+

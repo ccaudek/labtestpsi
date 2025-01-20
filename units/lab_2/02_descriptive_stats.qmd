@@ -1,0 +1,125 @@
+---
+title: "Statistiche descrittive"
+format:
+  html:
+    code-fold: show
+    code-tools: true
+---
+
+**Prerequisiti**
+
+- Leggere [Exploratory Data Analysis](https://ccaudek.github.io/psicometria/chapters/eda/introduction_eda.html). Prestare particolare attenzione ai capitoli *Le fasi del progetto di analisi dei dati*, *Flusso di lavoro per la pulizia dei dati*, e *Data tidying*.
+
+**Concetti e competenze chiave**
+
+**Preparazione del notebook**
+
+```{r}
+# Carica il file _common.R per impostazioni di pacchetti e opzioni
+here::here("code", "_common.R") |> source()
+```
+
+[UNDER CONSTRUCTION]
+
+## Introduzione
+
+In questa sessione, inizieremo ad affrontare la sequenza di operazioni necessarie per la validazione di un reattivo psicologico, come descritto da:
+
+- Dima, A.L. (2018). *Scale validation in applied health research: tutorial for a 6-step R-based psychometrics protocol*. Health Psychology and Behavioral Medicine, 6(1), 136-161.
+
+Il primo passo riguarda le statistiche descrittive, che sarà l'argomento principale di questa sessione. Durante l'incontro, esploreremo i seguenti aspetti:
+
+- Identificazione di item senza o con pochissima variazione.
+- Analisi delle differenze tra gli item riguardo alle loro distribuzioni.
+- Esame delle correlazioni negative tra gli item.
+- Rilevazione di rispondenti con pattern di risposta insoliti.
+
+
+## Strategie di Coping per Genitori con Figli Oncologici
+
+In questo laboratorio, utilizzeremo il pool di item relativi allo screening delle famiglie di pazienti oncologici sviluppato dall'equipe di psicologi del Meyer. L'obiettivo è creare un questionario capace di identificare le famiglie con strategie di coping meno efficaci, così da poter fornire il supporto psicologico necessario a quelle che ne hanno più bisogno, considerando le risorse limitate disponibili.
+
+Importiamo il file che contiene le seguenti informazioni: il contenuto degli item, il codice di ciascun item, l'area tematica di appartenenza e la sottoscala di ciascun item.
+
+```{r}
+items <- rio::import(here::here("data", "aree_tematiche_items.csv"))
+items$Area <- factor(items$Area)
+items$Subscale <- factor(items$Subscale)
+glimpse(items)
+```
+
+```{r}
+summary(items$Area)
+```
+
+```{r}
+summary(items$Subscale)
+```
+
+```{r}
+items$Description
+```
+
+## Dati 
+
+Importiamo i dati e stampiamo i nomi delle variabili contenuti nell'oggetto `complete_data`.
+
+```{r}
+destfile <- here::here("data", "fai_2022_11_20.rds")
+complete_data <- readRDS(destfile)
+# Add random idx for each participant.
+complete_data$idx <- ids::random_id(nrow(complete_data), 4)
+names(complete_data)
+```
+
+```{r}
+dim(complete_data)
+```
+
+Rimuoviamo i partecipanti con la FLAG del *careless responding*.
+
+```{r}
+temp <- complete_data |>
+    dplyr::filter(FLAG == "keep")
+temp$FLAG <- NULL
+```
+
+```{r}
+dim(temp)
+```
+
+```{r}
+items_df <- temp %>%
+    dplyr::select(starts_with("FAI_"))
+```
+
+Tutti gli item sono stati inizialmente esaminati per verificarne la normalità, seguendo le raccomandazioni secondo cui i valori di skewness degli item non dovrebbero superare 2 o 3 e i valori di kurtosis non dovrebbero superare 7 o 8 (Curran et al., 1996; Finney & DiStefano, 2006).
+
+```{r}
+items_stats <- psych::describe(items_df)
+items_stats
+```
+
+```{r}
+items_skew_kurt_bad <- items_stats |>
+    dplyr::filter(skew > 2.5 | kurtosis > 7.5) |>
+    row.names()
+
+items_skew_kurt_bad
+```
+
+```{r}
+df <- items_df |>
+    dplyr::select(!any_of(items_skew_kurt_bad))
+glimpse(df)
+```
+
+Il data frame `df` contiene i dati che possono essere utilizzati per la costruzione e validazione del questionario in oggetto.
+
+Esporto il DataFrame in un file CSV.
+
+```{r}
+rio::export(df, here::here("data", "cleaned_data.csv"))
+```
+
+

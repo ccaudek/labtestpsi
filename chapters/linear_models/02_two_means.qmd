@@ -1,0 +1,199 @@
+# Confronto tra le medie di due gruppi {#sec-linear-models-two-groups}
+
+::: callout-note
+## In questo capitolo imparerai a
+
+- condurre un confronto bayesiano tra le medie di due gruppi utilizzando la  funzione `brm()` del pacchetto *{brms}*.
+:::
+
+::: callout-tip
+## Prerequisiti
+
+- Consultare l'articolo "Bayesian estimation supersedes the t test" [@kruschke2013bayesian]. 
+:::
+
+::: callout-important
+## Preparazione del Notebook
+
+```{r}
+here::here("code", "_common.R") |> 
+  source()
+
+# Load packages
+if (!requireNamespace("pacman")) install.packages("pacman")
+pacman::p_load(psych)
+```
+:::
+
+## Introduzione
+
+In questo capitolo, adotteremo invece un **approccio frequentista**, tipico dell’analisi classica di regressione lineare e del test t di Student. Mostreremo come il confronto tra due medie, solitamente effettuato con un test t per campioni indipendenti, possa essere visto come un caso particolare di un modello di regressione lineare. Introdurremo una variabile indicatrice (o dummy) che codifica l’appartenenza dell’osservazione a uno dei due gruppi, e vedremo come l’inferenza sul coefficiente di questa variabile nel modello di regressione equivalga a effettuare un test t.
+
+In altre parole, il modello di regressione fornirà una prospettiva unificata: invece di considerare due medie separate, potremo modellare la variabile risposta come dipendente da un predittore binario. Ciò non solo riproduce i risultati del test t, ma apre la strada a estensioni più complesse, come l’aggiunta di altri predittori, di interazioni o il controllo di covariate.
+
+---
+
+## Il Test t come Caso Particolare di un Modello di Regressione
+
+### Dal confronto diretto di due medie alla variabile dummy
+
+Tradizionalmente, se abbiamo due gruppi indipendenti (ad esempio, bambini con madri che hanno completato la scuola superiore e bambini con madri che non l’hanno completata), per confrontare i loro punteggi medi (ad esempio il QI), usiamo un test t per due campioni indipendenti. Questo test verifica l’ipotesi nulla secondo cui le due medie di popolazione sono uguali.
+
+Tuttavia, lo stesso problema può essere formulato come un modello di regressione lineare semplice, in cui la variabile esplicativa è una variabile dummy $D$. Definiamo:
+
+$$
+D_i = \begin{cases}
+0 & \text{se l’osservazione } i \text{ appartiene al gruppo di riferimento (gruppo 0)}, \\
+1 & \text{se l’osservazione } i \text{ appartiene al gruppo di confronto (gruppo 1)}.
+\end{cases}
+$$
+
+Il modello di regressione lineare diventa:
+
+$$
+y_i = \alpha + \gamma D_i + \varepsilon_i,
+$$
+
+dove:
+
+- $y_i$ è la variabile risposta per l’osservazione $i$ (nel nostro esempio, il punteggio QI del bambino),
+- $\alpha$ è l’intercetta, interpretata come la media del gruppo 0,
+- $\gamma$ è il coefficiente associato a $D_i$, e rappresenta la differenza di media tra il gruppo 1 e il gruppo 0,
+- $\varepsilon_i$ è il termine di errore, assunto normalmente distribuito con media zero e varianza costante $\sigma^2$.
+
+Questo modello stima simultaneamente la media del gruppo di riferimento (tramite $\alpha$) e la differenza tra i due gruppi (tramite $\gamma$). Se $\gamma$ è significativamente diverso da zero, ciò indica che c’è evidenza statistica di una differenza tra le due medie.
+
+In sintesi:
+
+- Media del gruppo 0: $\mathbb{E}[y|D=0] = \alpha$.
+- Media del gruppo 1: $\mathbb{E}[y|D=1] = \alpha + \gamma$.
+- Differenza tra i due gruppi: $\gamma = \mathbb{E}[y|D=1] - \mathbb{E}[y|D=0]$.
+
+### Equivalenza con il test t per due campioni indipendenti
+
+Il test t per due campioni indipendenti, nella sua formulazione classica, verifica l’ipotesi nulla $H_0: \mu_1 = \mu_0$, equivalentemente $H_0: \mu_1 - \mu_0 = 0$. Nel modello di regressione, questa ipotesi si traduce in $H_0: \gamma = 0$. 
+
+Il test t classico e il test sulla significatività del coefficiente $\gamma$ nel modello di regressione forniscono gli stessi risultati. Ciò accade sotto le classiche assunzioni del test t (distribuzione normale dell’errore, uguale varianza nei due gruppi, indipendenza delle osservazioni). In definitiva, il test $t$ è un caso speciale del test $F$ associato al modello lineare, ridotto a un singolo predittore. Questo mostra la totale equivalenza tra i due approcci, frequentista-classico.
+
+---
+
+## Un Esempio Illustrativo con R
+
+Per chiarire il concetto, consideriamo un dataset fittizio o già disponibile. Nel nostro esempio utilizziamo lo stesso dataset precedentemente citato: `kidiq`, che contiene i punteggi di QI dei bambini (`kid_score`) e un indicatore dell’istruzione della madre (`mom_hs`), con 1 se la madre ha completato la scuola superiore e 0 altrimenti.
+
+### Caricamento e ispezione dei dati
+
+Assumiamo di avere i dati in un data frame `kidiq`. Diamo un’occhiata alle prime righe:
+
+```{r}
+kidiq <- rio::import(here::here("data", "kidiq.dta"))
+head(kidiq)
+```
+
+```{r}
+psych::describe(kidiq)
+```
+
+Analizziamo la numerosità dei due gruppi:
+
+```{r}
+kidiq %>% 
+  group_by(mom_hs) %>%
+  summarize(n = n())
+```
+
+Calcoliamo la media e la deviazione standard del punteggio QI per ciascun gruppo:
+
+```{r}
+summary_stats <- kidiq %>%
+  group_by(mom_hs) %>%
+  summarise(
+    mean_kid_score = mean(kid_score, na.rm = TRUE),
+    sd_kid_score = sd(kid_score, na.rm = TRUE)
+  )
+summary_stats
+```
+
+La differenza tra le due medie può essere calcolata direttamente:
+
+```{r}
+diff_means <- mean(kidiq$kid_score[kidiq$mom_hs == 1]) - 
+               mean(kidiq$kid_score[kidiq$mom_hs == 0])
+diff_means
+```
+
+Per visualizzare le distribuzioni dei due gruppi, possiamo usare un grafico, ad esempio un boxplot o un violin plot:
+
+```{r}
+ggplot(kidiq, aes(x = as.factor(mom_hs), y = kid_score)) +
+  geom_violin(trim = FALSE) + 
+  labs(
+    x = "Istruzione della madre",
+    y = "QI del bambino",
+    title = "Distribuzione dei punteggi QI per livello d'istruzione materna"
+  ) +
+  scale_x_discrete(labels = c("0" = "Non diplomata", "1" = "Diplomata"))
+```
+
+### Stima con il Modello di Regressione
+
+Applichiamo ora un modello lineare per stimare la differenza tra i gruppi:
+
+```{r}
+fm <- lm(kid_score ~ mom_hs, data = kidiq)
+summary(fm)
+```
+
+Il coefficiente di `mom_hs` ci fornisce la stima della differenza di media tra i due gruppi. L’intercetta rappresenta la media del gruppo con `mom_hs = 0`, mentre l’aggiunta del coefficiente di `mom_hs` alla intercetta ci dà la media del gruppo con `mom_hs = 1`.
+
+Se il valore p associato al coefficiente `mom_hs` è inferiore alla soglia convenzionale (ad esempio 0.05), possiamo concludere che esiste evidenza statistica di una differenza tra le due medie.
+
+### Confronto con il Test t
+
+Effettuiamo anche il test t per confrontare direttamente i due gruppi:
+
+```{r}
+t.test(kid_score ~ mom_hs, data = kidiq)
+```
+
+L’output del test t includerà:
+
+- La statistica t,
+- Il grado di libertà,
+- Il p-value,
+- Gli intervalli di confidenza della differenza tra le due medie.
+
+Il risultato del test t coincide con l’analisi del modello di regressione: la statistica test del test $t$ di Student è identica al test $t$ della verifica dell'ipotesi nulla $H_0: \beta = 0$ per il coefficiente di regressione di `mom_hs` del modello lineare.
+
+---
+
+## Perché Utilizzare il Modello di Regressione?
+
+Se l’obiettivo è solo confrontare due medie, il test t rimane il metodo più semplice e diretto. Tuttavia, la reinterpretazione del test t come caso particolare di un modello di regressione offre diversi vantaggi:
+
+1. **Flessibilità**: Se vogliamo aggiungere una seconda variabile esplicativa (ad esempio, l’età del bambino o il livello di istruzione del padre), il modello di regressione ci consente facilmente di estendere l’analisi. Il test t, focalizzato su due gruppi, non si generalizza altrettanto facilmente.
+
+2. **Un approccio unificante**: Molte analisi statistiche possono essere ricondotte a modelli lineari. Imparando a vedere il test t come un modello di regressione, gettiamo le basi per approcci più complessi (ANOVA, regressione multipla, modelli lineari generalizzati).
+
+3. **Controllo di Covariate**: Se sospettiamo che alcune variabili di confondimento possano influenzare le differenze tra i gruppi, possiamo includerle come predittori nel modello di regressione e controllarne l’effetto. Questo non è possibile con un semplice test t.
+
+---
+
+## Considerazioni Finali
+
+In questo capitolo abbiamo mostrato come il test t per due campioni indipendenti possa essere interpretato come un caso particolare di un modello di regressione lineare con variabile dummy. Adottando l’approccio frequentista classico tramite la funzione `lm()` in R, possiamo:
+
+- Stimare la differenza di media tra due gruppi come coefficiente di un modello lineare.
+- Testare l’ipotesi di uguaglianza delle medie equivalendo il test sul coefficiente a un test t.
+- Estendere facilmente l’analisi ad altri predittori e confrontare contemporaneamente più gruppi, covariate e interazioni.
+
+Questa prospettiva unificante apre la strada a un utilizzo più ampio dei modelli lineari e a un approccio integrato all’analisi dei dati. Pur non abbandonando mai l’intuizione del confronto di due medie, l’uso della regressione lineare fornisce un linguaggio e una struttura che saranno fondamentali per affrontare problemi statistici più complessi.
+
+## Informazioni sull'Ambiente di Sviluppo {.unnumbered} 
+
+```{r}
+sessionInfo()
+```
+
+## Bibliografia {.unnumbered}
+

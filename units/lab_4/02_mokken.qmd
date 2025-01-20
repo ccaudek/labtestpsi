@@ -1,0 +1,656 @@
+---
+title: "Scale di Mokken"
+format:
+  html:
+    code-fold: show
+    code-tools: true
+toc: true
+---
+
+
+```{r}
+suppressPackageStartupMessages({
+  library(mokken)
+})
+```
+
+L'Analisi delle Scale Mokken (MSA), così denominata in onore del matematico e scienziato politico olandese Robert J. Mokken, è un insieme di metodi utilizzati nell'ambito della Teoria Non Parametrica della Risposta agli Item (NIRT) per valutare l'adeguatezza dei dati ai suoi modelli. 
+
+Secondo la Teoria della Risposta agli Item (IRT), i costrutti psicologici sono  latenti, ovvero non direttamente osservabili, e si manifestano attraverso le risposte ai test. Le reazioni dei partecipanti ai test (cioè, le risposte agli item) dipendono dalla posizione del rispondente su un continuum latente e riflettono il grado in cui i rispondenti possiedono il costrutto in esame.
+
+È chiaro però che la relazione tra la posizione del rispondente su un continuum latente e le sue risposte agli item, a causa degli errori di misurazione, non è una relazione diretta. Il contributo dei modelli della NIRT è quelllo di fornire gli strumenti analitici necessari per esaminare la congruenza e la pertinenza degli item di un test con la variabile latente sottostante. In particolare, i modelli MSA, che sono modelli probabilistici basati su tratti latenti e, avendo una natura non parametrica, sono caratterizzati da presupposti meno restrittivi rispetto ai modelli IRT parametrici, possono essere usati nella validazione di strumenti di misura psicometrici e nell'ordinare rispondenti e item lungo una scala ordinale. I modelli MSA sono applicabili sia a item dicotomici che politomici.
+
+## Teoria Classica dei Test e Analisi della Scala di Mokken 
+
+Esaminiamo ora le somiglianze e le differenze tra la Teoria Classica dei Test (CTT) e l'Analisi della Scala di Mokken (MSA).
+
+La CTT si basa su diverse assunzioni fondamentali:
+1. I punteggi osservati sono la somma dei punteggi veri e dei punteggi di errore, con l'aspettativa che i punteggi di errore abbiano una media di zero su prove ripetute.
+2. Non c'è correlazione tra i punteggi di errore e i punteggi veri.
+3. I punteggi veri in un test non sono correlati ai punteggi di errore in un altro test.
+4. I punteggi di errore in due test somministrati agli stessi soggetti sono non correlati.
+
+Nella CTT, i punteggi grezzi totali sono considerati indicatori delle posizioni dei rispondenti sul continuum del tratto latente. La proporzione di item corretti (valore p) indica la facilità degli item, mentre la correlazione tra item e punteggio totale misura la discriminazione degli item. La CTT enfatizza l'importanza dell'affidabilità, definita come la correlazione tra i punteggi osservati su due forme parallele del test.
+
+Confrontando la CTT con la MSA, troviamo alcune somiglianze nelle metodologie di calcolo degli indici di abilità delle persone e di difficoltà degli item. Nella MSA,
+
+- il *coefficiente di scalabilità dell'item (Hi)* è analogo alle correlazioni corrette tra item e punteggio totale nella CTT;
+
+::: {.callout-note}
+
+## Correlazioni Corrette tra Item e Punteggio Totale nella CTT
+
+Nella CTT, la correlazione corretta tra un item e il punteggio totale è una misura che indica quanto bene un singolo item discrimina tra gli esaminandi in base alle loro abilità o tratti latenti. La correlazione corretta è calcolata tra il punteggio dell'item e il punteggio totale ottenuto dagli esaminandi, escluso l'item stesso.
+
+L'obiettivo della correlazione corretta è valutare la qualità discriminativa di ciascun item rispetto all'abilità totale dell'esaminando. Un item con una correlazione corretta elevata indica che l'item è efficace nel distinguere tra esaminandi con punteggi totali diversi.
+
+Una correlazione corretta elevata suggerisce che l'item contribuisce significativamente alla misurazione del tratto latente o abilità complessiva.
+Item con correlazioni corrette basse o negative potrebbero non misurare correttamente il costrutto desiderato e potrebbero essere candidati per la revisione o l'eliminazione.
+
+:::
+
+- il *coefficiente di scalabilità tra coppie di item (Hij)* nella MSA corrisponde alle correlazioni tra coppie di item nella CTT;
+
+::: {.callout-note}
+
+## Correlazioni tra Coppie di Item nella CTT
+
+Nella CTT, le correlazioni tra coppie di item sono un importante indicatore della consistenza interna di un test, che è una misura di quanto bene gli item del test misurano lo stesso costrutto. Un alto livello di correlazione tra gli item suggerisce che gli item sono coerenti tra loro e misurano lo stesso tratto latente.
+
+:::
+
+- il *coefficiente di scalabilità complessivo (H)* nella MSA è paragonabile agli indici di discriminazione media degli item nella CTT.
+
+::: {.callout-note}
+
+## Indici di Discriminazione Media degli Item nella CTT
+
+Gli indici di discriminazione media degli item sono misure che valutano quanto efficacemente ciascun item del test riesce a distinguere tra esaminandi con differenti livelli di abilità o tratti latenti. In particolare, misurano la capacità di un item di discriminare tra esaminandi con punteggi totali alti e bassi.
+
+Un modo comune per calcolare gli indici di discriminazione è attraverso la correlazione punto-biseriale tra le risposte a ciascun item e il punteggio totale del test (escludendo l'item stesso). Tuttavia, ci sono anche altri metodi, come il confronto dei punteggi medi tra i gruppi di esaminandi con alti e bassi punteggi totali.
+
+:::
+
+Una differenza fondamentale tra la MSA e la CTT risiede nella testabilità dei modelli. A differenza della CTT, i modelli MSA permettono di verificare empiricamente le loro assunzioni, come l'indipendenza locale, l'unidimensionalità e la monotonicità. Ad esempio, un coefficiente di scalabilità negativo nella MSA smentirebbe gli assiomi del Modello di Omogeneità Monotona (MHM). Questa capacità di testare empiricamente le sue assunzioni rende la MSA un modello particolarmente robusto e trasparente.
+
+In conclusione, mentre la CTT fornisce un quadro teorico solido per la comprensione e l'interpretazione dei punteggi dei test, ma non fornisce direttamente gli strumenti statistici per testare le assunzioni del modello, la MSA offre un approccio  testabile e più flessibile. La MSA di dimostra dunque particolarmente utile nell'analizzare la struttura dei dati dei test e nella valutazione della validità delle scale di misurazione. Queste caratteristiche rendono la MSA un complemento prezioso alla CTT nella pratica della misurazione psicologica.
+
+## Analisi delle Scale di Mokken e Item Politomici
+
+La MSA è stata inizialmente sviluppata per item dicotomici. In seguito però è stata estesa da Molenaar (1982a, 1997) per includere anche gli item politomici. Questa estensione mantiene i principi fondamentali della MSA applicati agli item dicotomici, ma aggiunge alcune specificità legate alla natura degli item politomici.
+
+Nel caso degli item politomici, come quelli usati nelle scale Likert, le assunzioni del modello MSA vengono esaminate non solo a livello dell'intero item, ma anche per ciascun "passaggio" o categoria di risposta. Prendendo come esempio un item Likert a cinque punti, che va da "fortemente d'accordo" a "fortemente in disaccordo", ci sono quattro passaggi distinti, ognuno rappresentante una transizione tra due categorie consecutive.
+
+Per ogni passaggio di un item politomico, si definisce una Funzione di Risposta del Passaggio dell'Item (ISRF), che descrive la probabilità di scegliere una specifica categoria di risposta in funzione del tratto latente θ. Le ISRF sono cruciali per comprendere come le diverse categorie di risposta si relazionino al tratto latente misurato dall'item.
+
+Affinché il modello di omogeneità monotona sia valido per gli item politomici, è necessario che le probabilità di scegliere una categoria di risposta k o superiore aumentino monotonamente con l'aumento di θ. Questo implica che le categorie di risposta debbano essere ordinate in modo significativo, rappresentando livelli progressivamente più alti del tratto latente.
+
+Un aspetto fondamentale nell'analisi di item politomici nella MSA è l'assunzione di monotonicità, che richiede che le ISRF siano funzioni crescenti in θ. In altre parole, man mano che il tratto latente aumenta, aumenta anche la probabilità che un individuo scelga categorie di risposta superiori.
+
+In sintesi, l'estensione della MSA agli item politomici fornisce uno strumento potente per analizzare item con più categorie di risposta, consentendo una misurazione più dettagliata e sfumata del tratto latente. Questa estensione rende la MSA particolarmente adatta per applicazioni in cui si utilizzano scale di risposta con gradazioni multiple, come nei questionari di valutazione del benessere psicologico, nei sondaggi di opinione o nelle valutazioni educative. Attraverso l'analisi dei passaggi degli item, la MSA per item politomici permette una comprensione più approfondita di come gli individui interagiscano con le diverse opzioni di risposta e di come queste risposte riflettano i loro livelli sul tratto latente. 
+
+## L'Affidabilità nei Test
+
+L'affidabilità in ambito di test psicometrici si riferisce al grado in cui un test è esente da errori di misurazione. Si valuta tipicamente esaminando la stabilità dei punteggi ottenuti dagli esaminandi in diverse somministrazioni del test, sia nel tempo che attraverso forme parallele del test. L'idea di base è che, in assenza di cambiamenti nei punteggi veri degli esaminandi, ci si aspetterebbe una correlazione perfetta tra le diverse amministrazioni. Ogni deviazione da questa correlazione perfetta è attribuita all'influenza dell'errore di misurazione.
+
+Tuttavia, ottenere misure di affidabilità attraverso forme parallele o ripetute somministrazioni nel tempo può essere impraticabile, a causa di problemi logistici e degli effetti di memoria o pratica. Pertanto, l'affidabilità è spesso stimata attraverso metodi che richiedono una singola somministrazione del test.
+
+L'alfa di Cronbach è uno degli estimatori di affidabilità più utilizzati, sebbene presenti diverse limitazioni. In risposta a queste limitazioni, Mokken (1971) ha sviluppato un coefficiente di affidabilità non distorto, noto come ρ (rho) o statistica MS. Questo coefficiente presuppone la validità della doppia monotonicità, una supposizione piuttosto forte. Per affrontare alcune delle sfide associate alla statistica ρ, Van der Ark, Van der Palm e Sijtsma (2011) hanno proposto un altro indicatore di affidabilità chiamato Coefficiente di Affidabilità delle Classi Latenti (LCRC). Questo è uno stimatore non distorto dell'affidabilità dei punteggi dei test, le cui assunzioni sono meno stringenti rispetto alla statistica ρ, richiedendo solamente l'indipendenza locale. Questo rappresenta un vantaggio significativo del coefficiente LCRC rispetto al coefficiente ρ, poiché rende l'LCRC più applicabile e flessibile in una varietà di contesti di test.
+
+In conclusione, la scelta del metodo più appropriato per stimare l'affidabilità dipende dalle caratteristiche specifiche del test e dalle esigenze di misurazione. Mentre l'alfa di Cronbach rimane uno standard ampiamente utilizzato, le alternative come il coefficiente ρ di Mokken e il LCRC offrono strumenti aggiuntivi e talvolta più adatti per valutare l'affidabilità, specialmente in situazioni dove le assunzioni dell'alfa di Cronbach non sono soddisfatte o quando si utilizzano modelli non parametrici come quelli proposti nell'Analisi delle Scale di Mokken.
+
+## Coefficienti di Scalabilità nelle Scale Mokken
+
+I coefficienti di scalabilità nelle Scale Mokken, ovvero $H$, $H_i$ e $H_{ij}$, sono indici chiave utilizzati per valutare la qualità di una misurazione nell'Analisi delle Scale Mokken (MSA). Questi coefficienti misurano la coerenza e l'ordinamento degli item e dei punteggi complessivi su un continuum latente, indicando in che misura gli item formano una gerarchia e se i punteggi degli item sono ordinati consistentemente.
+
+- **Coefficienti di Scalabilità Singoli ($H_i$)**: Indicano la qualità di ogni singolo item. Un valore elevato di $H_i$ significa che l'item ha una buona discriminazione e contribuisce efficacemente all'ordinamento degli esaminandi. Valori superiori a 0.30 sono generalmente considerati accettabili.
+
+- **Coefficienti di Scalabilità per Coppie di Item ($H_{ij}$)**: Misurano la coerenza tra coppie di item. Valori positivi indicano che la coppia di item è coerente con il modello di omogeneità monotona. Valori negativi possono suggerire multidimensionalità o non monotonicità.
+
+- **Coefficienti di Scalabilità per l'Intero Test ($H$)**: Questo indice valuta la qualità dell'intero test, indicando in che misura la struttura complessiva dei dati si avvicina a un modello di Guttman perfetto. Valori tra 0.30 e 0.40 indicano una scala debole, tra 0.40 e 0.50 una scala media e superiori a 0.50 una scala forte.
+
+Questi coefficienti vengono calcolati basandosi sul rapporto tra gli errori di Guttman osservati e quelli attesi. Un coefficiente di $H$ vicino a uno implica una perfetta conformità al modello di Guttman, mentre valori vicini a zero indicano la presenza di numerosi errori di Guttman.
+
+La MSA consente di testare empiricamente se i dati si adattano al modello di omogeneità monotona, fornendo un quadro robusto per l'analisi degli item e dei punteggi dei test. I coefficienti di scalabilità offrono una guida per determinare la qualità e la coerenza degli item nel contesto di una scala unidimensionale. Sono particolarmente utili per identificare item che potrebbero essere ridondanti o non allineati con il tratto latente misurato.
+
+Inoltre, i coefficienti di scalabilità forniscono informazioni preziose sulla validità di costrutto di una scala. Anche se una scala ha una forte discriminazione (indicata da valori elevati di $H_i$ e $H$), potrebbe mancare di validità di costrutto se i suoi item misurano solo una porzione ristretta del costrutto. Allo stesso modo, valori elevati di $H_{ij}$ tra specifiche coppie di item possono suggerire che uno degli item nella coppia sia ridondante.
+
+In sintesi, i coefficienti di scalabilità nelle Scale Mokken non solo valutano la precisione nell'ordinamento degli esaminandi e la qualità degli item, ma aiutano anche a comprendere meglio la struttura e la validità di una scala. Questi coefficienti, quindi, giocano un ruolo cruciale nella selezione e nell'analisi degli item in contesti di misurazione psicometrica, educativa e di ricerca.
+
+## Gli Errori Standard nei Coefficienti di Scalabilità delle Scale Mokken
+
+Gli errori standard (SE) sono fondamentali per interpretare correttamente i coefficienti di scalabilità nelle scale Mokken. Questi errori standard tengono conto dell'incertezza delle stime. Se l'errore standard è grande rispetto al coefficiente stesso, ad esempio un SE di .08 per un coefficiente Hi di .30, è probabile che il valore reale del coefficiente nella popolazione sia inferiore a .30, suggerendo che gli item potrebbero non essere scalabili. 
+
+La dimensione dell'errore standard dipende da due fattori: la dimensione del campione e l'asimmetria delle distribuzioni dei punteggi degli item. Con un campione più grande, gli errori standard sono generalmente più piccoli, mentre distribuzioni dei punteggi più asimmetriche portano a errori standard più grandi. Tuttavia, un ampio campione non garantisce stime precise dei coefficienti di scalabilità.
+
+Per i coefficienti di scalabilità, possiamo calcolare gli intervalli di confidenza al 95% (CI) usando la formula:
+
+$$ 
+\text{95% CI} = H_i \pm (1.96 \times \text{SE}) 
+$$
+
+Per esempio, se $H_i$ è .30 con un SE di .10, il CI sarà tra .10 e .50. Questo intervallo ampio implica che il valore reale di $H_i$, con il 95% di confidenza, si trova in questo range, indicando una bassa affidabilità del coefficiente. Se $H_i$ è .15 con un SE di .10, il CI sarà tra -.05 e .35, suggerendo che il vero coefficiente potrebbe essere zero o anche negativo nella popolazione, e quindi l'item dovrebbe essere scartato.
+
+Mokken (1971) ha indicato che la monotonicità delle funzioni di risposta all'item (IRF) per tutti gli item utilizzati nel calcolo del punteggio totale X+ è una condizione sufficiente per la loro utilità nella classificazione degli esaminandi. Di conseguenza, gli item con bassi coefficienti di scalabilità vengono generalmente scartati. 
+
+Tuttavia, Crișan e colleghi (2020) consigliano di non rimuovere item inadatti dalle scale se non vi sono altri argomenti (ad esempio, di contenuto) per farlo. I guadagni in affidabilità, selezione delle persone e validità predittiva potrebbero non compensare la perdita di copertura del costrutto e validità dei criteri. Pertanto, la decisione di mantenere o rimuovere item da una scala dovrebbe basarsi principalmente su considerazioni teoriche, e i ricercatori applicati dovrebbero essere cauti nel non utilizzare regole empiriche per eliminare item in modo acritico.
+
+In sintesi, l'analisi degli errori standard nei coefficienti di scalabilità delle scale Mokken fornisce informazioni cruciali sulla affidabilità e la validità degli item della scala. Tuttavia, le decisioni su quali item mantenere o scartare dovrebbero essere prese considerando non solo gli aspetti psicometrici ma anche il contesto teorico e il contenuto della scala stessa.
+
+## Procedura di Selezione Automatica degli Item 
+
+La Procedura di Selezione Automatica degli Item (AISP) è una metodologia impiegata nella MSA per selezionare un insieme di item da un pool più ampio che aderiscano alle assunzioni del Modello di Mokken (MHM). L'AISP aiuta a esaminare l'unidimensionalità e identifica item non scalabili.
+
+Una scala di Mokken si compone di una serie di item selezionati in base a due criteri specifici. Prima di tutto, ogni item deve avere una covarianza ($H_{i}$) che superi un valore soglia (c), scelto dall'utente. Solitamente, si raccomanda di impostare questo valore soglia a c=.30. Il secondo criterio richiede che la covarianza tra ogni coppia di item ($H_{ij}$) sia maggiore di zero. In sintesi, per essere inclusi in una scala di Mokken, gli item devono avere sia una covarianza individuale ($H_{i}$) sia una covarianza reciproca ($H_{ij}$) positive e superiori a un valore minimo predefinito.
+
+Questo processo inizia selezionando due item con la più alta $H_{ij}$ e continua aggiungendo nuovi item che soddisfano i criteri. Se alcuni item non rispettano questi criteri, l'AISP tenta di costruire una seconda scala o li identifica come non scalabili.
+
+Le scale costruite con l'AISP misurano un tratto latente comune, ordina in modo affidabile le persone e discriminano bene. Tuttavia, talvolta, un item può essere selezionato con un valore $H_{i}$ inferiore a c, contraddicendo la definizione di scala di Mokken. Questi item inadatti dovrebbero essere esclusi successivamente.
+
+L'AISP può essere vista come un'alternativa più efficiente all'analisi fattoriale, in quanto non è influenzata dalle difficoltà degli item e può essere applicata sia a item dicotomici che politomici. Tuttavia, i ricercatori dovrebbero considerare la teoria sostanziale e non affidarsi solo alle soluzioni statistiche prodotte dal software.
+
+È importante notare che la scelta del valore limite inferiore c influisce sulla struttura della scala identificata. Valori più alti di c possono portare al rifiuto di molti item e alla formazione di scale sostanzialmente prive di significato con pochi item. D'altra parte, valori bassi di c possono nascondere la vera dimensionalità dei dati includendo tutti gli item in una singola scala. Il valore scelto dovrebbe dipendere dall'obiettivo specifico della ricerca.
+
+Inoltre, l'AISP è paragonabile all'analisi fattoriale esplorativa, ma a differenza dell'analisi fattoriale, l'AISP può concludere senza trovare una scala valida se tutti i valori di $H_{ij}$ sono inferiori a .30. Invece, l'analisi fattoriale trova sempre una soluzione, anche se non necessariamente significativa.
+
+In conclusione, l'AISP è uno strumento utile per la costruzione di scale di Mokken, ma presenta limitazioni nella valutazione della dimensionalità. Gli studi di simulazione mostrano che questo metodo può essere meno efficiente rispetto ad altri metodi non parametrici nel rilevare la vera dimensionalità dei dati, soprattutto quando le dimensioni sono correlate o gli item saturano su più di una dimensione. Pertanto, i ricercatori dovrebbero utilizzare questo strumento con cautela e considerare un'ampia gamma di valori limite inferiori c per rivelare la vera struttura dei dati.
+
+## Monotonicità
+
+La monotonicità, un concetto chiave nelle scale Mokken, si riferisce alla relazione tra la posizione di una persona su una variabile latente (una caratteristica o tratto non direttamente osservabile) e la sua probabilità di rispondere correttamente a un item (domanda o affermazione). In sostanza, man mano che una persona si sposta verso livelli più elevati sulla variabile latente, la sua probabilità di dare una risposta corretta dovrebbe aumentare o rimanere la stessa, ma non diminuire. Questo principio si applica sia agli item con due possibili risposte (dicotomici) sia a quelli con più risposte (politomici).
+
+Per valutare la monotonicità, si utilizzano diversi metodi, tra cui l'analisi dei gruppi di restscore. Il "restscore" è il punteggio totale ottenuto da un individuo in un test, escludendo il punteggio dell'item specifico che si sta analizzando. Ad esempio, in un test di 10 item, se si vuole esaminare l'item numero 10, il restscore per ogni persona sarà il suo punteggio totale escludendo il punteggio ottenuto all'item 10. Di conseguenza, si creano diversi gruppi di restscore, che vanno da 0 a 9 in questo caso.
+
+La relazione tra restscore e monotonicità è la seguente: nei grafici, i gruppi di restscore sono confrontati con la percentuale di persone che hanno risposto correttamente all'item in questione all'interno di ogni gruppo. Idealmente, al crescere del restscore, la percentuale di risposte corrette dovrebbe aumentare o rimanere costante. Se i gruppi di restscore sono piccoli e quindi non forniscono stime affidabili, possono essere combinati con gruppi adiacenti per ottenere dimensioni maggiori e stime più precise.
+
+Il restscore funge da sostituto per θ, la posizione sulla variabile latente. Se la monotonicità è rispettata, ci si aspetta che la percentuale di risposte corrette aumenti (o almeno rimanga costante) man mano che aumenta il restscore. In altre parole, persone con un restscore più alto dovrebbero avere una probabilità maggiore di rispondere correttamente rispetto a quelle con un restscore più basso. Questa aspettativa dovrebbe essere valida per tutte le coppie di gruppi di restscore.
+
+L'analisi delle Funzioni di Risposta all'Item (IRF) è particolarmente utile perché permette di osservare come la performance degli item varia lungo il continuum del tratto latente. A differenza dell'IRT parametrico, dove l'attenzione è sulla stima dei parametri, l'IRT non parametrico (NIRT) si concentra sui metodi grafici, che sono fondamentali per comprendere come gli item funzionino a diversi livelli del tratto latente.
+
+Per gli item politomici, la monotonicità è valutata sia complessivamente sia all'interno delle singole categorie di risposta. Inoltre, si utilizzano i coefficienti di scalabilità per valutare la monotonicità. Se il Modello di Omoegeneità Monotona (MHM) è valido, le covarianze tra tutte le coppie di item (Hij) devono essere non negative. Tuttavia, Hij non negativi non sono una condizione sufficiente per garantire IRFs non decrescenti e non assicurano l'adattamento al MHM. Nella pratica, item con valori di Hi superiori a .30 sono generalmente considerati accettabili.
+
+## Ordinamento Invariante degli Item
+
+In contesti psicologici ed educativi, la definizione della difficoltà degli item di un test è cruciale. Generalmente, questa difficoltà viene determinata attraverso le medie degli item nella popolazione target. Tuttavia, è importante considerare che l'ordine di difficoltà derivato dalle risposte medie della popolazione potrebbe non essere universale per ogni individuo.
+
+Il concetto di Ordinamento Invariante degli Item (IIO) si riferisce alla necessità che l'ordine di difficoltà degli item rimanga consistente tra diversi sottogruppi di persone. Questo aspetto è fondamentale per garantire che i confronti tra i gruppi basati sui punteggi totali siano validi e che le differenze nei punteggi totali abbiano un significato reale. In ambito psicologico, ad esempio nei questionari sulla depressione o sull'ansia, l'IIO implica che un individuo con un punteggio totale più alto manifesti tutti i sintomi di una persona con un punteggio inferiore, oltre a sintomi aggiuntivi.
+
+L'IIO è altresì desiderabile quando si ordinano gli item di un test da quelli più facili a quelli più difficili, per garantire che questa progressione sia valida per tutti gli esaminandi. In altre parole, un item considerato facile dovrebbe essere tale per tutti i partecipanti, così come un item difficile dovrebbe rappresentare una sfida per tutti.
+
+Un ordinamento degli item che non rispetta l'IIO indica una variazione nella difficoltà degli item tra diversi gruppi. Questo può suggerire una funzione differenziale dell'item (DIF) o un bias, rendendo problematico ordinare gli item in base alla loro difficoltà.
+
+Per valutare l'IIO, si utilizzano diverse tecniche come il metodo dei gruppi di restscore, il metodo di divisione degli item, le matrici delle proporzioni P(++)/P(--), e il metodo di divisione dei restscore. Queste procedure aiutano a determinare se l'ordine di difficoltà degli item è coerente attraverso diversi gruppi.
+
+In conclusione, l'IIO è essenziale sia per la teoria della misurazione sia per l'interpretazione accurata dei punteggi dei test. Pur essendo un presupposto fondamentale nell'uso degli strumenti di misurazione, l'IIO spesso non viene verificato empiricamente. La sua conferma è particolarmente importante nei test che mirano a riflettere una struttura gerarchica o cumulativa dei tratti misurati. Per trarre conclusioni affidabili sui processi cognitivi evolutivi basati sull'ordine di difficoltà degli item, è cruciale dimostrare la validità dell'IIO.
+
+## Dimensione del Campione 
+
+Nel campo della psicometria, determinare la dimensione minima di un campione per i test statistici è un'area ben stabilita. Tuttavia, per quanto riguarda l'Analisi delle Scale Mokken (MSA), questo è un ambito ancora poco esplorato e ci sono pochi studi a riguardo. La ricerca in questo settore è necessaria per evitare sia la capitalizzazione sul caso sia l'utilizzo di campioni eccessivamente grandi, specialmente quando le risorse e il tempo a disposizione dei ricercatori sono limitati.
+
+La "capitalizzazione sul caso" si riferisce a una condizione in cui una scala di Mokken viene identificata casualmente quando, in realtà, tale scala non esiste e ciò è dovuto alla ridotta dimensione del campione. Al contrario, può anche accadere che una scala esistente non venga identificata.
+
+Uno studio condotto da Straat et al. (2014) ha esaminato le dimensioni minime del campione necessarie per l'Automated Item Selection Procedure (AISP) e per l'algoritmo genetico (GA). Lo studio ha valutato l'impatto di diversi fattori, inclusa la lunghezza del test, i valori approssimativi dei coefficienti di scalabilità (Hi) degli item e la correlazione tra le dimensioni nella scala. I risultati hanno evidenziato che la dimensione del campione necessaria dipende da tutti questi fattori. Tuttavia, il fattore più influente è risultato essere il valore di Hi. Con l'aumento di Hi, erano necessarie dimensioni di campione più piccole per assegnare correttamente gli item alle scale appropriate. La lunghezza del test non ha avuto un grande impatto sulla precisione della classificazione degli item nelle scale corrette. Tuttavia, le correlazioni tra le dimensioni hanno avuto qualche effetto in combinazione con vari livelli di Hi. Per valori di Hi intorno a .22, sono necessarie dimensioni di campione di 750-1000 persone per ottenere una precisione mediocre o adeguata, e di 1250-2500 persone per una precisione buona o eccellente. Con valori di Hi di .42, per una precisione mediocre o adeguata sono necessarie dimensioni di campione di 50 persone, mentre per una precisione buona o eccellente, la dimensione del campione dovrebbe essere di almeno 250. Quando le correlazioni tra le due dimensioni erano alte (ad esempio, .60) e i valori di Hi erano .42, erano necessarie dimensioni di campione maggiori per assegnare correttamente gli item alle scale rispetto alla condizione in cui le correlazioni erano .30 o 1.
+
+Un altro studio condotto da Watson et al. (2018) ha indagato l'impatto della dimensione del campione sui coefficienti di scalabilità utilizzando dati reali. Hanno estratto campioni di 50, 250, 500, 600, 750 e 1000 persone da un campione più ampio di 7510 persone che hanno risposto a un questionario di 14 item con item a 5 punti Likert. Utilizzando il bootstrapping, hanno estratto 1000 campioni per ogni dimensione del campione. I risultati hanno mostrato che i valori medi di H e Hi non cambiavano notevolmente tra le diverse dimensioni del campione. Tuttavia, considerando gli intervalli di confidenza al 95%, dimensioni di campione più piccole hanno portato a un maggior numero di occasioni in cui il limite inferiore degli intervalli di confidenza al 95% per Hi era inferiore a .30. Ad esempio, per N=50, il numero di volte in cui il limite inferiore degli intervalli di confidenza per Hi era inferiore a .30 era 592, mentre per N=1000, questo numero era zero. Ciò significa che, basandosi sugli errori standard di Hi, quando N=50, in 592 casi su 1000 si dovrebbe rifiutare l'item, concludendo che il suo Hi potrebbe essere inferiore a .30. Tuttavia, i valori medi di Hi per N=50 e N=1000 erano esattamente gli stessi. Questo suggerisce che la dimensione del campione non influisce sulle stime puntuali dei coefficienti di scalabilità, ma gioca un ruolo cruciale quando si considerano gli errori standard dei coefficienti di scalabilità e gli intervalli di confidenza per decidere sulla qualità degli item.
+
+In conclusione, questi studi evidenziano l'importanza di considerare la dimensione del campione nell'analisi delle Scale Mokken. Mentre i valori medi di scalabilità possono non variare significativamente con la dimensione del campione, la precisione e l'affidabilità delle stime, così come la capacità di trarre conclusioni affidabili sulla qualità degli item, sono influenzate dalla grandezza del campione. Pertanto, è fondamentale scegliere una dimensione di campione adeguata per garantire risultati validi e affidabili nelle scale di Mokken. Questo è particolarmente critico in situazioni dove risorse e tempo sono limitati, e una scelta accurata della dimensione del campione può contribuire a un utilizzo più efficiente di tali risorse.
+
+## Il Contributo della MSA alla Validazione dei Test
+
+Nell'ambito dell'Analisi delle Scale Mokken (MSA), la validità del modello di omogeneità monotona è cruciale. Questo modello è confermato quando le assunzioni fondamentali di unidimensionalità, monotonicità e indipendenza locale sono rispettate. In particolare, se i coefficienti di scalabilità H, Hi e Hij risultano positivi e significativamente superiori a zero (o meglio ancora, superiori a .30), ciò indica che i dati si conformano efficacemente a una struttura di Guttman. Tale conformità fornisce una forte indicazione dell'esistenza di un costrutto unidimensionale.
+
+L'adeguamento al modello di omogeneità monotona implica inoltre la presenza di monotonicità. Ciò significa che deve esistere una relazione non decrescente tra la variabile latente θ e la probabilità di ottenere una risposta corretta. Questo concetto è perfettamente in linea con il secondo criterio di validità nell'approccio basato sugli strumenti, secondo il quale variazioni nel tratto latente dovrebbero produrre variazioni corrispondenti nelle risposte agli item.
+
+Un'ulteriore dimensione della MSA è il modello di doppia monotonicità, che introduce l'assunzione dell'Ordinamento Invariante degli Item (IIO). Secondo questa assunzione, le Funzioni di Risposta all'Item (IRF) degli item di un test non dovrebbero intersecarsi. Anche se una sua violazione non rende di per sé un test invalido secondo l'approccio basato sugli strumenti, la conformità all'IIO migliora notevolmente l'interpretabilità dei punteggi del test. Inoltre, la violazione dell'IIO è analoga alla presenza di funzione differenziale dell'item (DIF) nei modelli IRT parametrici.
+
+In conclusione, la MSA si rivela uno strumento estremamente utile e potente per la validazione di test in ambiti psicologici ed educativi. La capacità della MSA di confermare il modello di omogeneità monotona attraverso i coefficienti di scalabilità offre una valida evidenza che i test misurano effettivamente il costrutto unidimensionale che intendono valutare. Questo aspetto è fondamentale per garantire che i punteggi dei test riflettano veramente le capacità o le caratteristiche misurate.
+
+L'incorporazione dell'Ordinamento Invariante degli Item (IIO) nel modello di doppia monotonicità aggiunge un ulteriore livello di rigorosità. Assicurandosi che le IRF degli item non si intersechino, si aumenta la precisione con cui il test misura il costrutto e si migliora l'interpretazione dei punteggi. Questo approccio riduce il rischio di bias e garantisce che il test sia equamente rappresentativo per tutti i partecipanti, indipendentemente dalle loro caratteristiche individuali.
+
+Inoltre, la MSA fornisce una base solida per affermare che le variazioni nei punteggi dei test sono effettivamente causate da variazioni nel costrutto misurato. Questa caratteristica rende la MSA particolarmente preziosa in contesti dove è essenziale dimostrare una relazione causale tra il costrutto e i punteggi del test.
+
+In sintesi, l'impiego della MSA nella validazione dei test non solo rafforza la fiducia nella precisione e nell'affidabilità dei test stessi, ma contribuisce anche a una maggiore chiarezza e trasparenza nell'interpretazione dei risultati. 
+
+## Critiche alla MSA
+
+Negli anni '80, l'Analisi delle Scale Mokken (MSA) è stata criticata per la limitata applicabilità del coefficiente di scalabilità H, ritenuto dipendente dalle caratteristiche del campione e degli item, e non adeguato come misura di adattamento del modello. Ulteriori critiche hanno riguardato il coefficiente di scalabilità degli item Hi, accusato di selezionare solo item con IRF ripide e distanti, escludendo item validi e riducendo la varianza e l'affidabilità del test. I critici hanno anche messo in dubbio l'adeguatezza della MSA per l'ordinamento libero degli item secondo il rango latente, suggerendo una possibile necessità del modello di Rasch.
+
+In risposta, i difensori della MSA hanno sottolineato che le critiche si basano su una lettura selettiva e una mancata comprensione dei modelli non parametrici. Hanno ribadito che H e Hi sono intesi come misure dell'omogeneità monotona, e non come indici di doppia monotonia, e che la dipendenza di H dalla varianza della popolazione è in linea con le assunzioni del modello. Questo dibattito evidenzia l'importanza di valutare attentamente i metodi statistici come la MSA nel loro contesto di applicazione.
+
+## Considerazioni Conclusive
+
+In questo capitolo, abbiamo esplorato una questione fondamentale nella misurazione psicologica: l'efficacia dei punteggi totali grezzi nell'ordinare gli esaminandi. Tradizionalmente, tali punteggi vengono utilizzati per classificare i soggetti, da quelli più competenti a quelli meno competenti, da quelli più ansiosi a quelli meno ansiosi, o da quelli più depressi a quelli meno depressi. Sebbene sia comunemente accettato che i punteggi grezzi siano dati su scala ordinale, molti ricercatori li trattano come se fossero su scala intervallo. Ciò significa che, utilizzando i punteggi grezzi, si può solamente stabilire l'ordine dei rispondenti, ma non discernere le differenze tra di loro.
+
+Il tema principale affrontato in questo capitolo è che i punteggi grezzi potrebbero non essere nemmeno dati ordinali. In altre parole, i punteggi totali grezzi potrebbero non essere sufficientemente affidabili per ordinare gli esaminandi. Affinché i punteggi grezzi siano considerati ordinali, i pattern di risposta devono adattarsi al Modello di Omogeneità Monotona (MHM). Nella teoria classica dei test, si assume che i punteggi totali siano ordinali senza verificarlo. Il MHM, come modello IRT non parametrico, ci permette di testare se i punteggi totali rispettano l'assioma di una scala ordinale. Lo stesso vale per gli item: l'adattamento al Modello di Doppia Monotonicità (DMM) ci permette di ordinare gli item in base alle loro proporzioni di risposte corrette (valore p).
+
+In questo capitolo, abbiamo discusso le procedure conosciute collettivamente come Analisi delle Scale Mokken, per testare l'adattamento dei dati al MHM e al DMM. Queste analisi offrono strumenti preziosi per verificare l'affidabilità e la validità dei punteggi totali grezzi utilizzati in una vasta gamma di contesti psicologici.
+
+## Formule di Calcolo 
+
+Per sviluppare un'intuizione più precisa dello scaling di Mokken, consideriamo nei dettagli il calcolo di alcuni dei suoi indici fondamentali.
+
+## Coefficienti di Scalabilità Singoli ($H_i$) nello Scaling di Mokken
+
+Esaminiamo il coefficiente di scalabilità singolo, denotato come $H_i$, il quale  misura la qualità di un singolo item in uno scaling di Mokken. Un valore elevato di $H_i$ indica che l'item discrimina bene tra gli esaminandi e contribuisce efficacemente all'ordinamento degli stessi. 
+
+Le soglie generalmente accettate per i coefficienti di scalabilità singoli ($H_i$)  sono le seguenti:
+
+- **$H_i \geq 0.30$**: Considerato accettabile. L'item discrimina abbastanza bene e contribuisce all'ordinamento degli esaminandi.
+- **$H_i \geq 0.40$**: Considerato buono. L'item ha una buona capacità di discriminazione.
+- **$H_i \geq 0.50$**: Considerato molto buono. L'item ha un'ottima capacità di discriminazione.
+
+### Formula per Calcolare $H_i$
+
+La formula per calcolare il coefficiente di scalabilità singolo $H_i$ di un item $i$ è:
+
+$$ 
+H_i = \frac{ \sum_{j \neq i} H_{ij} }{ n - 1 },
+$$
+
+dove $H_{ij}$ è il coefficiente di scalabilità di coppia tra l'item $i$ e l'item $j$, e $n$ è il numero totale di item. Il coefficiente di scalabilità di coppia $H_{ij}$ è definito come:
+
+$$ 
+H_{ij} = \frac{ \text{cov}(X_i, X_j) }{ \text{min} [\text{var}(X_i), \text{var}(X_j)] },
+$$
+
+dove:
+- $X_i$ e $X_j$ sono le risposte agli item $i$ e $j$.
+- $\text{cov}(X_i, X_j)$ è la covarianza tra gli item $i$ e $j$.
+- $\text{var}(X_i)$ e $\text{var}(X_j)$ sono le varianze degli item $i$ e $j$.
+
+Intuitivamente, $H_i$ misura quanto bene l'item $i$ contribuisce all'ordine totale degli esaminandi basato sui punteggi totali. Se un item ha un $H_i$ elevato, significa che le risposte a questo item sono ben correlate con le risposte agli altri item, suggerendo che discrimina efficacemente tra esaminandi con punteggi diversi.
+
+Per calcolare i coefficienti di scalabilità singoli $H_i$ in R, possiamo utilizzare il pacchetto `mokken`.
+
+```r
+library(mokken)
+```
+
+Consideriamo un set di dati relativi all'Adjective Checklist (ACL), che consiste of 300 adjectives and adjectival phrases commonly used to describe a person's personality. Consideriamo la sottoscala Communality.
+
+```{r}
+data(acl)   
+Communality <- acl[,1:10]
+Communality |> head()
+```
+
+```{r}
+scalability <- coefH(Communality)
+scalability$Hi
+```
+
+In questo esempio, gli item con $H_i$ superiori a 0.30 sono considerati accettabili, indicando che questi item contribuiscono efficacemente all'ordinamento degli esaminandi.
+
+
+### Coefficiente di Scalabilità di Coppia ($ H_{ij} $) nello Scaling di Mokken
+
+Il coefficiente di scalabilità di coppia $H_{ij}$ misura la qualità della relazione tra due item specifici all'interno di uno scaling di Mokken. Questo coefficiente è utile per valutare quanto bene due item discriminano insieme tra gli esaminandi.
+
+### Formula per Calcolare $ H_{ij} $
+
+La formula per calcolare il coefficiente di scalabilità di coppia $ H_{ij} $ tra due item $ i $ e $ j $ è:
+
+$$ 
+H_{ij} = \frac{P(X_i = X_j) - P(X_i \neq X_j)}{1 - P(X_i \neq X_j)},
+$$
+
+dove:
+- $ P(X_i = X_j) $ è la probabilità che le risposte agli item $ i $ e $ j $ siano uguali.
+- $ P(X_i \neq X_j) $ è la probabilità che le risposte agli item $ i $ e $ j $ siano diverse.
+
+Intuitivamente, $ H_{ij} $ misura quanto bene i due item $ i $ e $ j $ lavorano insieme per discriminare tra gli esaminandi. Un valore elevato di $ H_{ij} $ indica che i due item hanno una buona covarianza e che la loro variabilità è tale da contribuire efficacemente all'ordinamento degli esaminandi.
+
+Le soglie generalmente accettate per i coefficienti di scalabilità di coppia ($H_{ij}$) sono le seguenti:
+
+- **$H_{ij} \geq 0.30$**: Considerato accettabile. La coppia di item discrimina abbastanza bene insieme.
+- **$H_{ij} \geq 0.40$**: Considerato buono. La coppia di item ha una buona capacità di discriminazione congiunta.
+- **$H_{ij} \geq 0.50$**: Considerato molto buono. La coppia di item ha un'ottima capacità di discriminazione congiunta.
+
+Per calcolare i coefficienti di scalabilità di coppia $ H_{ij} $ in R, possiamo utilizzare nuovamente la funzione `coefH` del pacchetto `mokken`.
+
+Nei dati dell'esempio precedente, $ H_{ij} $ per ciascuna coppia di item è riportato nella matrice. 
+
+### Coefficiente di Scalabilità per l’Intero Test ($ H $) 
+
+Il coefficiente di scalabilità per l’intero test ($ H $) misura la qualità complessiva di un set di item in termini di capacità di discriminazione e di ordinamento degli esaminandi. Un valore elevato di $ H $ indica che il test, nel suo insieme, discrimina bene tra gli esaminandi.
+
+La formula per calcolare il coefficiente di scalabilità per l'intero test è:
+
+$$ 
+H = \frac{\sum_{i < j} H_{ij}}{\sum_{i < j} H_{ij}^{\text{max}}} ,
+$$
+
+dove:
+- $ H_{ij} $ è il coefficiente di scalabilità di coppia tra gli item $ i $ e $ j $.
+- $ H_{ij}^{\text{max}} $ è il massimo valore teorico di $ H_{ij} $.
+
+Intuitivamente, $ H $ misura quanto bene l'intero set di item lavora insieme per discriminare tra gli esaminandi. Un valore elevato di $ H $ indica che, complessivamente, gli item hanno una buona capacità di discriminazione e contribuiscono efficacemente all'ordinamento degli esaminandi.
+
+Le soglie comunemente utilizzate per interpretare $ H $ sono:
+- **$ H \geq 0.30 $**: Considerato accettabile.
+- **$ H \geq 0.40 $**: Considerato buono.
+- **$ H \geq 0.50 $**: Considerato molto buono.
+
+Per calcolare il coefficiente di scalabilità per l'intero test ($ H $) in R, possiamo utilizzare nuovamente la funzione `coefH()` del pacchetto `mokken`.
+
+
+```{r}
+# Visualizzare il coefficiente di scalabilità per l'intero test
+H_test <- scalability$H
+print(H_test)
+```
+Il valore del coefficiente di scalabilità per l’intero test ($ H $) di 0.264 indica che la qualità complessiva della sottoscala Communality è scarsa.
+
+### Monotonicità nello Scaling di Mokken
+
+Nello scaling di Mokken, la monotonicità è una proprietà desiderabile che implica che la probabilità di rispondere correttamente a un item aumenta con il livello del tratto latente misurato dal test. In altre parole, per gli item di un test che misurano lo stesso costrutto, gli esaminandi con punteggi più alti sul tratto latente dovrebbero avere una probabilità maggiore di rispondere correttamente a ciascun item rispetto a quelli con punteggi più bassi.
+
+La funzione `check.monotonicity()` del pacchetto `mokken` in R viene utilizzata per verificare la presenza di violazioni della monotonicità per ciascun item in un set di dati. Essa esamina se la relazione tra la probabilità di rispondere correttamente a un item e il livello del tratto latente è monotona crescente.
+
+La funzione suddivide i punteggi totali degli esaminandi in gruppi (detti "gruppi di punteggio", "restscore") e verifica se la probabilità di rispondere correttamente a ciascun item aumenta con il punteggio del gruppo. Se la probabilità di risposta corretta diminuisce in uno o più gruppi, ciò costituisce una violazione della monotonicità.
+
+```{r}
+monotonicity_results <- check.monotonicity(Communality)
+summary(monotonicity_results)
+```
+
+I risultati forniti dalla funzione `check.monotonicity()` includono:
+
+- **Numero di violazioni**: Il numero di violazioni della monotonicità per ciascun item.
+- **Indice di monotonicità**: Un indice che indica la forza della monotonicità per ciascun item.
+
+La colonna `#vi` mostra il numero di violazioni della monotonicità per ciascun item.
+
+Per avere una visione più chiara delle violazioni della monotonicità, è possibile creare dei grafici:
+
+```{r}
+# Creare grafici delle violazioni di monotonicità
+plot(monotonicity_results)
+```
+
+I grafici generati dalla funzione `check.monotonicity()` forniscono una rappresentazione visiva delle probabilità condizionali di rispondere correttamente a ciascun item rispetto ai punteggi totali degli esaminandi. I grafici generati dalla funzione `check.monotonicity()` nel pacchetto `mokken` per ciascun item mostrano due pannelli. Ecco come interpretarli:
+
+Il pannello di sinistra mostra quattro spezzate che rappresentano la probabilità condizionale di rispondere correttamente all'item per ciascun gruppo di punteggio totale. Queste spezzate corrispondono ai seguenti concetti:
+
+1. **E**: La probabilità empirica di rispondere correttamente all'item per ciascun gruppo di punteggio.
+2. **ER**: La probabilità empirica di rispondere correttamente all'item dopo aver applicato una regressione non parametrica.
+3. **M**: La probabilità media di rispondere correttamente all'item.
+4. **MR**: La probabilità media di rispondere correttamente all'item dopo aver applicato una regressione non parametrica.
+
+Queste spezzate aiutano a visualizzare come la probabilità di rispondere correttamente all'item varia rispetto al punteggio totale degli esaminandi.
+
+Il pannello di destra mostra una singola spezzata che rappresenta la probabilità media condizionale di rispondere correttamente all'item per ciascun gruppo di punteggio totale. Questa spezzata è utile per verificare visivamente la presenza di violazioni della monotonicità.
+
+Interpretando correttamente queste linee, possiamo identificare eventuali violazioni della monotonicità e valutare la qualità degli item nel contesto dello scaling di Mokken.
+
+
+### Investigate the assumption of non-intersecting ISRFs using method restscore
+
+La funzione `check.restscore()` è utilizzata per verificare la coerenza degli item rispetto al punteggio residuo. In pratica, controlla se ogni item in una scala di Mokken soddisfa i requisiti di monotonicità e se contribuisce positivamente alla scala nel suo complesso.
+
+- **Monotonicità**: La monotonicità si riferisce al fatto che la probabilità di rispondere correttamente a un item dovrebbe aumentare con l'aumento del punteggio totale del soggetto.
+- **Punteggio residuo**: Il punteggio residuo per un item è calcolato sottraendo il punteggio dell'item dal punteggio totale del soggetto su tutti gli item della scala.
+
+```{r}
+# Investigate the assumption of non-intersecting ISRFs using method restscore
+restscore.list <- check.restscore(Communality)
+summary(restscore.list)
+plot(restscore.list)
+```
+
+Per interpretare i risultati ottenuti dal comando `summary(restscore.list)` è utile comprendere il significato delle varie colonne e come queste possono informare sulla qualità degli item in una scala di Mokken.
+
+1. **ItemH**: Questo è l'indice di H per ciascun item. L'indice di H misura la forza della relazione tra l'item e il punteggio totale della scala. Valori più alti indicano una migliore coerenza con la scala. Tipicamente, un valore di H superiore a 0.3 è considerato buono.
+   
+2. **#ac**: Numero di soggetti che hanno risposto correttamente all'item (numero di osservazioni corrette).
+
+3. **#vi**: Numero di violazioni della monotonicità per l'item. La monotonicità implica che la probabilità di rispondere correttamente a un item non diminuisce con l'aumento del punteggio totale del soggetto. Un numero elevato di violazioni è indicativo di problemi con l'item.
+
+4. **#vi/#ac**: Proporzione di violazioni rispetto al numero di osservazioni corrette. Valori più bassi indicano migliori proprietà di monotonicità.
+
+5. **maxvi**: La massima violazione osservata della monotonicità per l'item. Valori più alti indicano maggiori problemi di monotonicità.
+
+6. **sum**: Somma delle violazioni. Fornisce un'indicazione del totale delle violazioni osservate per l'item.
+
+7. **sum/#ac**: Proporzione della somma delle violazioni rispetto al numero di osservazioni corrette.
+
+8. **zmax**: Z-scores per l'indice di violazione massimo. Fornisce un'indicazione della significatività statistica delle violazioni.
+
+9. **#zsig**: Numero di z-scores significativi. Indica quante delle violazioni sono statisticamente significative.
+
+10. **crit**: Un valore critico che combina vari indicatori per valutare la qualità dell'item. Valori più alti possono indicare problemi con l'item.
+
+Consideriamo alcuni esempi specifici dall'output ottenuto per chiarire meglio.
+
+1. **reliable**
+   - **ItemH**: 0.30 (buono)
+   - **#ac**: 432 (molti soggetti hanno risposto correttamente)
+   - **#vi**: 7 (pochi casi di violazioni)
+   - **#vi/#ac**: 0.02 (proporzione molto bassa)
+   - **maxvi**: 0.09 (violazione massima relativamente bassa)
+   - **sum**: 0.31 (totale violazioni basso)
+   - **sum/#ac**: 0.0007 (molto basso)
+   - **zmax**: 1.43 (nessuna violazione significativa, dato che **#zsig** è 0)
+   - **crit**: 26 (relativamente basso)
+
+   L'item "reliable" sembra avere una buona coerenza con la scala, con pochi problemi di monotonicità.
+
+2. **unintelligent***
+   - **ItemH**: 0.12 (basso, indica che l'item non è molto coerente con la scala)
+   - **#ac**: 416
+   - **#vi**: 14 (numero relativamente alto di violazioni)
+   - **#vi/#ac**: 0.03 (proporzione più alta)
+   - **maxvi**: 0.11 (violazione massima più alta)
+   - **sum**: 0.86 (violazioni totali più alte)
+   - **sum/#ac**: 0.0021 (più alto rispetto ad altri item)
+   - **zmax**: 1.99 (significativo, dato che **#zsig** è 2)
+   - **crit**: 62 (più alto, indica problemi maggiori)
+
+   L'item "unintelligent" presenta problemi significativi, con molte violazioni della monotonicità e un indice di H basso.
+
+In generale, per ogni item, valori più bassi di **#vi**, **#vi/#ac**, **maxvi**, **sum**, **sum/#ac**, **zmax**, **#zsig** e **crit** indicano un item con buone proprietà psicometriche. Valori alti di **ItemH** indicano una forte coerenza con la scala complessiva. Gli item contrassegnati con un asterisco (*) sembrano avere problemi maggiori e potrebbero necessitare di ulteriori indagini o potenzialmente essere rimossi dalla scala.
+
+
+### Proprietà dell'ordine di Mokken
+
+La funzione `check.pmatrix()` è utilizzata per valutare la matrice delle probabilità (`pmatrix`) degli item in una scala di Mokken. Essa verifica se gli item soddisfano la condizione di scalabilità, nota anche come proprietà dell'ordine di Mokken. Questa proprietà implica che gli item devono mostrare un pattern coerente di risposta in modo che, se un soggetto risponde correttamente a un item difficile, dovrebbe rispondere correttamente anche a tutti gli item più facili.
+
+```{r}
+pmatrix.list <- check.pmatrix(Communality)
+summary(pmatrix.list)
+```
+
+L'output del comando `summary(pmatrix.list)` ottenuto dalla funzione `check.pmatrix()` del pacchetto `mokken` fornisce vari indicatori che aiutano a valutare la qualità degli item in una scala di Mokken. 
+
+1. **ItemH**: Indice di scalabilità H per ciascun item. Valori più alti indicano una migliore coerenza con la scala. Tipicamente, un valore di H superiore a 0.3 è considerato buono.
+2. **#ac**: Numero di osservazioni considerate.
+3. **#vi**: Numero di violazioni della scalabilità per l'item. Una violazione si verifica quando la condizione di scalabilità non è rispettata.
+4. **#vi/#ac**: Proporzione di violazioni rispetto al numero di osservazioni considerate. Valori più bassi indicano migliori proprietà di scalabilità.
+5. **maxvi**: La massima violazione osservata della scalabilità per l'item. Valori più alti indicano maggiori problemi di scalabilità.
+6. **sum**: Somma delle violazioni. Fornisce un'indicazione del totale delle violazioni osservate per l'item.
+7. **sum/#ac**: Proporzione della somma delle violazioni rispetto al numero di osservazioni considerate.
+8. **zmax**: Z-scores per l'indice di violazione massimo. Fornisce un'indicazione della significatività statistica delle violazioni.
+9. **#zsig**: Numero di z-scores significativi. Indica quante delle violazioni sono statisticamente significative.
+10. **crit**: Un valore critico che combina vari indicatori per valutare la qualità dell'item. Valori più alti possono indicare problemi con l'item.
+
+Consideriamo i due item esaminati in precedenza. 
+
+1. **reliable**
+   - **ItemH**: 0.30 (accettabile)
+   - **#ac**: 4608 (molti soggetti hanno risposto)
+   - **#vi**: 22 (numero di violazioni)
+   - **#vi/#ac**: 0.00 (proporzione molto bassa)
+   - **maxvi**: 0.05 (violazione massima relativamente bassa)
+   - **sum**: 0.85 (totale violazioni)
+   - **sum/#ac**: 2e-04 (molto basso)
+   - **zmax**: 4.27 (elevato, indica alcune violazioni significative)
+   - **#zsig**: 19 (violazioni statisticamente significative)
+   - **crit**: 84 (moderatamente alto)
+
+   L'item "reliable" sembra essere coerente con la scala ma ha un numero moderato di violazioni significative.
+
+2. **unintelligent**
+   - **ItemH**: 0.12 (molto basso)
+   - **#ac**: 4608
+   - **#vi**: 12 (diverse violazioni)
+   - **#vi/#ac**: 0.00
+   - **maxvi**: 0.08
+   - **sum**: 0.50
+   - **sum/#ac**: 1e-04
+   - **zmax**: 4.55 (elevato)
+   - **#zsig**: 10
+   - **crit**: 82
+
+   L'item "unintelligent" ha un indice di H molto basso e molte violazioni significative, indicando forti problemi di scalabilità.
+
+In sintesi, per interpretare questi risultati:
+
+- Gli item con valori alti di **ItemH** (sopra 0.3) sono generalmente buoni, ma devono essere esaminati anche in termini di violazioni.
+- Gli item con molte violazioni (**#vi**), un alto valore di **#vi/#ac**, un alto **maxvi**, un alto **zmax**, e un alto **#zsig** indicano problemi di scalabilità e potrebbero necessitare di revisione o rimozione.
+- Gli item contrassegnati con un asterisco (*) presentano generalmente più problemi.
+
+
+### Indipendenza Locale
+
+La funzione `check.iio()` del pacchetto `mokken` è utilizzata per verificare la proprietà di indipendenza locale degli item (Item Independence Order, IIO) in una scala di Mokken. Questa proprietà implica che la probabilità di rispondere correttamente a un item non dovrebbe dipendere dalle risposte ad altri item, se si tiene conto della posizione del soggetto sulla scala latente.
+
+```{r}
+iio.list <- check.iio(Communality)
+summary(iio.list)
+```
+
+L'output della funzione `check.iio()` fornisce informazioni riguardanti la coerenza e la qualità degli item rispetto alla proprietà di indipendenza locale. 
+
+1. **ItemH**: Indice di scalabilità H per ciascun item. Valori più alti indicano una migliore coerenza con la scala.
+2. **#ac**: Numero di casi esaminati per ciascun item.
+3. **#vi**: Numero di violazioni della proprietà IIO per l'item.
+4. **#vi/#ac**: Proporzione di violazioni rispetto al numero di casi esaminati. Valori più bassi indicano migliori proprietà di indipendenza locale.
+5. **maxvi**: La massima violazione osservata della proprietà IIO per l'item. Valori più alti indicano maggiori problemi.
+6. **sum**: Somma delle violazioni della proprietà IIO.
+7. **sum/#ac**: Proporzione della somma delle violazioni rispetto al numero di casi esaminati.
+8. **tmax**: Valore massimo della statistica T per le violazioni dell'IIO.
+9. **#tsig**: Numero di valori T significativi. Indica quante delle violazioni sono statisticamente significative.
+10. **crit**: Un valore critico che combina vari indicatori per valutare la qualità dell'item. Valori più alti possono indicare problemi con l'item.
+
+Esempio di interpretazione degli item.
+
+- **unintelligent**
+  - **ItemH**: 0.12 (basso, indica che l'item non è molto coerente con la scala).
+  - **#ac**: 26
+  - **#vi**: 2 (alcune violazioni).
+  - **#vi/#ac**: 0.08 (proporzione moderata di violazioni).
+  - **maxvi**: 0.15 (violazione massima moderata).
+  - **sum**: 0.29 (violazioni totali moderate).
+  - **sum/#ac**: 0.0112 (proporzione di violazioni relativamente alta).
+  - **tmax**: 2.16 (violazione significativa).
+  - **#tsig**: 1 (una violazione significativa).
+  - **crit**: 74 (alto, indica problemi significativi).
+
+L'item "unintelligent" presenta problemi significativi di indipendenza locale.
+
+- **dependable**
+  - **ItemH**: 0.30 (buono).
+  - **#ac**: 27
+  - **#vi**: 0 (nessuna violazione).
+  - **#vi/#ac**: 0.00
+  - **maxvi**: 0.00
+  - **sum**: 0.00
+  - **sum/#ac**: 0.0000
+  - **tmax**: 0.00
+  - **#tsig**: 0
+  - **crit**: 0
+
+L'item "dependable" non presenta violazioni della proprietà di indipendenza locale ed è altamente coerente con la scala.
+
+La sezione `backward.selection` mostra il risultato della selezione all'indietro per identificare gli item problematici. Ogni colonna rappresenta un passaggio del processo di selezione:
+
+- **0**: L'item è mantenuto.
+- **1**: L'item è stato rimosso a questo passaggio.
+
+Esempio di interpretazione:
+
+- **unintelligent**: Rimosso al passo 1.
+- **honest**: Rimosso al passo 1 e mantenuto al passo 2.
+- **deceitful**: Rimosso al passo 1 e mantenuto al passo 2.
+
+Infine, l'indice HT è una misura della forza della struttura di scala di Mokken. Un valore più alto indica una struttura più forte. In questo caso, un valore di 0.07338353 è relativamente basso, indicando che la struttura della scala potrebbe non essere molto forte.
+
+In conclusione, la funzione `check.iio()` aiuta a identificare gli item che non soddisfano la proprietà di indipendenza locale in una scala di Mokken. Gli item con molte violazioni e un alto valore di crit sono problematici e potrebbero dover essere rivisti o rimossi. Il processo di selezione all'indietro aiuta a identificare questi item e a migliorare la qualità complessiva della scala.
+
+### Affidabilità
+
+La funzione `check.reliability()` del pacchetto `mokken` è utilizzata per valutare l'affidabilità di una scala psicometrica. L'affidabilità è una misura della coerenza interna degli item di una scala e indica quanto gli item misurano coerentemente lo stesso costrutto.
+
+Questa funzione calcola diversi indici di affidabilità, inclusi il coefficiente di scalabilità di Mokken, l'alpha di Cronbach e il lambda-2 di Guttman.
+
+
+```{r}
+check.reliability(Communality)
+```
+
+- Il coefficiente di scalabilità di Mokken (MS) misura la forza della struttura di scala non parametrica degli item. Un valore più alto indica una scala più forte e coerente. Valori sopra 0.3 sono considerati accettabili, mentre valori sopra 0.5 indicano una buona scalabilità. Un valore di 0.7585348 suggerisce una scala molto forte e ben strutturata.
+- L'alpha di Cronbach è una misura comune della coerenza interna di una scala. Essa valuta quanto bene gli item della scala misurano lo stesso costrutto. Valori di alpha sopra 0.7 sono considerati accettabili, mentre valori sopra 0.8 sono considerati buoni. Un valore di 0.7465871 indica una buona coerenza interna della scala, sebbene sia leggermente inferiore alla soglia di eccellenza di 0.8.
+- Il lambda-2 di Guttman è un altro indice di affidabilità che può essere più robusto dell'alpha di Cronbach in alcune circostanze. Valori più alti indicano maggiore affidabilità. Un valore di 0.7568063 è simile all'alpha di Cronbach e suggerisce una buona affidabilità.
+
+Nel complesso, i risultati indicano che la scala può essere considerata affidabile per la misurazione del costrutto in esame. Tuttavia, potrebbe esserci spazio per migliorare leggermente l'alpha di Cronbach per ottenere una coerenza interna ancora migliore.
+
+
+### Automated Item Selection Procedure
+
+La funzione `aisp()` del pacchetto `mokken` in R viene utilizzata per identificare i pattern di item (Item Scalability Patterns) che soddisfano specifici criteri di scalabilità all'interno di una scala. Essa aiuta a determinare quali item contribuiscono alla struttura scalare della scala di Mokken.
+
+`aisp()` sta per "Automated Item Selection Procedure" ed è una procedura automatizzata per la selezione degli item che meglio soddisfano i criteri di scalabilità definiti dall'utente.
+
+```{r}
+aisp(Communality, lowerbound = 0.3)
+```
+
+L'output di `aisp()` mostra i pattern di scalabilità degli item. Gli item sono valutati in base alla loro capacità di soddisfare il criterio di scalabilità. 
+
+- **0.3**: Questo rappresenta la soglia di scalabilità (H) utilizzata nella selezione degli item.
+- **Valori associati agli item**:
+  - **1**: L'item soddisfa il criterio di scalabilità con un coefficiente H superiore a 0.3.
+  - **0**: L'item non soddisfa il criterio di scalabilità con un coefficiente H inferiore a 0.3.
+  - **2**: L'item è considerato problematico, probabilmente per la presenza di molteplici violazioni della monotonicità o altre problematiche di scalabilità.
+
+Dettaglio degli item
+
+1. **reliable**: 1
+   - Questo item soddisfa il criterio di scalabilità e ha un coefficiente H superiore a 0.3.
+   
+2. **honest**: 1
+   - Anche questo item soddisfa il criterio di scalabilità con un coefficiente H superiore a 0.3.
+   
+3. **unscrupulous**: 0
+   - Questo item non soddisfa il criterio di scalabilità, avendo un coefficiente H inferiore a 0.3.
+   
+4. **deceitful**: 1
+   - Questo item soddisfa il criterio di scalabilità con un coefficiente H superiore a 0.3.
+   
+5. **unintelligent**: 0
+   - Questo item non soddisfa il criterio di scalabilità, avendo un coefficiente H inferiore a 0.3.
+   
+6. **obnoxious**: 2
+   - Questo item è problematico e non soddisfa completamente il criterio di scalabilità, probabilmente a causa di violazioni della monotonicità.
+   
+7. **thankless**: 2
+   - Anche questo item è problematico e non soddisfa completamente il criterio di scalabilità, con possibili violazioni della monotonicità.
+   
+8. **unfriendly**: 2
+   - Questo item è problematico e presenta molteplici violazioni della monotonicità, quindi non soddisfa il criterio di scalabilità.
+   
+9. **dependable**: 1
+   - Questo item soddisfa il criterio di scalabilità con un coefficiente H superiore a 0.3.
+   
+10. **cruel**: 2
+    - Questo item è problematico e non soddisfa completamente il criterio di scalabilità, con possibili violazioni della monotonicità.
+
+L'output della funzione `aisp()` aiuta a identificare quali item in una scala di Mokken soddisfano i criteri di scalabilità e quali no. Gli item con valore **1** sono quelli che soddisfano il criterio di scalabilità (H > 0.3), mentre quelli con valore **0** non lo soddisfano. Gli item con valore **2** sono considerati problematici e potrebbero necessitare di revisione o rimozione dalla scala. Utilizzare queste informazioni per migliorare la qualità complessiva della scala, garantendo che solo gli item con buone proprietà di scalabilità siano inclusi.
+
+
+## Session Info
+
+```{r}
+sessionInfo()
+```
+

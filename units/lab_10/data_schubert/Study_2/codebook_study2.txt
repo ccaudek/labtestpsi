@@ -1,0 +1,115 @@
+### Codebook for the CSV-file "data_study2" ###
+
+Note: This data consist of data collected in our study as well as data of the
+participants downloaded on Prolific. The variables downloaded on Prolific all 
+start with "p_". All test variables are response-coded.
+
+
+- code: code assigned to the participants by OpenLab (online host website for experiment)
+- prolific_id: unique ID assigned to the participants by Prolific (webite for participant recruitement)
+- item01 - item64: items of the mini-q, RESPONSE-coded with 0 = participant clicked "incorrect", 
+                    1 = participant clicked "correct" and NA = participant didn't answer the item
+- HMTS_01 - HMTS_06: items of the Hagen Matrices Test - Short Version, RESPONSE-coded
+- age: age of participant in years reported in our study
+- gender: self-reported gender of participant 
+- native_language_german: answer to question "Is German your native language?" with
+                    option "yes, German is my native language" (coded as "yes"), 
+                    "no, but I speak German fluently" (coded as "fluently"), or "no" (coded as "no")
+- education: highest level of education completed by the participant
+- education_other: participants had the option to specify their highest level of education
+                    in an open textbox in case they selected "other" as education before
+- years_education: years of education beginning at first grade until and including tertiary educaiton
+- job: current occupation of participant
+- job_other: participants had the option to specify their current occupation
+                    in an open textbox in case they selected "other" as their occupation before
+- environment: participants were asked if they had completed the study in a quiet environment
+- interruption: participants were asked if they were interrupted during the study
+- seriousness: participants were asked if they answered the questions seriously
+- age_group: age groups for norm data: "young" = 18 to 30, "old" = 31 to 60
+- experiment: experimental condition: "only_miniq" = participant only completed the 
+                     mini-q, "minig_HMTS" = participant additionally completed the Hagen
+                     Matrices Test after the mini-q
+- miniqtime: time in Minutes a participant remained on the page with the mini-q items (max.3)
+- overall_miniqtime: time in Minutes a participant took to complete the mini-q, including 
+                     instructions and example items
+- HMTStime: time in Minutes a participant took to answer all 6 Hagen Matrices Test Short Form items
+- overall_HMTStime: time in Minutes a participant took to complete the Hagen Matrices Test 
+                     Short Form, including instructions and example items
+- overall_duration: time in Minutes a participant took to complete the entire testing session
+- clicked: mini-q items clicked (attempted)
+- correct: sum score of correctly answered mini-q items 
+- perc_correct: Ratio of correct to clicked (attempted) mini-q items
+- HMTS_clicked: clicked (attempted) items of the Hagen Matrices Test Short Form 
+- HMTS_correct: sum score of correctly answered items of the Hagen Matrices Test Short Form 
+- p_Status: [Prolific data] Prolific status of participant 
+- p_Started_at: [Prolific data] timestamp of when participant started the experiment
+- p_Completed_at: [Prolific data] timestamp of when participant completed the experiment
+- p_Reviewed_at: [Prolific data] timestamp of when we reviewed (payed) the participant
+- p_Time_taken: [Prolific data] time taken to complete the experiment
+- p_Total_approvals: [Prolific data] sum of approvals the participant has recieved on Prolific 
+- p_Fluent_languages: [Prolific data] languages the participant reported to speak fluently
+- p_Mild_cognitive_impairment: [Prolific data] Does the participant have mild cognitive impairments?
+- p_Age: [Prolific data] age the participant reported on Prolific
+- p_Sex: [Prolific data] sex the participant reported on Prolific 
+- p_Ethnidity_simplified: [Prolific data] ethnicity the participant reported on Prolific
+- p_Country_of_birth: [Prolific data] country of birth the participant reported on Prolific
+- p_Country_of_residence: [Prolific data] country of residence the participant reported on Prolific
+- p_Nationality: [Prolific data] nationality the participant reported on Prolific
+- p_Language: [Prolific data] first language learned (reported on Prolific)
+- p_Student_status: [Prolific data] student status the participant reported on Prolific
+- p_Employment_status: [Prolific data] employment status the participant reported on Prolific
+- p_Highest_education_level_completed: [Prolific data] highest level of education
+                      the participant reported on Prolific
+
+
+                     
+### Codebook for the CSV-file "data_SEM_HMTS_correlation.csv" ###
+
+Note: This dataframe was prepared for the structural equation model assessing
+the latent correlation between the mini-q sum score and the Hagen Matrices Test 
+Short Form (HMT-S) sum score. All test variables are correct-coded.
+
+
+- code: code assigned to the participant by OpenLab (online host website for experiment)
+- prolific_id: unique ID assigned to the participant by Prolific (webite for participant recruitement)
+- item01 - item64: items of the mini-q, CORRECT-coded with 0 = participant answered 
+                    the item incorrectly and 1 = participant answered the item correctly
+- HMTS_01 - HMTS_06: items of the Hagen Matrices Test - Short Version, CORRECT-coded with
+                    0 = participant answered incorrectly and 1 = participant answered correctly
+- clicked: mini-q items clicked (attempted)
+- correct: sum score of correctly answered mini-q items 
+- HMTS_clicked: clicked (attempted) items of the Hagen Matrices Test Short Form 
+- HMTS_correct: sum score of correctly answered items of the Hagen Matrices Test Short Form 
+- miniq_c1: first parcel of mini-q containing every third item. Calculated as the
+                    sum of correct responses in that parcel / sum of items contained in parcel
+- miniq_c2: second parcel of mini-q containing every third item. Calculated as the
+                    sum of correct responses in that parcel / sum of items contained in parcel
+- miniq_c3: third parcel of mini-q containing every third item. Calculated as the
+                    sum of correct responses in that parcel / sum of items contained in parcel
+                    
+                    
+
+### Codebook for the CSV-file "data_study2" ###
+
+Note: This dataframe was prepared for the structural equation model assessing
+measurement invariance between the lab version of the mini-q (study 1) and the
+online version of the mini-q (study 2). All test variables are correct-coded.
+
+- correct: sum score of correctly answered mini-q items 
+- clicked: mini-q items attempted
+- item01 - item64: Items of the mini-q, CORRECT-coded with 0 = participant answered 
+                    the item incorrectly and 1 = participant answered the item correctly
+- study: study in which the participant took part: study 1 = lab study, study 2 = online study
+- miniq_m1: first parcel of mini-q containing every fourth item. Calculated as the
+                    sum of correct responses in that parcel / sum of items contained in parcel
+- miniq_m2: second parcel of mini-q containing every fourth item. Calculated as the
+                    sum of correct responses in that parcel / sum of items contained in parcel
+- miniq_m3: third parcel of mini-q containing every fourth item. Calculated as the
+                    sum of correct responses in that parcel / sum of items contained in parcel
+- miniq_m4: fourth parcel of mini-q containing every fourth item. Calculated as the
+                    sum of correct responses in that parcel / sum of items contained in parcel
+                    
+
+
+
+

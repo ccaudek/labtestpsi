@@ -1,0 +1,40 @@
+TITLE:   APIM MJS German
+
+DATA: 
+    FILE IS "Data_APIM.txt"; 
+
+
+
+VARIABLE:
+  
+
+  NAMES ARE Cogn_MT1 Emot_MT1 Beh_MT1 
+  Cogn_FT1 Emot_FT1 Beh_FT1 
+  Cogn_FT2 Emot_FT2 Beh_FT2
+  Cogn_MT2 Emot_MT2 Beh_MT2 
+  Fasz_F Eng_F Sex_F Fut_F
+  Mist_F Const_F 
+  Fasz_M Eng_M Sex_M Fut_M
+  Mist_M Const_M;
+
+  USEVAR Cogn_MT1 Cogn_FT1 Mist_F
+  Mist_M;
+
+
+ANALYSIS:
+  estimator=ml;
+  bootstrap=5000;
+
+ 
+MODEL:
+ Cogn_FT1 ON Mist_F (1);
+ Cogn_FT1 ON Mist_M (2);
+ Cogn_MT1 ON Mist_F (2);
+ Cogn_MT1 ON Mist_M (1);
+ 
+ Cogn_FT1 with Cogn_MT1;
+ Mist_M with Mist_F;   
+   
+
+OUTPUT:  
+cinterval (bootstrap) STDYX;

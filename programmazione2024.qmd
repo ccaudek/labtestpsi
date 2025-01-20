@@ -1,0 +1,329 @@
+# Calendario degli incontri
+
+Il calendario didattico prevede 14 incontri di tre ore ciascuno, con gli ultimi due incontri riservati a un esame finale e alle presentazioni dei progetti degli studenti.
+
+## Laboratorio 1 {.unnumbered}
+
+- **Data:** 3 marzo 2025  
+- **Orario:** 10:30–13:30  
+- **Argomento:** Introduzione a R.
+
+**Programma**
+
+1. Presentazione delle attività del *Laboratorio di Testing Psicologico*.
+2. **Introduzione al linguaggio R**
+
+<!-- DONE -->
+
+
+## Laboratorio 2 {.unnumbered}
+
+- **Data:** 6 marzo 2025  
+- **Orario:** 8:30–11:30  
+- **Argomento:** Esplorazione dei dati (*Exploratory Data Analysis*, EDA)
+
+**Programma**
+
+1. **Organizzazione di un progetto di analisi dei dati:**
+    - Presentazione e discussione di:
+      - *Data Preparation* [@yu2024veridical; cap. 4] 
+
+2. **Validazione di una scala psicometrica**  
+   - Introduzione all’articolo *Scale validation in applied health research: tutorial for a 6-step R-based psychometrics protocol* [@dima2018scale].  
+
+3. **Analisi preliminari**  
+   - Esercitazione sulle funzioni di $\mathsf{R}$: `rnorm()`, `dnorm()`, `pnorm()`, `qnorm()`.  
+   - Verifica della normalità:
+     - Creazione e interpretazione di un qq-plot per i dati FAI.  
+   - Calcolo e interpretazione di:
+     - Indici di curtosi e asimmetria.  
+   - Statistiche descrittive e verifica dei dati mancanti.
+
+4. **Outlier e distanza di Mahalanobis**  
+   - Individuazione e gestione degli outliers negli item FAI tramite boxplot e distanza di Mahalanobis.
+
+5. **Careless responding**  
+   - Presentazione e discussione di articoli chiave sul tema:
+     - *Dealing with careless responding in survey data: Prevention, identification, and recommended best practices* [@ward2023dealing].  
+     - *Careless responding: Why many findings are spurious or spuriously inflated* [@stosic2024careless].  
+     - *The Conscientious Responders Scale: A new tool for discriminating between conscientious and random responders* [@marjanovic2014conscientious].  
+   - Applicazione dei principi di individuazione del *careless responding* ai dati FAI. 
+<!-- DONE -->
+
+
+## Laboratorio 3 {.unnumbered}
+
+- **Data:** 11 marzo 2025  
+- **Orario:** 10:30–13:30  
+- **Argomento:** Teoria Classica dei Test (*Classical Test Theory*, CTT)
+
+**Programma**
+
+1. **Introduzione alla regressione lineare bivariata**  
+   - Spiegazione del modello di regressione lineare bivariata:  
+     - Logica del calcolo dei coefficienti tramite il metodo dei minimi quadrati.  
+     - Interpretazione dei principali parametri statistici del modello lineare: errore standard della regressione; scomposizione della devianza; coefficiente di determinazione ($R^2$).  
+
+2. **Estensione alla regressione multipla**  
+   - Discussione del modello di regressione multipla con focus su:  
+     - Interpretazione dei coefficienti parziali di regressione.  
+     - Collegamento tra coefficienti parziali di regressione e coefficienti parziali di correlazione.
+
+3. **Simulazione in $\mathsf{R}$ per la CTT**  
+   - Introduzione ai concetti fondamentali della Teoria Classica dei Test tramite simulazioni pratiche.
+
+4. **Calcolo delle quantità chiave della CTT**  
+   - Applicazione ai dati FAI per ottenere:  
+     - attendibilità ($\alpha$ di Cronbach); SEM (*Standard Error of Measurement*); stima del punteggio vero tramite il metodo di Kelley; intervalli di confidenza del punteggio vero.  
+
+5. **Confronto tra approcci metodologici**  
+   - Presentazione e discussione dell’articolo *Depressive and anxiety symptoms in refugees: Insights from classical test theory, item response theory and network analysis* [@schlechter2021depressive] per un confronto tra metodi CTT, IRT e *network analysis*.
+
+6. **Reliable Change Index (RCI)**  
+   - Calcolo dell’RCI basato sul SEM e presentazione dell’articolo *Reliable Change: Extending Jacobson and Truax’s index* [@blampied2022reliable].
+
+7. **Gestione dei dati mancanti**  
+   - Discussione degli approcci per gestire i dati mancanti con riferimento ai seguenti articoli:  
+     - *Multiple imputation of missing data in large studies with many variables: A fully conditional specification approach using partial least squares* [@grund2024multiple].  
+     - *Rebutting existing misconceptions about multiple imputation as a method for handling missing data* [@van2020rebutting].  
+
+8. **Applicazione pratica dell’imputazione multipla**  
+   - Implementazione dell’imputazione multipla sui dati FAI con i pacchetti $\mathsf{R}$ `mice` e `missRanger`.
+
+<!-- DONE -->
+
+
+## Laboratorio 4 {.unnumbered}  
+
+- **Data:** 13 marzo 2025  
+- **Orario:** 8:30–11:30  
+- **Argomento:** Mokken Scale Analysis (*MSA*)  
+
+**Programma**
+
+1. **Regressione logistica**  
+   - Introduzione ai concetti fondamentali:  
+     - Definizione del modello di regressione logistica.  
+     - Spiegazione dell’AUC (*Area Under the Curve*) come misura di performance.  
+   - Applicazione pratica del modello ai dati FAI.
+
+2. **Mokken Scale Analysis (MSA)**  
+   - Introduzione alla MSA:  
+     - Spiegazione dei concetti principali (scalabilità, monotonicità, invarianza locale).  
+   - Applicazione della MSA ai dati FAI:  
+     - Selezione degli item basata sui criteri della MSA.  
+   - Presentazione dell’articolo *A Mokken Scale Analysis of the Last Series of the Standard Progressive Matrices (SPM-LS)* [@myszkowski2020mokken].  
+   - Replica delle analisi di validazione descritte in [@myszkowski2020mokken].  
+
+
+## Laboratorio 5 {.unnumbered}  
+
+- **Data:** 18 marzo 2025  
+- **Orario:** 10:30–13:30  
+- **Argomento:** Teoria di Risposta agli Item (*Item Response Theory*, IRT) e validità  
+
+**Programma**  
+
+1. **Introduzione al modello di Rasch**  
+   - Spiegazione dei concetti fondamentali del modello di Rasch.  
+   - Replica dei risultati del modello di Rasch descritti in [@pallentin2024validation].  
+
+2. **Modelli IRT: 1PL, 2PL, 3PL**  
+   - Spiegazione delle caratteristiche principali di ciascun modello:  
+     - **1PL** (Modello logistico a un parametro).  
+     - **2PL** (Modello logistico a due parametri).  
+     - **3PL** (Modello logistico a tre parametri).  
+
+3. **Confronto tra modelli IRT**  
+   - Analisi comparativa dei modelli 1PL, 2PL e 3PL.  
+   - Replica dei risultati riportati nell’articolo *Analysing Standard Progressive Matrices (SPM-LS) with Bayesian Item Response Models* [@burkner2020analysing].  
+   - Applicazione pratica dei modelli IRT ai dati FAI.  
+
+4. **Presentazione degli *Standards for Educational and Psychological Testing***  
+   - Introduzione ai principi fondamentali degli Standards disponibili su [Testing Standards](www.testingstandards.net/open-access-files.html).  
+   - Discussione degli articoli:  
+     - *A Short Tutorial on Validation in Educational and Psychological Assessment* (Arias, 2024).  
+     - *“Color-neutral” is not a thing: Redefining construct definition and representation through a justice-oriented critical antiracist lens* [@randall2021color].  
+     - *Disrupting white supremacy in assessment: Toward a justice-oriented, antiracist validity framework* [@randall2023disrupting].  
+   - Applicazione dei concetti presentati negli Standards e negli articoli ai dati FAI, con focus sulla validità.  
+
+
+## Laboratorio 6 {.unnumbered} 
+
+- **Data:** 20 marzo 2025
+- **Argomento:** Algebra lineare e analisi delle componenti principali.
+
+  - A. Regressione bivariata con algebra matriciale.
+  - B. Regressione multipla con algebra matriciale.
+  - C. Spiegazione geometrica degli autovalori e autovettori.
+  - D. Simulazione e applicazione della PCA.
+  - E. Analisi PCA per i dati di @greenacre2022principal.
+  - F. Discussione dell’articolo di @caron2021variance.
+
+- **Orario:** 8:30-11:30
+
+
+## Laboratorio 7 {.unnumbered}
+
+- **Data:** 25 marzo 2025  
+- **Orario:** 10:30–13:30  
+- **Argomento:** Path Analysis e Analisi Fattoriale  
+
+**Programma:**
+
+1. **Introduzione alla Path Analysis:**  
+   - Presentazione dei concetti base [@loehlin2017latent, cap. 1].
+
+2. **Esercizi pratici:**  
+   - Svolgimento degli esercizi del capitolo 1 di [@loehlin2017latent].
+   - Replicare le analisi di @weiss2018difficulties.
+
+3. **Correlazione parziale:**  
+   - Simulazione in R per illustrare il concetto e il calcolo della correlazione parziale.
+
+4. **Analisi fattoriale sui dati FAI:**  
+   - Applicazione del metodo delle componenti principali tramite algebra matriciale, con estrazione di due fattori.  
+   - Replica dei risultati utilizzando il pacchetto `lavaan`.
+
+5. **Matrici di pattern e struttura:**  
+   - Costruzione e interpretazione delle matrici di pattern e struttura basate sui dati analizzati.
+
+6. **Validazione psicometrica:**  
+   - Discussione e replica delle analisi di validazione di:
+     - [@clement2022step].  
+     - [@guidotti2024introversion].  
+
+
+## Laboratorio 8 {.unnumbered}
+
+- **Data:** 27 marzo 2025  
+- **Orario:** 8:30-11:30  
+- **Argomento:** Analisi fattoriale esplorativa e confermativa. Invarianza di misurazione tra gruppi. 
+
+**Programma**
+
+1. **Tecniche di analisi della dimensionalità**
+   - Applicazione ai dati della scala FAI, utilizzando item selezionati con la tecnica MSA.
+
+2. **Analisi fattoriale esplorativa (EFA) e rotazione fattoriale**
+   - Esecuzione di un’analisi esplorativa su due sottoscale della FAI.  
+   - Confronto tra rotazione ortogonale e rotazione obliqua.
+
+3. **Calcolo dei punteggi fattoriali**
+   - Calcolo dei punteggi fattoriali e del punteggio totale (`total score`) per la scala FAI.  
+   - Discussione dell’articolo di riferimento: @mcneish2020thinking.
+
+4. **Analisi Fattoriale Confermativa (CFA)**
+   - Discussione e replica delle analisi proposte in @brauer2024assessing:  
+      - Modello CFA unidimensionale.  
+      - Modello a 3 fattori correlati.  
+      - Modello di secondo ordine.  
+   - Confronto tra i modelli.  
+
+5. Analisi dell’invarianza di misurazione tra gruppi:  
+      - Configurale, metrica e scalare.  
+   - Calcolo del coefficiente omega di McDonald per la valutazione dell’attendibilità:  
+      - Utilizzo della funzione `ci.reliability()` del pacchetto **MBESS**.  
+      - Replica dei risultati utilizzando la formula classica basata sulle saturazioni fattoriali.
+
+6. **Discussione degli indici di adattamento (GOF), residui e indici di modifica (MI)**
+   - Calcolo e interpretazione di:  
+      - Indici di adattamento globale (GOF).  
+      - Residui.  
+      - Indici di modifica (MI).  
+   - Applicazione sia ai dati di @brauer2024assessing sia ai dati della scala FAI.
+
+7. **Confronto tra modelli di misurazione**
+   - Confronto tra i seguenti modelli applicati ai dati di Holzinger & Swineford (1939): Modello congenerico, modello tau-equivalente, modello parallelo [@hirschfeld2014improving]. 
+   - Discussione dell'articolo di @widaman2023thinking.
+   - Confronto tra i modelli congenerico, tau-equivalente e parallelo per i dati FAI.
+
+<!-- DONE -->
+
+
+## Laboratorio 9 {.unnumbered}
+
+- **Data:** 1 aprile 2025  
+- **Orario:** 10:30–13:30  
+- **Argomento:** Costruzione e validazione di test. Higher-order factor analysis.  Bifactor model. Attendibilità.
+
+**Programma:**
+
+1. **Costruzione e validazione di test:**
+   - Presentazione della costruzione dell'IDAS [@watson2007development].
+   - Discussione e replica delle analisi di validazione:
+     - IDAS-II [@wester2022development].  
+     - DERS [@erez2024imperfect].
+
+2. **Higher-Order Factor Analysis e Bifactor Model:**
+   - discussione e replica delle analisi di validazione di @blume2025validation.
+
+3. **Calcolo dell’attendibilità:**
+   - Stime di attendibilità con Alpha di Cronbach, Omega di McDonald, Coefficiente $\rho$ di Mokken.
+   - Applicazione alla scala FAI.
+
+4. **CFA per dati non normali o categorici:**
+   - Confronto tra adattamento basato su MLR e modelli per dati categorici;
+   - Applicazione alla scala FAI.
+
+5. **Modification Indices:**
+   - Applicazioni ai dati della scala FAI.
+
+6. **Gestione dei dati mancanti:**
+   - Simulazioni con la scala FAI:
+     - Imputazione preliminare con `mice`.
+     - Uso di FIML (*Full Information Maximum Likelihood*).  
+
+
+## Laboratorio 10 {.unnumbered} 
+
+- **Data:** 3 aprile 2025 
+- **Orario:** 8:30-11:30
+- **Argomento:** Introduzione ai modelli di equazioni strutturali (SEM).
+
+- **Introduzione ai modelli SEM**: Presentare i principi e le applicazioni dei modelli di equazioni strutturali (SEM) secondo @kline2023principles.
+- **Analisi dell'invarianza fattoriale tra gruppi**: Discutere i livelli di invarianza fattoriale (configurale, metrica, scalare, e stretta), con un focus sui seguenti studi:
+  - Presentare e replicare l'analisi proposta da @lasker2024measurement.
+  - Presentare e replicare l'analisi condotta da @mcdanal2023loneliness.
+  - Replicare e commentare l'analisi discussa nel capitolo *Structural Equation Modeling with R for Education Scientists* di @saqr2024learning.
+
+- **Analisi della potenza statistica nei SEM**: Esaminare e applicare i concetti di power analysis nei SEM seguendo il tutorial di @jobst2023tutorial.
+
+- **Esplorazione dell'ESEM**: Presentare i principi e l'applicazione del modello di equazioni strutturali esplorative (ESEM).
+
+
+## Laboratorio 11 {.unnumbered}
+
+- **Data:** 8 aprile 2025
+- **Argomento:** Test di intelligenza, bias nei test, test di personalità.
+- **Orario:** 10:30-13:30
+
+  - Presentare e replicare le analisi di @schubert2024don.
+
+
+## Laboratorio 12 {.unnumbered}
+
+- **Data:** 10 aprile 2025
+- **Argomento:** Modelli multilivello, attendibilità longitudinale, modelli di crescita latente.
+- **Orario:** 8:30-11:30
+
+  - **Analisi del progetto *Popularity Data***: Eseguire e commentare l'analisi multilivello del progetto discusso nel secondo capitolo di *Multilevel Analysis: Techniques and Applications* [@hox2017multilevel]. Per supporto pratico, consultare il tutorial in R disponibile su questo [blog](https://www.rensvandeschoot.com/tutorials/lme4/).
+
+  - **Analisi multilivello sui dati di self-compassion di stato**: Eseguire l'analisi multilivello sui [dati](https://osf.io/8vg3h/?view_only=815fd6e81b8e421e84428ec23b659c95) provenienti da uno studio EMA sulla self-compassion di stato. Commentare i risultati interpretandoli alla luce delle ipotesi discusse nell'articolo di @neff2022differential.
+
+  - **Replica del modello di crescita latente**: Replicare in R il modello di crescita latente presentato da @gudmundsdottir2024reciprocal e discutere i risultati ottenuti, mettendoli in relazione con i contenuti dell'articolo.
+
+## Laboratorio 13 {.unnumbered}
+
+- **Data:** 15 aprile 2025
+- **Argomento:** Quiz su Moodle e presentazioni finali degli studenti.
+- **Orario:** 10:30-13:30
+
+
+## Laboratorio 14 {.unnumbered}
+
+- **Data:** 17 aprile 2025
+- **Argomento:** Presentazioni finali degli studenti.
+- **Orario:** 8:30-11:30
+
+## Bibliografia {.unnumbered}

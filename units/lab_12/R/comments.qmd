@@ -1,0 +1,65 @@
+---
+title: "CS / UCS"
+format: html
+---
+
+# CS / UCS association in an EMA study
+
+## Modeling the difference between CS and UCS.
+
+This model provides insight into how the *difference* between compassionate self-responding (CS) and uncompassionate self-responding (UCS) changes across time points and is influenced by *Negative Affect*.
+
+Here’s an interpretation of the results:
+
+### 1. **The Influence of Negative Affect on the Difference (Diff) between CS and UCS**
+   - The significant negative estimates for `neg_aff_Moment` at each time point (`c1`, `c2`, `c3`) indicate that higher Negative Affect at any given moment is associated with a lower value of `Diff` at that moment.
+   - Since `Diff` represents the difference between CS and UCS (i.e., \( \text{CS} - \text{UCS} \)), a lower `Diff` suggests that Negative Affect tends to reduce the compassionate self-responding relative to uncompassionate self-responding, resulting in either:
+     - A decrease in CS, or
+     - An increase in UCS, or
+     - A combination of both.
+   - Therefore, as Negative Affect increases, there is a shift toward a more self-critical or uncompassionate stance, aligning with the interpretation that Negative Affect disrupts self-compassion.
+
+### 2. **Autoregressive Paths (Stability of Diff Over Time)**
+   - The autoregressive parameters for `Diff` between time points (`Diff_T2 ~ Diff_T1` and `Diff_T3 ~ Diff_T2`) were not significant (p = 0.441), suggesting that there is little stability in `Diff` over time. This implies that the difference between CS and UCS does not persist strongly across the three time points in a systematic way.
+   - This lack of temporal stability may indicate that the relationship between CS and UCS fluctuates considerably over time, possibly driven by immediate contextual factors like Negative Affect rather than showing a lasting effect.
+
+### 3. **Covariances among Diff Scores**
+   - The model includes significant covariances among `Diff_T1`, `Diff_T2`, and `Diff_T3`, which reflect shared variance not captured by the Negative Affect predictors or autoregressive paths.
+   - These covariances suggest that there may be additional shared influences (beyond what is accounted for by Negative Affect and autoregressive relationships) that affect the relationship between CS and UCS across time points, possibly other stable traits or consistent environmental factors influencing all time points.
+
+### Summary Interpretation
+The model suggests that:
+- **Negative Affect strongly influences the relationship between CS and UCS**, pushing it towards less self-compassionate responding at moments of high Negative Affect.
+- **This effect is immediate rather than enduring**, as the relationship does not show significant carryover between time points (indicated by the non-significant autoregressive paths).
+- The **relationship between CS and UCS is contextually responsive**, largely reflecting the influence of momentary Negative Affect rather than stable, trait-like self-compassion dynamics.
+
+### Practical Implications
+These findings could be interpreted as suggesting that interventions aimed at reducing Negative Affect (e.g., through mindfulness or mood regulation techniques) might help individuals maintain a more compassionate self-view, as Negative Affect appears to push the self-compassionate/uncompassionate balance towards self-criticism.
+
+## Association between CS and UCS
+
+The model does provide some insight into the association between CS (compassionate self-responding) and UCS (uncompassionate self-responding), particularly in terms of their relationship under varying levels of Negative Affect and across time.
+
+Here’s what we can infer from the model:
+
+### 1. **The Role of Negative Affect in Modulating CS and UCS**
+   - Since Negative Affect significantly influences `Diff` (the difference between CS and UCS), it implies that the two components are sensitive to context, specifically to the emotional state.
+   - This modulation by Negative Affect suggests that the association between CS and UCS may not be fixed or trait-like; instead, it’s dynamically influenced by momentary fluctuations in Negative Affect.
+   - If the association were strong and consistent, we might expect `Diff` to show stable relationships regardless of Negative Affect. Instead, the model shows that as Negative Affect changes, the balance between CS and UCS also shifts.
+
+### 2. **Weak Temporal Stability (Low Autoregressive Effects)**
+   - The non-significant autoregressive paths for `Diff` indicate that the difference between CS and UCS does not persist strongly over time, suggesting a more transient relationship.
+   - This lack of temporal stability implies that CS and UCS are more loosely associated, with their balance shifting in response to momentary influences rather than maintaining a fixed, tightly bound relationship over time.
+   - A strongly associated or tightly coupled relationship would likely result in significant autoregressive effects, where the balance between CS and UCS would be more stable across occasions.
+
+### 3. **Interpretation of Covariances Between Diff Scores Across Time**
+   - The significant covariances among `Diff_T1`, `Diff_T2`, and `Diff_T3` suggest that while there is no strong temporal carryover (autoregressive effect), there is still shared variance across these time points.
+   - This shared variance might be due to other stable characteristics influencing both CS and UCS in similar ways (e.g., a stable personality trait like self-criticism or a general mood pattern). However, the presence of covariances without strong autoregression suggests that CS and UCS are loosely associated and vary depending on both situational and individual differences.
+
+### Overall Conclusion: A Loosely Bound, Context-Dependent Association
+The model suggests that:
+- **CS and UCS are more loosely related** rather than forming a fixed or tightly bound construct.
+- **Their relationship is context-sensitive** and modulated by momentary factors like Negative Affect, indicating that CS and UCS respond to emotional states rather than maintaining a consistent, inverse relationship across time.
+- **The balance between CS and UCS shifts with immediate context** (Negative Affect) rather than showing lasting temporal stability, reinforcing the view of a flexible rather than rigid association.
+
+In sum, CS and UCS appear to be dynamically and loosely related components of self-compassion, with their relationship strongly influenced by the individual's emotional state rather than being governed by an invariant, stable association. This flexibility aligns with research suggesting that self-compassionate and self-critical responses may vary significantly depending on situational factors.

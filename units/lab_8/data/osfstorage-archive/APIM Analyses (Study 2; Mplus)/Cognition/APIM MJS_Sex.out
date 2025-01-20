@@ -1,0 +1,329 @@
+Mplus VERSION 8.8 (Mac)
+MUTHEN & MUTHEN
+04/08/2023   1:11 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:   APIM MJS German
+
+  DATA:
+      FILE IS "Data_APIM.txt";
+
+
+
+  VARIABLE:
+
+
+    NAMES ARE Cogn_MT1 Emot_MT1 Beh_MT1
+    Cogn_FT1 Emot_FT1 Beh_FT1
+    Cogn_FT2 Emot_FT2 Beh_FT2
+    Cogn_MT2 Emot_MT2 Beh_MT2
+    Fasz_F Eng_F Sex_F Fut_F
+    Mist_F Const_F
+    Fasz_M Eng_M Sex_M Fut_M
+    Mist_M Const_M;
+
+    USEVAR Cogn_MT1 Cogn_FT1 Sex_F
+    Sex_M;
+
+
+  ANALYSIS:
+    estimator=ml;
+    bootstrap=5000;
+
+
+  MODEL:
+   Cogn_FT1 ON Sex_F (1);
+   Cogn_FT1 ON Sex_M (2);
+   Cogn_MT1 ON Sex_F (2);
+   Cogn_MT1 ON Sex_M (1);
+
+   Cogn_FT1 with Cogn_MT1;
+   Sex_M with Sex_F;
+
+
+  OUTPUT:
+  cinterval (bootstrap) STDYX;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+APIM MJS German
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                          69
+
+Number of dependent variables                                    2
+Number of independent variables                                  2
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   COGN_MT1    COGN_FT1
+
+Observed independent variables
+   SEX_F       SEX_M
+
+
+Estimator                                                       ML
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Number of bootstrap draws
+    Requested                                                 5000
+    Completed                                                 5000
+
+Input data file(s)
+  Data_APIM.txt
+
+Input data format  FREE
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     COGN_MT1              2.297       0.438       1.000   10.14%       1.500      1.880      2.000
+              69.000       0.863      -0.940       4.130    1.45%       2.250      3.250
+     COGN_FT1              2.095       0.763       1.000    2.90%       1.380      1.750      1.750
+              69.000       0.576       0.185       4.630    1.45%       2.130      2.750
+     SEX_F                 3.997      -0.763       1.200    1.45%       3.200      4.000      4.200
+              69.000       0.768       0.048       5.000   21.74%       4.400      5.000
+     SEX_M                 3.968      -0.629       1.600    1.45%       3.200      3.800      4.000
+              69.000       0.672      -0.205       5.000   15.94%       4.400      4.800
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       12
+
+Loglikelihood
+
+          H0 Value                        -336.127
+          H1 Value                        -334.760
+
+Information Criteria
+
+          Akaike (AIC)                     696.255
+          Bayesian (BIC)                   723.064
+          Sample-Size Adjusted BIC         685.270
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                              2.735
+          Degrees of Freedom                     2
+          P-Value                           0.2548
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.073
+          90 Percent C.I.                    0.000  0.261
+          Probability RMSEA <= .05           0.313
+
+CFI/TLI
+
+          CFI                                0.855
+          TLI                                0.637
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                             10.065
+          Degrees of Freedom                     5
+          P-Value                           0.0734
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.052
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ COGN_FT1 ON
+    SEX_F             -0.081      0.090     -0.902      0.367
+    SEX_M             -0.011      0.097     -0.111      0.912
+
+ COGN_MT1 ON
+    SEX_F             -0.011      0.097     -0.111      0.912
+    SEX_M             -0.081      0.090     -0.902      0.367
+
+ COGN_FT1 WITH
+    COGN_MT1           0.210      0.090      2.336      0.019
+
+ SEX_M    WITH
+    SEX_F              0.261      0.122      2.141      0.032
+
+ Means
+    SEX_F              3.997      0.107     37.503      0.000
+    SEX_M              3.968      0.099     40.162      0.000
+
+ Intercepts
+    COGN_MT1           2.661      0.491      5.422      0.000
+    COGN_FT1           2.461      0.486      5.060      0.000
+
+ Variances
+    SEX_F              0.768      0.129      5.957      0.000
+    SEX_M              0.672      0.108      6.245      0.000
+
+ Residual Variances
+    COGN_MT1           0.868      0.109      7.985      0.000
+    COGN_FT1           0.565      0.105      5.359      0.000
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ COGN_FT1 ON
+    SEX_F             -0.094      0.104     -0.905      0.366
+    SEX_M             -0.012      0.107     -0.109      0.913
+
+ COGN_MT1 ON
+    SEX_F             -0.010      0.089     -0.113      0.910
+    SEX_M             -0.071      0.077     -0.927      0.354
+
+ COGN_FT1 WITH
+    COGN_MT1           0.300      0.116      2.591      0.010
+
+ SEX_M    WITH
+    SEX_F              0.363      0.139      2.605      0.009
+
+ Means
+    SEX_F              4.561      0.484      9.428      0.000
+    SEX_M              4.841      0.481     10.072      0.000
+
+ Intercepts
+    COGN_MT1           2.848      0.524      5.439      0.000
+    COGN_FT1           3.258      0.781      4.172      0.000
+
+ Variances
+    SEX_F              1.000      0.000    999.000    999.000
+    SEX_M              1.000      0.000    999.000    999.000
+
+ Residual Variances
+    COGN_MT1           0.994      0.018     56.652      0.000
+    COGN_FT1           0.990      0.032     30.718      0.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    COGN_MT1           0.006      0.018      0.323      0.747
+    COGN_FT1           0.010      0.032      0.302      0.762
+
+
+CONFIDENCE INTERVALS OF MODEL RESULTS
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ COGN_FT1 ON
+    SEX_F           -0.320      -0.264      -0.235      -0.081       0.061       0.088       0.130
+    SEX_M           -0.266      -0.210      -0.179      -0.011       0.141       0.167       0.219
+
+ COGN_MT1 ON
+    SEX_F           -0.266      -0.210      -0.179      -0.011       0.141       0.167       0.219
+    SEX_M           -0.320      -0.264      -0.235      -0.081       0.061       0.088       0.130
+
+ COGN_FT1 WITH
+    COGN_MT1        -0.013       0.035       0.058       0.210       0.357       0.387       0.449
+
+ SEX_M    WITH
+    SEX_F           -0.025       0.037       0.066       0.261       0.475       0.513       0.591
+
+ Means
+    SEX_F            3.719       3.783       3.817       3.997       4.174       4.203       4.261
+    SEX_M            3.707       3.768       3.797       3.968       4.125       4.157       4.212
+
+ Intercepts
+    COGN_MT1         1.526       1.801       1.946       2.661       3.554       3.744       4.068
+    COGN_FT1         1.343       1.604       1.744       2.461       3.338       3.549       3.844
+
+ Variances
+    SEX_F            0.472       0.523       0.552       0.768       0.981       1.023       1.104
+    SEX_M            0.418       0.463       0.491       0.672       0.847       0.887       0.944
+
+ Residual Variances
+    COGN_MT1         0.576       0.644       0.674       0.868       1.034       1.065       1.129
+    COGN_FT1         0.319       0.353       0.378       0.565       0.725       0.762       0.846
+
+
+CONFIDENCE INTERVALS OF STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ COGN_FT1 ON
+    SEX_F           -0.380      -0.302      -0.268      -0.094       0.071       0.104       0.162
+    SEX_M           -0.327      -0.248      -0.211      -0.012       0.140       0.173       0.221
+
+ COGN_MT1 ON
+    SEX_F           -0.233      -0.183      -0.162      -0.010       0.135       0.163       0.214
+    SEX_M           -0.265      -0.226      -0.198      -0.071       0.054       0.079       0.119
+
+ COGN_FT1 WITH
+    COGN_MT1        -0.021       0.056       0.097       0.300       0.477       0.503       0.561
+
+ SEX_M    WITH
+    SEX_F           -0.040       0.065       0.109       0.363       0.572       0.604       0.658
+
+ Means
+    SEX_F            3.644       3.822       3.922       4.561       5.533       5.715       6.075
+    SEX_M            3.914       4.110       4.210       4.841       5.786       5.975       6.327
+
+ Intercepts
+    COGN_MT1         1.642       1.951       2.096       2.848       3.815       4.026       4.391
+    COGN_FT1         1.570       1.995       2.190       3.258       4.745       5.074       5.637
+
+ Variances
+    SEX_F            1.000       1.000       1.000       1.000       1.000       1.000       1.000
+    SEX_M            1.000       1.000       1.000       1.000       1.000       1.000       1.000
+
+ Residual Variances
+    COGN_MT1         0.906       0.936       0.947       0.994       0.999       0.999       1.000
+    COGN_FT1         0.821       0.880       0.904       0.990       0.998       0.999       1.000
+
+
+     Beginning Time:  13:11:25
+        Ending Time:  13:11:28
+       Elapsed Time:  00:00:03
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen

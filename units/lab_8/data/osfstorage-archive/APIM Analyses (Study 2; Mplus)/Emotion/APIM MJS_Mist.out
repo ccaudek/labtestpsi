@@ -1,0 +1,329 @@
+Mplus VERSION 8.8 (Mac)
+MUTHEN & MUTHEN
+04/08/2023   1:28 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:   APIM MJS German
+
+  DATA:
+      FILE IS "Data_APIM.txt";
+
+
+
+  VARIABLE:
+
+
+    NAMES ARE Cogn_MT1 Emot_MT1 Beh_MT1
+    Cogn_FT1 Emot_FT1 Beh_FT1
+    Cogn_FT2 Emot_FT2 Beh_FT2
+    Cogn_MT2 Emot_MT2 Beh_MT2
+    Fasz_F Eng_F Sex_F Fut_F
+    Mist_F Const_F
+    Fasz_M Eng_M Sex_M Fut_M
+    Mist_M Const_M;
+
+    USEVAR Emot_MT1 Emot_FT1 Mist_F
+    Mist_M;
+
+
+  ANALYSIS:
+    estimator=ml;
+    bootstrap=5000;
+
+
+  MODEL:
+   Emot_FT1 ON Mist_F (1);
+   Emot_FT1 ON Mist_M (2);
+   Emot_MT1 ON Mist_F (2);
+   Emot_MT1 ON Mist_M (1);
+
+   Emot_FT1 with Emot_MT1;
+   Mist_M with Mist_F;
+
+
+  OUTPUT:
+  cinterval (bootstrap) STDYX;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+APIM MJS German
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                          69
+
+Number of dependent variables                                    2
+Number of independent variables                                  2
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   EMOT_MT1    EMOT_FT1
+
+Observed independent variables
+   MIST_F      MIST_M
+
+
+Estimator                                                       ML
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Number of bootstrap draws
+    Requested                                                 5000
+    Completed                                                 5000
+
+Input data file(s)
+  Data_APIM.txt
+
+Input data format  FREE
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     EMOT_MT1              4.378      -0.768       1.380    1.45%       3.630      4.250      4.500
+              69.000       0.738       0.965       6.000    1.45%       4.630      5.000
+     EMOT_FT1              4.468      -0.660       1.130    1.45%       3.750      4.250      4.500
+              69.000       1.295       0.322       6.750    1.45%       4.880      5.380
+     MIST_F                1.527       2.019       1.000   50.72%       1.000      1.000      1.000
+              69.000       0.701       3.487       4.670    1.45%       1.330      1.670
+     MIST_M                1.406       2.287       1.000   50.72%       1.000      1.000      1.000
+              69.000       0.364       6.046       4.000    1.45%       1.330      1.670
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       12
+
+Loglikelihood
+
+          H0 Value                        -331.062
+          H1 Value                        -330.624
+
+Information Criteria
+
+          Akaike (AIC)                     686.124
+          Bayesian (BIC)                   712.933
+          Sample-Size Adjusted BIC         675.139
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                              0.875
+          Degrees of Freedom                     2
+          P-Value                           0.6456
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.000
+          90 Percent C.I.                    0.000  0.187
+          Probability RMSEA <= .05           0.691
+
+CFI/TLI
+
+          CFI                                1.000
+          TLI                                1.000
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                             24.633
+          Degrees of Freedom                     5
+          P-Value                           0.0002
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.032
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ EMOT_FT1 ON
+    MIST_F             0.400      0.088      4.567      0.000
+    MIST_M             0.214      0.085      2.505      0.012
+
+ EMOT_MT1 ON
+    MIST_F             0.214      0.085      2.505      0.012
+    MIST_M             0.400      0.088      4.567      0.000
+
+ EMOT_FT1 WITH
+    EMOT_MT1           0.287      0.116      2.466      0.014
+
+ MIST_M   WITH
+    MIST_F             0.012      0.054      0.219      0.827
+
+ Means
+    MIST_F             1.527      0.101     15.176      0.000
+    MIST_M             1.406      0.073     19.221      0.000
+
+ Intercepts
+    EMOT_MT1           3.488      0.256     13.609      0.000
+    EMOT_FT1           3.556      0.269     13.211      0.000
+
+ Variances
+    MIST_F             0.701      0.193      3.626      0.000
+    MIST_M             0.364      0.123      2.950      0.003
+
+ Residual Variances
+    EMOT_MT1           0.638      0.134      4.772      0.000
+    EMOT_FT1           1.190      0.222      5.360      0.000
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ EMOT_FT1 ON
+    MIST_F             0.292      0.066      4.413      0.000
+    MIST_M             0.112      0.051      2.201      0.028
+
+ EMOT_MT1 ON
+    MIST_F             0.210      0.082      2.550      0.011
+    MIST_M             0.283      0.067      4.210      0.000
+
+ EMOT_FT1 WITH
+    EMOT_MT1           0.329      0.110      2.990      0.003
+
+ MIST_M   WITH
+    MIST_F             0.023      0.116      0.202      0.840
+
+ Means
+    MIST_F             1.823      0.201      9.092      0.000
+    MIST_M             2.330      0.378      6.162      0.000
+
+ Intercepts
+    EMOT_MT1           4.081      0.622      6.557      0.000
+    EMOT_FT1           3.093      0.452      6.838      0.000
+
+ Variances
+    MIST_F             1.000      0.000    999.000    999.000
+    MIST_M             1.000      0.000    999.000    999.000
+
+ Residual Variances
+    EMOT_MT1           0.873      0.054     16.319      0.000
+    EMOT_FT1           0.901      0.042     21.243      0.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    EMOT_MT1           0.127      0.054      2.367      0.018
+    EMOT_FT1           0.099      0.042      2.340      0.019
+
+
+CONFIDENCE INTERVALS OF MODEL RESULTS
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ EMOT_FT1 ON
+    MIST_F           0.195       0.243       0.269       0.400       0.554       0.587       0.678
+    MIST_M          -0.013       0.052       0.077       0.214       0.358       0.386       0.453
+
+ EMOT_MT1 ON
+    MIST_F          -0.013       0.052       0.077       0.214       0.358       0.386       0.453
+    MIST_M           0.195       0.243       0.269       0.400       0.554       0.587       0.678
+
+ EMOT_FT1 WITH
+    EMOT_MT1         0.013       0.070       0.100       0.287       0.485       0.524       0.614
+
+ MIST_M   WITH
+    MIST_F          -0.117      -0.090      -0.074       0.012       0.104       0.123       0.157
+
+ Means
+    MIST_F           1.299       1.339       1.367       1.527       1.696       1.735       1.807
+    MIST_M           1.237       1.276       1.295       1.406       1.532       1.557       1.619
+
+ Intercepts
+    EMOT_MT1         2.784       2.954       3.053       3.488       3.891       3.964       4.114
+    EMOT_FT1         2.790       3.017       3.096       3.556       3.983       4.052       4.188
+
+ Variances
+    MIST_F           0.257       0.339       0.381       0.701       1.021       1.087       1.225
+    MIST_M           0.112       0.143       0.168       0.364       0.576       0.629       0.731
+
+ Residual Variances
+    EMOT_MT1         0.331       0.387       0.420       0.638       0.858       0.907       1.015
+    EMOT_FT1         0.649       0.757       0.811       1.190       1.538       1.628       1.807
+
+
+CONFIDENCE INTERVALS OF STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ EMOT_FT1 ON
+    MIST_F           0.131       0.169       0.187       0.292       0.403       0.426       0.471
+    MIST_M          -0.005       0.025       0.038       0.112       0.204       0.226       0.278
+
+ EMOT_MT1 ON
+    MIST_F          -0.012       0.047       0.072       0.210       0.342       0.364       0.427
+    MIST_M           0.119       0.155       0.173       0.283       0.390       0.413       0.455
+
+ EMOT_FT1 WITH
+    EMOT_MT1         0.020       0.098       0.139       0.329       0.501       0.534       0.590
+
+ MIST_M   WITH
+    MIST_F          -0.228      -0.173      -0.145       0.023       0.234       0.284       0.366
+
+ Means
+    MIST_F           1.546       1.595       1.631       1.823       2.258       2.371       2.629
+    MIST_M           1.819       1.906       1.968       2.330       3.213       3.441       3.773
+
+ Intercepts
+    EMOT_MT1         2.841       3.081       3.220       4.081       5.250       5.536       5.969
+    EMOT_FT1         2.188       2.384       2.490       3.093       3.966       4.171       4.596
+
+ Variances
+    MIST_F           1.000       1.000       1.000       1.000       1.000       1.000       1.000
+    MIST_M           1.000       1.000       1.000       1.000       1.000       1.000       1.000
+
+ Residual Variances
+    EMOT_MT1         0.705       0.747       0.767       0.873       0.943       0.953       0.970
+    EMOT_FT1         0.760       0.799       0.816       0.901       0.955       0.963       0.977
+
+
+     Beginning Time:  13:28:04
+        Ending Time:  13:28:07
+       Elapsed Time:  00:00:03
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen

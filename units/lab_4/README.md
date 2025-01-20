@@ -1,0 +1,1 @@
+Mokken Scale Analysis.

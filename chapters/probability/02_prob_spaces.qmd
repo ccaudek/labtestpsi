@@ -1,0 +1,190 @@
+# Misura di Probabilità {#sec-prob-spaces}
+
+**Prerequisiti**
+
+- Leggi l'@sec-combinatorics.
+
+**Concetti e Competenze Chiave**
+
+## Introduzione alle Probabilità: Origine e Definizione
+
+Da dove provengono, in senso matematico, i numeri che chiamiamo "probabilità"? Per rispondere a questa domanda, in questo capitolo seguiremo la trattazione di [Michael Betancourt](https://github.com/betanalpha/quarto_chapters/tree/main). Il testo qui presente è una versione semplificata del suo lavoro, ma ne mantiene la notazione e le figure originali.
+
+## Insiemi Finiti
+
+Betancourt introduce le basi della teoria della probabilità partendo da uno spazio campionario formato da un numero finito di elementi.
+
+Un **insieme finito** è un insieme con un numero finito di elementi distinti:
+
+$$
+X = \{x_1, ..., x_N\}.
+$$
+
+L’indice numerico serve solo per distinguere gli elementi, senza creare alcun ordine particolare. Per evitare di suggerire un ordine, Betancourt usa un esempio arbitrario di cinque elementi:
+
+$$
+X = \{\Box, \clubsuit, \diamondsuit, \heartsuit, \spadesuit\}.
+$$
+
+![Un insieme finito ha un numero finito di elementi. In questo esempio, $X$ ne contiene cinque.](figures/ambient_set/ambient_set){width=50% #fig-ambient_set}
+
+Nelle applicazioni pratiche, gli elementi astratti $x_n$ rappresentano oggetti concreti. In questo capitolo, però, ci limitiamo ai concetti matematici, senza interpretazioni specifiche. Quando l’insieme $X$ rappresenta *tutti* gli oggetti di interesse in un problema, si chiama **spazio campionario**. Definito lo spazio campionario, possiamo organizzare i suoi elementi in vari modi.
+
+## Sottoinsiemi
+
+Un **sottoinsieme** di $X$ è qualunque collezione di elementi di $X$. Per chiarezza, Betancourt usa le lettere romane minuscole $x$ per indicare un elemento generico di $X$ e le lettere minuscole sans serif $\mathsf{x}$ per indicare un sottoinsieme generico.
+
+Ad esempio, $\mathsf{x} = \{\Box, \diamondsuit, \heartsuit\}$ è un sottoinsieme di $X = \{\Box, \clubsuit, \diamondsuit, \heartsuit, \spadesuit\}$. Non esiste il concetto di molteplicità degli elementi in un sottoinsieme: un elemento o c’è, o non c’è.
+
+![Un sottoinsieme $\mathsf{x} \subset X$ è una collezione di elementi dello spazio campionario.](figures/subset/subset){width=50% #fig-subset}
+
+Se $\mathsf{x}$ è un sottoinsieme di $X$, scriviamo $\mathsf{x} \subset X$. Se $\mathsf{x}$ include tutti gli elementi di $X$, allora $\mathsf{x} = X$, e scriviamo $\mathsf{x} \subseteq X$.
+
+Tre sottoinsiemi speciali di un insieme finito $X$ sono sempre definiti:
+
+- **Insieme vuoto**: $\emptyset = \{\}$, senza alcun elemento.
+- **Insieme completo**: lo stesso $X$, che contiene tutti gli elementi.
+- **Insieme atomico**: un sottoinsieme con un solo elemento, ad esempio $\{x_n\}$.
+
+Il numero di modi per scegliere $n$ elementi da $N$ è dato dal coefficiente binomiale:
+
+$$
+{N \choose n} = \frac{N!}{n!(N-n)!}.
+$$
+
+Così:
+
+- C’è un solo sottoinsieme senza elementi, l’insieme vuoto.
+- C’è un solo sottoinsieme con tutti gli elementi, $X$ stesso.
+- Ci sono $N$ sottoinsiemi atomici, uno per ciascun elemento.
+
+La somma dei sottoinsiemi di tutte le possibili dimensioni dà il totale:
+
+$$
+\sum_{n=0}^{N} {N \choose n} = 2^{N}.
+$$
+
+La collezione di tutti i sottoinsiemi di $X$ forma l’**insieme potenza**, denotato $2^{X}$.
+
+## Operazioni sui Sottoinsiemi
+
+Possiamo costruire sottoinsiemi aggiungendo elementi uno per uno, ma anche partendo da sottoinsiemi esistenti.
+
+Il **complemento** di un sottoinsieme $\mathsf{x}$ è l’insieme di tutti gli elementi di $X$ che non sono in $\mathsf{x}$. Ad esempio, se $\mathsf{x} = \{\diamondsuit\}$, il suo complemento è
+
+$$
+\mathsf{x}^{c} = \{ \Box, \clubsuit, \heartsuit, \spadesuit \}.
+$$
+
+Per definizione, il complemento dell’insieme vuoto è $X$, e il complemento di $X$ è l’insieme vuoto.
+
+![Il complemento di $\mathsf{x}$ include tutti gli elementi non presenti in $\mathsf{x}$.](figures/complement/complement){width=75% #fig-complement}
+
+Possiamo combinare due sottoinsiemi $\mathsf{x}_1$ e $\mathsf{x}_2$ per ottenere:
+
+- La loro **unione**, contenente tutti gli elementi presenti in almeno uno dei due sottoinsiemi.
+- La loro **intersezione**, contenente solo gli elementi presenti in entrambi.
+
+Ad esempio, se $\mathsf{x}_1 = \{\Box, \heartsuit\}$ e $\mathsf{x}_2 = \{\Box, \spadesuit\}$:
+
+$$
+\mathsf{x}_1 \cup \mathsf{x}_2 = \{\Box, \heartsuit, \spadesuit\}
+$$
+
+$$
+\mathsf{x}_1 \cap \mathsf{x}_2 = \{\Box\}
+$$
+
+![Unione e intersezione di due sottoinsiemi.](figures/overlapping_subsets_ui/overlapping_subsets_ui){width=75% #fig-ui}
+
+Due sottoinsiemi sono **disgiunti** se non hanno elementi in comune, quindi $\mathsf{x}_1 \cap \mathsf{x}_2 = \emptyset$. Alcune proprietà utili:
+
+- Unione di un sottoinsieme con se stesso: $\mathsf{x} \cup \mathsf{x} = \mathsf{x}$.
+- Intersezione di un sottoinsieme con se stesso: $\mathsf{x} \cap \mathsf{x} = \mathsf{x}$.
+- Unione con l’insieme vuoto: $\mathsf{x} \cup \emptyset = \mathsf{x}$.
+- Intersezione con l’insieme vuoto: $\mathsf{x} \cap \emptyset = \emptyset$.
+- Unione con l’insieme completo: $\mathsf{x} \cup X = X$.
+- Intersezione con l’insieme completo: $\mathsf{x} \cap X = \mathsf{x}$.
+
+## Misura e Probabilità sugli Elementi
+
+La **teoria della misura** studia come allocare in modo coerente una quantità astratta e positiva $M \ge 0$ (chiamata "misura totale") sugli elementi dello spazio campionario. Tale allocazione deve essere coerente e rispettare il vincolo che la somma su tutti gli elementi sia pari a $M$.
+
+![Allocare la misura totale $M$ tra gli elementi di $X$.](figures/allocations/0/0){width=50% #fig-reservoir}
+
+Se l’insieme è finito, una misura $\mu$ è definita da $N$ numeri non negativi $m_n$:
+
+$$
+\mu = \{m_1, \ldots, m_N\}
+$$
+
+con
+
+$$
+0 \le m_n \quad \text{e} \quad \sum_{n=1}^N m_n = M.
+$$
+
+Un caso speciale è quando $M$ è finito. Parliamo allora di **misura finita**. In tali casi, possiamo anche normalizzare le misure dividendo ogni $m_n$ per $M$, ottenendo proporzioni:
+
+$$
+p_n = \frac{m_n}{M}
+$$
+
+con $p_n \in [0,1]$ e $\sum_n p_n = 1$.
+
+Queste proporzioni costituiscono una **distribuzione di probabilità**. In altre parole, una distribuzione di probabilità su un insieme finito è semplicemente un modo per ripartire l’unità (cioè 1) tra gli elementi di $X$. Le quantità $p_n$ vengono chiamate **probabilità**.
+
+![Una misura finita può essere espressa in modo proporzionale, ottenendo una distribuzione di probabilità.](figures/proportional_measure/proportional_measure){width=50% #fig-proportional}
+
+La collezione di tutte le possibili distribuzioni di probabilità su $X$ è un insieme di $N$ numeri non negativi che sommano a 1. Questo insieme è noto come **simplex**.
+
+![La funzione $\pi$ assegna a ogni elemento di $X$ una proporzione $p_n$, con $\sum p_n = 1$.](figures/probability_distribution/probability_distribution){width=50% #fig-probability}
+
+## Misura e Probabilità sui Sottoinsiemi
+
+Una volta definita una misura sugli elementi, possiamo estenderla ai sottoinsiemi: la misura di un sottoinsieme $\mathsf{x} \subset X$ è la somma delle misure dei suoi elementi. Per una distribuzione di probabilità, la probabilità di un sottoinsieme è la somma delle probabilità dei suoi elementi.
+
+![La misura di un sottoinsieme è la somma della misura dei suoi elementi.](figures/subset_measure/subset_measure){width=50% #fig-subset_measure}
+
+Alcune proprietà:
+
+- $\mu(\emptyset) = 0$
+- $\mu(X) = M$
+- Per una distribuzione di probabilità, $\pi(\emptyset) = 0$ e $\pi(X) = 1$.
+
+L’additività della misura è una proprietà fondamentale. Se due sottoinsiemi $\mathsf{x}_1$ e $\mathsf{x}_2$ sono disgiunti, allora
+
+$$
+\mu(\mathsf{x}_1 \cup \mathsf{x}_2) = \mu(\mathsf{x}_1) + \mu(\mathsf{x}_2).
+$$
+
+In generale, se due sottoinsiemi non sono disgiunti, vale la formula:
+
+$$
+\mu(\mathsf{x}_1) + \mu(\mathsf{x}_2) = \mu(\mathsf{x}_1 \cup \mathsf{x}_2) + \mu(\mathsf{x}_1 \cap \mathsf{x}_2).
+$$
+
+![Se due sottoinsiemi si sovrappongono, bisogna tenere conto degli elementi comuni.](figures/overlapping_subsets_measures/overlapping_subsets_measures){width=75% #fig-overlapping_subsets_measures}
+
+Queste proprietà sono utili per costruire misure in molti modi diversi, a seconda delle esigenze:
+
+1. **Allocazione globale**: assegnare le misure a tutti gli elementi in una sola volta.
+2. **Allocazione locale**: assegnare le misure elemento per elemento.
+3. **Allocazione iterativa**: prima assegnare misure a grandi sottoinsiemi disgiunti, poi suddividerli progressivamente in sottoinsiemi più piccoli, fino ad arrivare ai singoli elementi.
+
+![Diversi modi di costruire una misura: assegnazione globale, locale, o per raffinamenti successivi.](figures/decompositions/all_at_once/all_at_once){width=33% #fig-all_at_once}
+
+Questa flessibilità è particolarmente utile per applicazioni pratiche, adattando il metodo di costruzione della misura alle necessità del problema.
+
+Infine, definire una misura su un insieme finito e sui suoi sottoinsiemi è un primo passo per estendere il concetto a insiemi più complessi, come la linea dei numeri reali.
+
+## Riflessioni Conclusive
+
+Il significato applicativo della misura e delle distribuzioni di probabilità è fondamentale, soprattutto nella statistica bayesiana. In tal caso, la "misura totale" $M$ rappresenta la nostra certezza complessiva. Assegnare una distribuzione di probabilità equivale a ripartire questa certezza tra vari eventi possibili.
+
+Nella teoria bayesiana, la misura totale è sempre normalizzata a 1, così che ogni probabilità $p_n$ rappresenta la frazione della nostra certezza totale assegnata a un determinato evento. L’importanza di queste nozioni appare chiaramente nelle applicazioni pratiche:
+
+- *Inferenza bayesiana*: le distribuzioni di probabilità rappresentano incertezze sui parametri. Dopo aver osservato dati, aggiorniamo queste distribuzioni usando il teorema di Bayes.
+- *Modellizzazione probabilistica*: modelliamo situazioni complesse assegnando probabilità agli esiti possibili, potendo così effettuare previsioni e prendere decisioni informate.
+
+In conclusione, le nozioni di misura e distribuzione di probabilità sono strumenti chiave per rappresentare e manipolare la certezza su uno spazio di eventi. Dividere la misura totale (o certezza complessiva) tra gli eventi consente di comprendere, analizzare e aggiornare le nostre credenze man mano che otteniamo nuove informazioni.

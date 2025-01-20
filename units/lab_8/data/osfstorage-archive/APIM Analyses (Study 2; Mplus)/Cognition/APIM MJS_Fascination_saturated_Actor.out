@@ -1,0 +1,329 @@
+Mplus VERSION 8.8 (Mac)
+MUTHEN & MUTHEN
+04/12/2023  10:19 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE:   APIM MJS German
+
+  DATA:
+      FILE IS "Data_APIM.txt";
+
+
+
+  VARIABLE:
+
+
+    NAMES ARE Cogn_MT1 Emot_MT1 Beh_MT1
+    Cogn_FT1 Emot_FT1 Beh_FT1
+    Cogn_FT2 Emot_FT2 Beh_FT2
+    Cogn_MT2 Emot_MT2 Beh_MT2
+    Fasz_F Eng_F Sex_F Fut_F
+    Mist_F Const_F
+    Fasz_M Eng_M Sex_M Fut_M
+    Mist_M Const_M;
+
+    USEVAR Cogn_MT1 Cogn_FT1 Fasz_F
+    Fasz_M;
+
+
+  ANALYSIS:
+    estimator=ml;
+    bootstrap=5000;
+
+
+  MODEL:
+   Cogn_FT1 ON Fasz_F (1);
+   Cogn_FT1 ON Fasz_M;
+   Cogn_MT1 ON Fasz_F;
+   Cogn_MT1 ON Fasz_M (1);
+
+   Cogn_FT1 with Cogn_MT1;
+   Fasz_M with Fasz_F;
+
+
+  OUTPUT:
+  cinterval (bootstrap) STDYX;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+APIM MJS German
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                          69
+
+Number of dependent variables                                    2
+Number of independent variables                                  2
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   COGN_MT1    COGN_FT1
+
+Observed independent variables
+   FASZ_F      FASZ_M
+
+
+Estimator                                                       ML
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Number of bootstrap draws
+    Requested                                                 5000
+    Completed                                                 5000
+
+Input data file(s)
+  Data_APIM.txt
+
+Input data format  FREE
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     COGN_MT1              2.297       0.438       1.000   10.14%       1.500      1.880      2.000
+              69.000       0.863      -0.940       4.130    1.45%       2.250      3.250
+     COGN_FT1              2.095       0.763       1.000    2.90%       1.380      1.750      1.750
+              69.000       0.576       0.185       4.630    1.45%       2.130      2.750
+     FASZ_F                4.430      -0.169       3.330    2.90%       4.000      4.330      4.330
+              69.000       0.213      -1.016       5.000   28.99%       4.670      5.000
+     FASZ_M                4.507      -1.668       2.000    1.45%       4.000      4.330      4.670
+              69.000       0.273       5.464       5.000   36.23%       4.670      5.000
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       13
+
+Loglikelihood
+
+          H0 Value                        -263.043
+          H1 Value                        -262.864
+
+Information Criteria
+
+          Akaike (AIC)                     552.087
+          Bayesian (BIC)                   581.130
+          Sample-Size Adjusted BIC         540.187
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                              0.359
+          Degrees of Freedom                     1
+          P-Value                           0.5489
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.000
+          90 Percent C.I.                    0.000  0.267
+          Probability RMSEA <= .05           0.582
+
+CFI/TLI
+
+          CFI                                1.000
+          TLI                                1.000
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                             12.954
+          Degrees of Freedom                     5
+          P-Value                           0.0238
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.020
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ COGN_FT1 ON
+    FASZ_F            -0.098      0.156     -0.626      0.531
+    FASZ_M            -0.406      0.153     -2.643      0.008
+
+ COGN_MT1 ON
+    FASZ_F             0.082      0.233      0.351      0.726
+    FASZ_M            -0.098      0.156     -0.626      0.531
+
+ COGN_FT1 WITH
+    COGN_MT1           0.188      0.086      2.185      0.029
+
+ FASZ_M   WITH
+    FASZ_F             0.006      0.031      0.181      0.857
+
+ Means
+    FASZ_F             4.430      0.056     78.438      0.000
+    FASZ_M             4.507      0.064     70.433      0.000
+
+ Intercepts
+    COGN_MT1           2.375      1.328      1.788      0.074
+    COGN_FT1           4.356      0.868      5.019      0.000
+
+ Variances
+    FASZ_F             0.213      0.026      8.315      0.000
+    FASZ_M             0.273      0.090      3.036      0.002
+
+ Residual Variances
+    COGN_MT1           0.853      0.105      8.091      0.000
+    COGN_FT1           0.527      0.100      5.291      0.000
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ COGN_FT1 ON
+    FASZ_F            -0.059      0.095     -0.623      0.533
+    FASZ_M            -0.280      0.117     -2.387      0.017
+
+ COGN_MT1 ON
+    FASZ_F             0.041      0.115      0.354      0.723
+    FASZ_M            -0.055      0.082     -0.669      0.504
+
+ COGN_FT1 WITH
+    COGN_MT1           0.281      0.117      2.393      0.017
+
+ FASZ_M   WITH
+    FASZ_F             0.023      0.134      0.174      0.862
+
+ Means
+    FASZ_F             9.590      0.625     15.336      0.000
+    FASZ_M             8.632      1.524      5.664      0.000
+
+ Intercepts
+    COGN_MT1           2.567      1.472      1.744      0.081
+    COGN_FT1           5.748      1.232      4.666      0.000
+
+ Variances
+    FASZ_F             1.000      0.000    999.000    999.000
+    FASZ_M             1.000      0.000    999.000    999.000
+
+ Residual Variances
+    COGN_MT1           0.995      0.024     41.893      0.000
+    COGN_FT1           0.918      0.058     15.811      0.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    COGN_MT1           0.005      0.024      0.193      0.847
+    COGN_FT1           0.082      0.058      1.421      0.155
+
+
+CONFIDENCE INTERVALS OF MODEL RESULTS
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ COGN_FT1 ON
+    FASZ_F          -0.550      -0.431      -0.368      -0.098       0.139       0.188       0.278
+    FASZ_M          -0.757      -0.649      -0.600      -0.406      -0.106      -0.024       0.130
+
+ COGN_MT1 ON
+    FASZ_F          -0.530      -0.387      -0.306       0.082       0.463       0.538       0.660
+    FASZ_M          -0.550      -0.431      -0.368      -0.098       0.139       0.188       0.278
+
+ COGN_FT1 WITH
+    COGN_MT1        -0.026       0.024       0.045       0.188       0.332       0.365       0.420
+
+ FASZ_M   WITH
+    FASZ_F          -0.080      -0.060      -0.047       0.006       0.053       0.062       0.080
+
+ Means
+    FASZ_F           4.285       4.319       4.338       4.430       4.526       4.546       4.575
+    FASZ_M           4.324       4.376       4.401       4.507       4.609       4.624       4.652
+
+ Intercepts
+    COGN_MT1        -1.077      -0.168       0.264       2.375       4.616       4.996       5.872
+    COGN_FT1         1.973       2.542       2.852       4.356       5.703       5.972       6.606
+
+ Variances
+    FASZ_F           0.153       0.164       0.171       0.213       0.255       0.265       0.281
+    FASZ_M           0.138       0.151       0.159       0.273       0.443       0.470       0.547
+
+ Residual Variances
+    COGN_MT1         0.562       0.625       0.651       0.853       1.000       1.036       1.094
+    COGN_FT1         0.303       0.337       0.357       0.527       0.683       0.724       0.802
+
+
+CONFIDENCE INTERVALS OF STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ COGN_FT1 ON
+    FASZ_F          -0.342      -0.265      -0.228      -0.059       0.084       0.116       0.168
+    FASZ_M          -0.522      -0.472      -0.440      -0.280      -0.061      -0.013       0.076
+
+ COGN_MT1 ON
+    FASZ_F          -0.267      -0.189      -0.152       0.041       0.226       0.263       0.321
+    FASZ_M          -0.267      -0.218      -0.189      -0.055       0.078       0.108       0.160
+
+ COGN_FT1 WITH
+    COGN_MT1        -0.046       0.043       0.082       0.281       0.465       0.501       0.565
+
+ FASZ_M   WITH
+    FASZ_F          -0.271      -0.211      -0.171       0.023       0.263       0.305       0.392
+
+ Means
+    FASZ_F           8.259       8.566       8.714       9.590      10.778      10.983      11.441
+    FASZ_M           5.932       6.471       6.658       8.632      11.479      11.824      12.397
+
+ Intercepts
+    COGN_MT1        -1.147      -0.182       0.288       2.567       5.080       5.572       6.490
+    COGN_FT1         2.565       3.334       3.775       5.748       7.777       8.185       9.075
+
+ Variances
+    FASZ_F           1.000       1.000       1.000       1.000       1.000       1.000       1.000
+    FASZ_M           1.000       1.000       1.000       1.000       1.000       1.000       1.000
+
+ Residual Variances
+    COGN_MT1         0.879       0.911       0.926       0.995       0.999       0.999       1.000
+    COGN_FT1         0.715       0.769       0.794       0.918       0.981       0.989       0.997
+
+
+     Beginning Time:  10:19:55
+        Ending Time:  10:19:59
+       Elapsed Time:  00:00:04
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen

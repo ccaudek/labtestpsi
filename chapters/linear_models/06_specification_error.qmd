@@ -1,0 +1,215 @@
+# Errore di specificazione
+
+
+**Prerequisiti**
+
+- Leggi [Statistical model specification](https://en.wikipedia.org/wiki/Statistical_model_specification).
+
+**Concetti e competenze chiave**
+
+::: callout-important
+## Preparazione del Notebook
+
+```{r}
+here::here("code", "_common.R") |> 
+  source()
+
+# Load packages
+if (!requireNamespace("pacman")) install.packages("pacman")
+pacman::p_load(readr)
+```
+:::
+
+## Introduzione 
+
+In questo capitolo esamineremo l'errore di specificazione nei modelli di regressione lineare. L'errore di specificazione si verifica quando una variabile importante viene omessa dal modello, causando stime dei coefficienti che risultano sistematicamente distorte e inconsistenti.
+
+### Dimostrazione
+
+La dimostrazione algebrica dell'errore di specificazione nel modello di regressione, in caso di omissione di una variabile rilevante, coinvolge l'analisi delle conseguenze che questa omissione ha sulla stima dei coefficienti di regressione. 
+
+Quando un modello di regressione omette una variabile rilevante che è correlata sia con la variabile dipendente $Y$ sia con almeno una delle variabili indipendenti incluse nel modello, il coefficiente stimato per le variabili indipendenti incluse può essere sistematicamente distorto. 
+
+Per comprendere il bias causato dall'omissione di una variabile rilevante in un modello di regressione, è essenziale analizzare dettagliatamente il calcolo delle covarianze e varianze coinvolte. Di seguito viene fornita una spiegazione dei passaggi algebrici che portano alla formulazione del *bias di omissione variabile* [*Omitted Variable Bias*, OVB; per un approfondimento, si veda @caudek2001statistica].
+
+### Modello Completo e Modello Ridotto
+
+1. **Modello Completo:**
+
+   $$
+   Y = \beta_0 + \beta_1 X + \beta_2 Z + \epsilon
+   $$
+
+   Qui, $Y$ è la variabile dipendente, $X$ e $Z$ sono variabili indipendenti, $\beta_0, \beta_1, \beta_2$ sono i coefficienti, e $\epsilon$ è il termine di errore.
+
+2. **Modello Ridotto (con omissione di $Z$):**
+
+   $$
+   Y = \alpha_0 + \alpha_1 X + u
+   $$
+
+   dove $u = \beta_2 Z + \epsilon$ rappresenta il nuovo termine di errore che ora include l'effetto non osservato di $Z$.
+
+### Decomposizione di $X$
+
+Ipotesi:
+
+$$ X = \gamma_0 + \gamma_1 Z + V $$
+
+dove $V$ è una parte di $X$ indipendente da $Z$, quindi $\text{Cov}(V, Z) = 0$.
+
+### Sostituzione nel Modello Ridotto
+
+Sostituendo la decomposizione di $X$ nel modello ridotto, otteniamo:
+
+$$ Y = \alpha_0 + \alpha_1 (\gamma_0 + \gamma_1 Z + V) + u $$
+
+$$ Y = \alpha_0 + \alpha_1 \gamma_0 + \alpha_1 \gamma_1 Z + \alpha_1 V + \beta_2 Z + \epsilon $$
+
+$$ Y = (\alpha_0 + \alpha_1 \gamma_0) + (\alpha_1 \gamma_1 + \beta_2) Z + \alpha_1 V + \epsilon $$
+
+### Calcolo della Covarianza $\text{Cov}(Y, X)$
+
+$$ \text{Cov}(Y, X) = \text{Cov}(\beta_1 X + \beta_2 Z + \epsilon, X) $$
+
+$$ \text{Cov}(Y, X) = \beta_1 \text{Var}(X) + \beta_2 \text{Cov}(Z, X) $$
+
+dove si usa che $\text{Cov}(\epsilon, X) = 0$ poiché $\epsilon$ è indipendente da $X$.
+
+### Calcolo della Varianza di $X$
+
+$$ \text{Var}(X) = \text{Var}(\gamma_0 + \gamma_1 Z + V) $$
+
+$$ \text{Var}(X) = \gamma_1^2 \text{Var}(Z) + \text{Var}(V) $$
+
+Ancora, $\text{Cov}(Z, V) = 0$ perché $V$ è definito come indipendente da $Z$.
+
+### Formula del Coefficiente Stimato $\hat{\alpha}_1$
+
+$$ \hat{\alpha}_1 = \frac{\text{Cov}(Y, X)}{\text{Var}(X)} $$
+
+$$ \hat{\alpha}_1 = \beta_1 + \beta_2 \frac{\text{Cov}(Z, X)}{\text{Var}(X)} $$
+
+### Interpretazione del Bias
+
+Il bias nel coefficiente stimato $\alpha_1$, rispetto al vero coefficiente $\beta_1$, è dato da:
+
+$$ \text{Bias}(\hat{\alpha}_1) = \beta_2 \frac{\text{Cov}(Z, X)}{\text{Var}(X)} $$
+
+Questo risultato dimostra che il bias è direttamente proporzionale al coefficiente $\beta_2$ della variabile omessa $Z$ e al rapporto di covarianza tra $Z$ e $X$ diviso per la varianza di $X$. Questo bias può essere positivo o negativo a seconda della direzione della correlazione tra $X$ e $Z$, e della grandezza di $\beta_2$.
+
+In sintesi, l'omissione di $Z$ introduce un bias nella stima di $\alpha_1$ che non riflette accuratamente $\beta_1$ se $Z$ è correlata sia con $Y$ che con $X$. Questo errore di specificazione può portare a conclusioni errate sull'effetto di $X$ su $Y$ e compromettere l'accuratezza delle inferenze tratte dal modello di regressione.
+
+## Un esempio numerico 
+
+Consideriamo il problema di analizzare l'impatto di due variabili indipendenti, **motivazione** e **ansia**, sulla **prestazione** in un compito specifico. Supponiamo che:
+- L'**ansia** influenzi negativamente la prestazione.
+- La **motivazione** influenzi positivamente la prestazione.
+
+Questo esempio illustra come un errore di specificazione del modello, ossia l'omissione di una variabile rilevante, possa portare a stime distorte e a conclusioni fuorvianti.
+
+---
+
+### Scenari distinti
+
+1. **Modello Completo**:  
+   Quando includiamo **sia la motivazione che l'ansia** nel modello di regressione, il coefficiente stimato per l'ansia è negativo, riflettendo correttamente il suo impatto sfavorevole sulla prestazione. Questo dimostra che, in presenza di tutte le variabili rilevanti, il modello fornisce stime accurate e non distorte.
+
+2. **Modello Ridotto (omissione della motivazione)**:  
+   Se omettiamo la motivazione, che è positivamente correlata sia con la prestazione sia con l'ansia, il coefficiente stimato per l'ansia può risultare positivo, suggerendo erroneamente che l'ansia abbia un effetto benefico sulla prestazione. Questo fenomeno si verifica a causa dell'effetto indiretto della motivazione, che non viene controllato nel modello. In pratica, la correlazione tra motivazione e ansia "maschera" l'effetto negativo dell'ansia sulla prestazione.
+
+---
+
+### Generazione dei dati
+
+```{r}
+# Generazione di dati casuali
+set.seed(42)
+n <- 100  # Numero di osservazioni
+
+# Variabili indipendenti con correlazione positiva tra loro
+motivazione <- rnorm(n, mean = 100, sd = 10)
+ansia <- 200 + 0.75 * motivazione + rnorm(n, mean = 0, sd = 5)
+
+# Variabile dipendente con peso maggiore sulla motivazione rispetto all'ansia
+prestazione <- 5 * motivazione - 1 * ansia + rnorm(n, mean = 0, sd = 50)
+
+# Creazione del data frame
+data <- data.frame(
+  Motivazione = motivazione,
+  Ansia = ansia,
+  Prestazione = prestazione
+)
+```
+
+---
+
+### Modello di regressione completo
+
+Nel modello completo, entrambe le variabili indipendenti, **motivazione** e **ansia**, sono incluse:
+
+```{r}
+# Modello completo con Motivazione e Ansia
+model_full <- lm(Prestazione ~ Motivazione + Ansia, data = data)
+
+# Stima dei coefficienti
+summary(model_full)$coefficients
+```
+
+Interpretazione dei risultati:  
+
+- Il coefficiente per la motivazione ($\beta_{\text{motivazione}}$) è positivo, indicando che un aumento della motivazione è associato a un miglioramento delle prestazioni.
+- Il coefficiente per l'ansia ($\beta_{\text{ansia}}$) è negativo, riflettendo il suo effetto sfavorevole sulla prestazione.
+
+---
+
+### Modello ridotto (omissione della motivazione)
+
+Nel modello ridotto, includiamo solo l'**ansia** come predittore:
+
+```{r}
+# Modello ridotto con solo Ansia
+model_ansia_only <- lm(Prestazione ~ Ansia, data = data)
+
+# Stima dei coefficienti
+summary(model_ansia_only)$coefficients
+```
+
+Interpretazione dei risultati:  
+- Il coefficiente per l'ansia nel modello ridotto può cambiare segno, risultando positivo. Questo suggerirebbe erroneamente che l'ansia migliora la prestazione.  
+- Questo effetto distorto è dovuto all'omissione della motivazione, che è correlata sia con l'ansia sia con la prestazione.
+
+---
+
+### Confronto tra i modelli
+
+| Modello             | Coefficiente per l'Ansia | Coefficiente per la Motivazione |
+|---------------------|--------------------------|---------------------------------|
+| Modello Completo    | Negativo                 | Positivo                       |
+| Modello Ridotto     | Positivo (distorto)      | Non incluso                    |
+
+---
+
+Questo esempio dimostra l'importanza di includere tutte le variabili rilevanti in un modello di regressione:
+
+1. L'omissione di una variabile rilevante, come la motivazione, che è correlata sia con la variabile dipendente sia con un altro predittore, porta a stime distorte dei coefficienti.
+2. In questo caso, l'effetto negativo dell'ansia sulla prestazione viene mascherato nel modello ridotto, portando a una conclusione errata sul suo ruolo.
+
+### Considerazioni sull’errore di specificazione
+
+L’errore di specificazione si verifica quando una variabile rilevante viene omessa o quando una variabile non rilevante viene inclusa. Nel caso di omissione:
+
+- La stima del coefficiente associato alle variabili incluse può essere distorta, riflettendo indirettamente l'effetto della variabile omessa.  
+- Questo problema è noto come **bias da confondimento** e può essere evitato solo attraverso una corretta specificazione del modello, basata su una solida comprensione teorica delle relazioni tra le variabili.
+
+In conclusione, l'analisi dei dati deve essere accompagnata da un'attenta riflessione teorica per garantire che le stime dei coefficienti di regressione riflettano accuratamente le relazioni tra le variabili e supportino inferenze valide.
+
+## Informazioni sull'Ambiente di Sviluppo {.unnumbered} 
+
+```{r}
+sessionInfo()
+```
+
+## Bibliografia {.unnumbered}
+
+

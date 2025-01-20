@@ -1,0 +1,346 @@
+---
+title: "✏️ Statistiche descrittive a livello degli item"
+format:
+  html:
+    code-fold: show
+    code-tools: true
+---
+
+Si rileggano i capitoli 
+
+- EDA/Le fasi del progetto di analisi dei dati, 
+- EDA/Flusso di lavoro per la pulizia dei dati, 
+- EDA/Data tidying 
+
+della dispensa di [Psicometria](https://ccaudek.github.io/psicometria/). Si applichino le procedure descritte al dataset FAI. Lo scopo è quello di generare:
+
+1. il datset finale,
+2. il dizionario dei dati.
+
+Questi due file andranno consegnati su Moodle.
+
+---
+
+Esaminiamo qui alcuni degli aspetti del flusso di lavoro richiesto.
+
+La prima fase della selezione degli item e validazione di un questionario riguarda le statistiche descrittive degli item. Nella prima fase dell'analisi, @dima2018scale propone di esaminare gli aspetti seguenti.
+
+- **Frequenze delle risposte e le statistiche degli item.** Le frequenze delle risposte e le statistiche degli item vengono esaminate per valutare se gli item mostrano una sufficiente variazione, in modo da poter differenziare i rispondenti rispetto al/i costrutto/i investigato/i e se ci sono valori fuori range (errori di inserimento dei dati). Le differenze nelle frequenze delle risposte forniscono anche un primo indizio riguardo alla variazione nell'intensità/difficoltà degli item (e aiutano a interpretare eventuali differenze successive tra i risultati di IRT e FA). 
+- **Associazioni tra gli item.** Le associazioni tra gli item vengono esaminate per identificare eventuali correlazioni negative (e codificare tali item al contrario per le analisi successive). 
+- **Outlier.** L'individuazione degli outlier multivariati aiuta a identificare eventuali rispondenti con pattern di risposta idiosincratici, che possono essere ulteriormente investigati ed eventualmente esclusi (ad esempio, se vengono identificati errori nella raccolta/inserimento dei dati) o mantenuti nel campione (se non ci sono validi motivi per l'esclusione). Oppure possiamo rimuovere i valori anomali e procedure con l'imputazione multipla dei dati mancanti.
+
+```{r}
+df <- rio::import(here::here("data", "cleaned_data.csv"))
+```
+
+```{r}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(here)
+  library(rio)
+  library(MASS)
+  library(corrplot)
+  library(outliers)
+  library(performance)
+  library(see)
+  library(isotree)
+})
+```
+
+Seleziono gli item della sottoscala "Problemi comportamentali" dell'Area 1 "Caratterisriche del bambino". 
+
+```{r}
+item_codes <- rio::import(here::here("data", "aree_tematiche_items.csv"))
+behav_problems_item_names <- item_codes[6:16, ]$Item_Code
+behav_problems_item_names
+```
+
+L'item FAI_152 è stato eliminato in precedenza.
+
+```{r}
+selected_columns <- c(
+  "FAI_86", "FAI_1", "FAI_47", "FAI_121", "FAI_57", "FAI_167", 
+  "FAI_91", "FAI_99", "FAI_135", "FAI_163" 
+)
+```
+
+```{r}
+mydata <- df |> 
+  dplyr::select(all_of(selected_columns))
+```
+
+## Distribuzioni di risposte
+
+```{r}
+myitems <- names(mydata)
+
+for( n in myitems)
+{
+  cat( "\n", n, ":" );
+  print( table( mydata[,n], exclude=NULL ) );
+}
+```
+Verificare se le variabili sono codificate come numeriche.
+
+```{r}
+class(mydata[, 1])
+```
+
+```{r}
+# File to write the summaries
+summaries.file <- here::here("data", "summaries.txt")
+
+# Function to write summary for a variable
+write.summary.var <- function(x, xname) {
+    a1 <- sum(x == 0, na.rm = TRUE)
+    a2 <- sum(x == 1, na.rm = TRUE)
+    a3 <- sum(x == 2, na.rm = TRUE)
+    a4 <- sum(x == 3, na.rm = TRUE)
+    a5 <- sum(x == 4, na.rm = TRUE)
+    total_non_na <- sum(!is.na(x))  # Total non-NA values
+    a6 <- round((sum(x <= 2, na.rm = TRUE) * 100 / total_non_na), 2)
+    a7 <- round((sum(x > 2, na.rm = TRUE) * 100 / total_non_na), 2)
+    a8 <- sum(is.na(x))
+    cat(paste(xname, a1, a2, a3, a4, a5, a6, a7, a8, sep = "\t"), "\n", file = summaries.file, append = TRUE)
+}
+
+# 3. For each item, run this function iteratively
+for (n in myitems) {
+    write.summary.var(mydata[, n], n)
+}
+
+# Read the table in R
+myitemssum <- read.table(
+  file = here::here("data", "summaries.txt"), header = FALSE, 
+  sep = "\t", quote = "\"")
+
+# 4. Add column names
+colnames(myitemssum) <- c("Item label", "0", "1", "2", "3", "4", "% 0 to 2", 
+                          "% 2 to 4", "No. missing")
+
+# Verify the result
+print(myitemssum)
+```
+
+## Statistiche descrittive
+
+```{r}
+descrmyitems <- as.data.frame( round( psych::describe( mydata ), 2 ))
+descrmyitems
+```
+
+```{r}
+# order items based on percentage based on the 8th column (% high scores)
+myitemssumOrder <- myitemssum[order(myitemssum[, 8]),] 
+```
+
+```{r}
+barplot(myitemssumOrder[,"% 2 to 4"], 
+        main = "High score frequencies for items",
+        xlab="Items", 
+        ylab="Number of respondents", 
+        cex.lab=0.8,
+        cex.axis=0.8,
+        names.arg=myitemssumOrder[, "Item label"], 
+        las=2, 
+        cex.names=0.6)
+```
+
+```{r}
+par( mfrow=c(3,4)) # set several plots per rows and columns
+for( n in myitems)
+{
+  distr <- table(mydata[,n])
+  barplot(distr,  
+          main=n, 
+          col=gray.colors(20), 
+          ylab = "Number of respondents", 
+          xlab = "Response (0=Negative, 4=Positive)");
+}
+```
+
+## Correlazioni tra gli item
+
+```{r}
+# for ordinal items use Spearman correlations
+bluesqs <- cor(mydata, method = "spearman")
+corrplot(bluesqs, method = "number", main = "Correlations Between Items", 
+         number.cex = 0.5, tl.cex = 0.7)
+```
+
+## Outliers
+
+Per l'esame degli outlier useremo le funzionalità del pacchetto [`performance`](https://easystats.github.io/performance/articles/check_outliers.html)[@theriault2024check].
+
+### Outlier unidimensionali
+
+Aggiungo la colonna `id`.
+
+```{r}
+mydata$id <- 1:nrow(mydata) |> as.factor()
+```
+
+```{r}
+foo <- mydata |> 
+  dplyr::select(id, FAI_86)
+outliers <- check_outliers(foo, method = "zscore_robust", ID = "id")
+outliers
+```
+
+```{r}
+foo <- mydata |> 
+  dplyr::select(id, FAI_1)
+outliers <- check_outliers(foo, method = "zscore_robust", ID = "id")
+outliers
+```
+
+Questo risultato dipende dal fatto che la distribuzione è estremamente asimmetrica. Otteniamo risultati simili per tutti gli item che hanno una distribuzione asimmetrica.
+
+### Outlier multidimensionali
+
+Più che gli outlier unidimensionali sono importanti gli outlier multidimensionali. Se i dati seguono una distribuzione normale multivariata, l'identificazione degli outlier può procedere calcolando la distanza di Mahalanobis. 
+
+
+#### Distanza di Mahalanobis
+
+La distanza di Mahalanobis è una misura della distanza tra un punto e il centro di una distribuzione una distribuzione multivariata. Diversamente dalla distanza euclidea, la distanza di Mahalanobis tiene conto della correlazione tra le variabili e della scala delle variabili. Questa misura è utile per identificare outlier in un contesto multivariato. 
+
+La formula della distanza di Mahalanobis è:
+
+$$ 
+D_M(x) = \sqrt{(x - \mu)^T S^{-1} (x - \mu)}, 
+$$
+
+dove:
+
+- $x$ è il vettore del punto di cui si vuole calcolare la distanza.
+- $\mu$ è il vettore della media della distribuzione.
+- $S$ è la matrice di covarianza della distribuzione.
+- $S^{-1}$ è l'inversa della matrice di covarianza.
+- $(x - \mu)^T$ è la trasposta del vettore $(x - \mu)$.
+
+Nel caso bidimensionale, possiamo visualizzare la distanza di Mahalanobis come segue:
+
+1. Immagina un diagramma a dispersione dei dati, dove ogni punto rappresenta un'osservazione con due variabili.
+2. Il centro della distribuzione $\mu$ sarà un punto in questo spazio bidimensionale.
+3. La matrice di covarianza $S$ descrive la forma e l'orientamento dell'ellisse che rappresenta la distribuzione dei dati.
+4. La distanza di Mahalanobis essenzialmente "normalizza" lo spazio, trasformando l'ellisse in un cerchio.
+5. In questo spazio normalizzato, la distanza di Mahalanobis è equivalente alla distanza euclidea dal centro.
+6. Punti che si trovano sulla stessa ellisse avranno la stessa distanza di Mahalanobis dal centro, anche se le loro distanze euclidee potrebbero essere diverse.
+
+In pratica, la distanza di Mahalanobis tiene conto non solo della distanza dal centro (come farebbe la distanza euclidea), ma anche della direzione rispetto alla distribuzione dei dati. Questo la rende particolarmente utile quando le variabili sono correlate o hanno scale diverse.
+
+Nel caso presente, in cui i dati non seguono una distribuzione normale multivariata, una versione robusta (che utilizza medie basate sui quantili e covarianza calcolata su sottoinsiemi di dati selezionati in modo da escludere gli outlier) della distanza di Mahalanobis otteniamo un grande numero di outlier. 
+
+```{r}
+mydata$id <- NULL
+outliers <- check_outliers(mydata, method = "mcd", verbose = FALSE)
+outliers
+```
+
+Anche questo risultato può essere attribuito al fatto che la distribuzione di alcuni item è fortemente asimmetrica.
+
+```{r}
+plot(outliers)
+```
+
+#### Isolation Forest
+
+Oltre alla distanza di Mahalanobis, ci sono altri metodi robusti per l'identificazione degli outliers che possono essere meno sensibili alle distribuzioni asimmetriche. Uno di questi è *Isolation Forest*, una tecnica basata sugli alberi che può identificare outliers senza fare assunzioni sulla distribuzione dei dati.
+
+Consideriamo un esempio con valori estratti dalla distribuzione normale, a cui aggiungiamo un outlier.
+
+```{r}
+set.seed(123)
+x <- matrix(rnorm(1000))
+# aggiungo un outlier
+random_numbers <- c(x, 10) |> as.matrix()
+
+par(oma = c(0,0,0,0), mar = c(4,4,3,2))
+hist(random_numbers, breaks=50, col="navy",
+     main="Randomly-generated numbers\nfrom normal distribution",
+     xlab="value")
+```
+
+Isolation Forest individua il valore outlier.
+
+```{r}
+model <- isolation.forest(random_numbers, ndim=1, ntrees=10, nthreads=1)
+scores <- predict(model, random_numbers, type="avg_depth")
+par(mar = c(4,5,3,2))
+plot(random_numbers, scores, type="p", col="darkred",
+     main="Average isolation depth\nfor normally-distributed numbers",
+     xlab="value", ylab="Average isolation depth")
+```
+
+Consideriamo ora un secondo esempio in cui la distribuzione è asimmetrica (chi-quadrato con un grado di libertà). Anche a questo campione casuale aggiungiamo un valore outlier.
+
+```{r}
+set.seed(123)
+x <- matrix(rchisq(1000, 1))
+# aggiungo un outlier
+random_numbers <- c(x, 30) |> as.matrix()
+
+par(oma = c(0,0,0,0), mar = c(4,4,3,2))
+hist(random_numbers, breaks=50, col="navy",
+     main="Randomly-generated numbers\nfrom chi-squared distribution",
+     xlab="value")
+```
+
+Anche in questo caso Isolation Forest è in grado di individuare il valore anomalo.
+
+```{r}
+model <- isolation.forest(random_numbers, ndim=1, ntrees=10, nthreads=1)
+scores <- predict(model, random_numbers, type="avg_depth")
+par(mar = c(4,5,3,2))
+plot(random_numbers, scores, type="p", col="darkred",
+     main="Average isolation depth\nfor chi-squared distributed numbers",
+     xlab="value", ylab="Average isolation depth")
+```
+Sebbene i casi sopra menzionati possano essere utili per comprendere il funzionamento dell'Isolation Forest, l'identificazione degli outlier in dati unidimensionali e bidimensionali è un'area in cui sono stati provati e dimostrati con successo molti altri metodi. Tuttavia, l'Isolation Forest eccelle quando i dati hanno un numero elevato di dimensioni, outlier raggruppati o distribuzioni multi-modali. Questo è il caso dei dati reali in molte applicazioni psicologiche, come nel caso presente. Pertanto, applichiamo l'algoritmo Isolation Forest al dataset che include simultaneamente tutti gli item che stiamo considerando.
+
+Creiamo un modello Isolation Forest con parametri specificati.
+
+```{r}
+model <- isolation.forest(
+  mydata, # Escludere la colonna "id"
+  ndim = 1, # Dimensione dei sotto-spazi selezionati casualmente
+  sample_size = 256, # Dimensione del campione per costruire ciascun albero
+  ntrees = 1000, # Numero di alberi nella foresta
+  missing_action = "fail" # Azione in caso di dati mancanti
+)
+```
+
+Predizione degli outliers.
+
+```{r}
+scores <- predict(model, mydata)
+```
+
+I valori prodotti dalla funzione `predict` possono essere interpretati come misure di quanto un dato punto sia un outlier. `Anomaly Score` (`type="anomaly_score"` o predefinito): valori più alti indicano una maggiore probabilità che il punto sia un outlier.
+
+```{r}
+hist(
+  scores, breaks=50, col="navy",
+  main="Outlier scores",
+  xlab="Values"
+)
+```
+
+L'istogramma degli `Anomaly Score` non rivela la presenza di outlier.
+
+Quando invece abbiamo evidenza che alcune osservazioni sono outliers, è importante procedere con attenzione per garantire che l'analisi successiva sia accurata. Di seguito viene descritto un metodo per identificare, segnare e gestire gli outliers nei dati.
+
+#### Passaggi per Identificare e Gestire gli Outliers
+
+1. **Individuare gli Outliers**: Utilizzando l'algoritmo Isolation Forest, possiamo calcolare i punteggi di outlier per ogni osservazione. Supponiamo che i punteggi alti indichino una maggiore probabilità di essere un outlier. In questo esempio, utilizziamo una soglia di 0.6 per determinare quali osservazioni sono outliers.
+
+2. **Aggiungere una Colonna `outlier`**: Aggiungiamo una colonna al nostro dataset per indicare se un'osservazione è considerata un outlier (TRUE) o meno (FALSE).
+
+3. **Visualizzare le Osservazioni Outliers**: Filtriamo e visualizziamo le osservazioni che sono state classificate come outliers.
+
+4. **Gestire gli Outliers**: Abbiamo due opzioni principali per gestire gli outliers:
+   - Escludere le osservazioni che contengono outliers.
+   - Sostituire le osservazioni outliers con valori mancanti (NA) e successivamente utilizzare una procedura di imputazione multipla per trattare i dati mancanti. Questa seconda opzione è generalmente preferibile, in quanto permette di mantenere tutte le informazioni disponibili nel dataset.
+
+Gestire correttamente gli outliers è cruciale per l'accuratezza delle analisi. Utilizzando una soglia per identificare gli outliers e scegliendo una delle due opzioni di gestione presentate, possiamo migliorare la qualità dei nostri dati e ottenere risultati più affidabili nelle nostre analisi. La procedura di imputazione multipla è spesso preferibile in quanto preserva l'informazione completa del dataset.

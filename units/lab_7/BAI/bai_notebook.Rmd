@@ -1,0 +1,378 @@
+---
+title: "Laboratorio sull'analisi del questionario BAI"
+author: "Corrado Caudek"
+output: html_document
+---
+
+# Motivazione
+
+Con questo script verrà analizzato un file di dati che riporta le risposte di 170 soggetti che hanno completato il questionario BAI.
+
+## Carico i pacchetti necessari all'analisi
+
+```{r}
+library("psych")
+suppressPackageStartupMessages(library("lavaan"))
+suppressPackageStartupMessages(library("GPArotation"))
+suppressPackageStartupMessages(library("tidyverse"))
+suppressPackageStartupMessages(library("lavaanPlot"))
+library("semPlot")
+library("semTools")
+library("reshape2")
+```
+
+
+## Leggo i dati
+
+```{r}
+bai <- read.table("BAI.txt", header = TRUE)
+```
+
+Esamino le prime righe del data.frame:
+```{r}
+head(bai)
+```
+
+Numero di righe e di colonne del data.frame:
+```{r}
+dim(bai)
+```
+
+
+# Descrivo i dati
+
+```{r}
+table(melt(bai))
+```
+
+
+```{r}
+prop.table(table(melt(bai)), 1)*100
+```
+
+
+```{r}
+describeBy(bai)
+```
+
+
+```{r}
+lowerCor(bai, digits = 3)
+```
+
+
+
+
+
+Definisco un vettore con il nome di tutte le variabili manifeste:
+```{r}
+all.items <- c("bai1","bai2", "bai3", "bai4",
+               "bai5","bai6", "bai7", "bai8",
+               "bai9","bai10", "bai11", "bai12",
+               "bai13","bai14", "bai15", "bai16",
+               "bai17","bai18", "bai19", "bai20",
+               "bai21")
+```
+
+### Modello ad un fattore comune:
+
+Definisco la struttura fattoriale:
+
+```{r}
+one.factor.model <-  
+'
+  F1 =~ NA*bai1 + bai2 + bai3 + bai4 + bai5 + bai6 +
+  bai7 + bai8 + bai9 + bai10 + bai11 + bai12 + bai13 +
+  bai14 + bai15 + bai16 + bai17 + bai18 + bai19 +
+  bai20 + bai21
+  # variances
+  F1 ~~ 1*F1
+'
+```
+
+Adatto il modello ai dati
+
+```{r}
+fit1 <- lavaan:::cfa(
+  one.factor.model, 
+  data = bai, 
+  ordered = all.items
+)
+```
+
+Esamino la soluzione ottenuta
+
+```{r}
+show(fit1)
+coef(fit1)
+fitted(fit1)
+residuals(fit1)
+
+summary(fit1, fit.measures=TRUE, standardized=TRUE, rsquare=TRUE)
+parameterEstimates(fit1)
+
+Est <- parameterEstimates(fit1, ci = FALSE, standardized = TRUE)
+subset(Est, op == "=~")
+
+fitMeasures(fit1)
+```
+
+
+```{r, out.width = '500%', fig_asp = .25}
+# path diagram
+semPaths(fit1, intercepts=FALSE, whatLabels = "stand")
+```
+
+Matrice dei residui:
+```{r}
+residuals(fit1)
+```
+
+
+# Four factors model
+
+```{r}
+four.factors.model <-  
+'
+  F1 =~ NA*bai4 + bai5 + bai9 + bai10 + bai14 + bai17
+  F2 =~ NA*bai1 + bai3 + bai6 + bai8 + bai12 + bai13 + bai19
+  F3 =~ NA*bai2 + bai18 + bai20 + bai21
+  F4 =~ NA*bai7 + bai11 + bai15 + bai16
+  
+  # variances
+  F1 ~~ 1*F1
+  F2 ~~ 1*F2
+  F3 ~~ 1*F3
+  F4 ~~ 1*F4
+'
+```
+
+Fitting the four-factor model
+
+```{r}
+fit2 <- cfa(four.factors.model, data=bai, ordered=all.items)
+```
+
+```{r}
+summary(fit2, fit.measures=TRUE, standardized=TRUE, rsquare=TRUE)
+
+residuals(fit2)
+```
+
+
+```{r, out.width = '100%', fig_asp = .25}
+# path diagram
+semPaths(fit2, intercepts=FALSE, whatLabels = "stand")
+```
+
+```{r}
+anova(fit1, fit2, test = "chisq")
+```
+
+
+# Congeneric, Tau-equivalent and parallel solutions of a two-factor model
+
+```{r}
+model_con <-  
+'
+  F1 =~ NA*bai1 + bai2 + bai3 + bai6 + bai7 + bai8 + bai11 + 
+    bai12 + bai13 + bai15 + bai18 + bai19 + bai20 + bai21
+  F2 =~ NA*bai4 + bai5 + bai9 + bai10 + bai14 + bai16 + bai17
+'
+```
+
+```{r}
+covs <- cov(bai)
+```
+
+
+```{r}
+fit_con <- cfa(
+  model_con, 
+  sample.cov = covs,  
+  sample.nobs = dim(bai)[1], 
+  ordered = all.items, 
+  std.lv = TRUE
+)
+```
+
+
+```{r}
+summary(fit_con, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+```
+
+```{r, out.width = '100%', fig_asp = .25}
+semPaths(fit_con, intercepts=FALSE, whatLabels = "stand")
+```
+
+# Tau-equivalent solution of a two-factor model
+
+```{r}
+model_tau <-  
+'
+  F1 =~ bai1 + v1*bai1 + v1*bai2 + v1*bai3 + v1*bai6 + 
+    v1*bai7 + v1*bai8 + v1*bai11 + v1*bai12 + v1*bai13 + 
+    v1*bai15 + v1*bai18 + v1*bai19 + v1*bai20 + v1*bai21
+  F2 =~ bai4 + v2*bai4 + v2*bai5 + v2*bai9 + v2*bai10 + 
+  v2*bai14 + v2*bai16 + v2*bai17
+'
+```
+
+```{r}
+covs <- cov(bai)
+
+fit_tau <- cfa(
+  model_tau, 
+  sample.cov = covs, 
+  sample.nobs = dim(bai)[1], 
+  ordered = all.items, 
+  std.lv = TRUE
+)
+```
+
+```{r}
+summary(fit_tau, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+```
+
+```{r, out.width = '100%', fig_asp = .25}
+semPaths(fit_tau, intercepts=FALSE, whatLabels = "stand")
+```
+
+
+# Parallel solution of a two-factor model
+
+
+```{r}
+model_par <-  
+'
+  F1 =~ bai1 + v1*bai1 + v1*bai2 + v1*bai3 + 
+    v1*bai6 + v1*bai7 + v1*bai8 + v1*bai11 + 
+    v1*bai12 + v1*bai13 + v1*bai15 + v1*bai18 + 
+    v1*bai19 + v1*bai20 + v1*bai21
+  F2 =~ bai4 + v2*bai4 + v2*bai5 + v2*bai9 + 
+  v2*bai10 + v2*bai14 + v2*bai16 + v2*bai17
+  
+  bai1 ~~ v3 * bai1
+  bai2 ~~ v3 * bai2
+  bai3 ~~ v3 * bai3
+  bai6 ~~ v3 * bai6
+  bai7 ~~ v3 * bai7
+  bai8 ~~ v3 * bai8
+  bai11 ~~ v3 * bai11
+  bai12 ~~ v3 * bai12
+  bai13 ~~ v3 * bai13
+  bai15 ~~ v3 * bai15
+  bai18 ~~ v3 * bai18
+  bai19 ~~ v3 * bai19
+  bai20 ~~ v3 * bai20
+  bai21 ~~ v3 * bai21
+  
+  bai4 ~~ v4 * bai4
+  bai5 ~~ v4 * bai5
+  bai9 ~~ v4 * bai9
+  bai10 ~~ v4 * bai10
+  bai14 ~~ v4 * bai14
+  bai16 ~~ v4 * bai16
+  bai17 ~~ v4 * bai17
+'
+```
+
+```{r}
+fit_par <- cfa(
+  model_par, 
+  sample.cov = covs, 
+  sample.nobs = dim(bai)[1], 
+  ordered = all.items, 
+  std.lv = TRUE
+)
+```
+
+```{r}
+summary(
+  fit_par, 
+  fit.measures = TRUE, 
+  standardized = TRUE, 
+  rsquare = TRUE
+)
+```
+
+```{r, out.width = '100%', fig_asp = .25}
+semPaths(fit_par, intercepts=FALSE, whatLabels = "stand")
+```
+
+
+# Comparisons of congeneric, tau-equivalent, and parallel models
+
+Chi square difference tests:
+
+```{r}
+anova(fit_con, fit_tau, fit_par, test = "chisq")
+```
+
+# Reliability
+
+
+## Somatic versus cognitive items
+
+
+Definisco un vettore con il nome di tutte le variabili manifeste:
+
+```{r}
+# c(1, 2, 3, 6, 7, 8, 11, 12, 13, 15, 18, 19, 20, 21)
+somatic_items <- c(
+  "bai1", "bai2", "bai3", "bai6", "bai7", "bai8",
+  "bai11", "bai12", "bai13", "bai15", "bai18", 
+  "bai19", "bai20", "bai21"
+)
+```
+
+### Modello ad un fattore comune:
+
+Definisco la struttura fattoriale:
+
+```{r}
+somatic_model <-  
+'
+  F1 =~ NA*bai1 + bai2 + bai3 + bai6 +
+    bai7 + bai8 + bai11 + bai12 + bai13 +
+    bai15 + bai18 + bai19 + bai20 + bai21
+  # variances
+  F1 ~~ 1*F1
+'
+```
+
+```{r}
+fit_somatic <- lavaan:::cfa(
+  somatic_model, 
+  data = bai, 
+  ordered = somatic_items
+)
+```
+
+
+```{r}
+reliability(fit_somatic)
+```
+
+
+
+```{r}
+lambda <- coef(fit_somatic)[1:14]
+psi <- parameterEstimates(fit1)[58:71, 4]
+omega <- sum(lambda)^2 / (sum(lambda)^2 + sum(psi))
+omega
+# omega(bai[, c(1, 2, 3, 6, 7, 8, 11, 12, 13, 15, 18, 19, 20, 21)])
+```
+
+```{r}
+semTools::reliability(fit_somatic)
+```
+
+```{r}
+semPlot::semPaths(
+  fit_somatic, "std", title = FALSE, intercepts=FALSE)
+```
+
+
+
+

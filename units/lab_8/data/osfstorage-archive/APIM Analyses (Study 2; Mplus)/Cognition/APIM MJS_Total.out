@@ -1,0 +1,295 @@
+Mplus VERSION 8.8 (Mac)
+MUTHEN & MUTHEN
+06/30/2023  11:17 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE:   APIM MJS German
+
+  DATA:
+      FILE IS "Data_APIM.txt";
+
+
+
+  VARIABLE:
+
+
+    NAMES ARE Cogn_MT1 Emot_MT1 Beh_MT1
+    Cogn_FT1 Emot_FT1 Beh_FT1
+    Cogn_FT2 Emot_FT2 Beh_FT2
+    Cogn_MT2 Emot_MT2 Beh_MT2
+    Fasz_F Eng_F Sex_F Fut_F
+    Mist_F Const_F
+    Fasz_M Eng_M Sex_M Fut_M
+    Mist_M Const_M;
+
+    USEVAR Cogn_MT1 Cogn_FT1
+    Fasz_F Eng_F Sex_F Fut_F
+    Mist_F Const_F
+    Fasz_M Eng_M Sex_M Fut_M
+    Mist_M Const_M;
+
+
+  ANALYSIS:
+    estimator=ml;
+    bootstrap=5000;
+
+
+  MODEL:
+   Total_M BY Fasz_M Eng_M Sex_M Fut_M
+    Mist_M Const_M;
+
+   Total_F BY Fasz_F Eng_F Sex_F Fut_F
+    Mist_F Const_F;
+
+   Cogn_FT1 ON Total_F (1);
+   Cogn_FT1 ON Total_M (2);
+   Cogn_MT1 ON Total_F (2);
+   Cogn_MT1 ON Total_M (1);
+
+   Cogn_FT1 with Cogn_MT1;
+   Const_M with Const_F;
+
+
+  OUTPUT:
+  cinterval (bootstrap) STDYX;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+APIM MJS German
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                          69
+
+Number of dependent variables                                   14
+Number of independent variables                                  0
+Number of continuous latent variables                            2
+
+Observed dependent variables
+
+  Continuous
+   COGN_MT1    COGN_FT1    FASZ_F      ENG_F       SEX_F       FUT_F
+   MIST_F      CONST_F     FASZ_M      ENG_M       SEX_M       FUT_M
+   MIST_M      CONST_M
+
+Continuous latent variables
+   TOTAL_M     TOTAL_F
+
+
+Estimator                                                       ML
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Number of bootstrap draws
+    Requested                                                 5000
+    Completed                                                    0
+
+Input data file(s)
+  Data_APIM.txt
+
+Input data format  FREE
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     COGN_MT1              2.297       0.438       1.000   10.14%       1.500      1.880      2.000
+              69.000       0.863      -0.940       4.130    1.45%       2.250      3.250
+     COGN_FT1              2.095       0.763       1.000    2.90%       1.380      1.750      1.750
+              69.000       0.576       0.185       4.630    1.45%       2.130      2.750
+     FASZ_F                4.430      -0.169       3.330    2.90%       4.000      4.330      4.330
+              69.000       0.213      -1.016       5.000   28.99%       4.670      5.000
+     ENG_F                 4.449      -0.832       2.800    1.45%       4.000      4.400      4.600
+              69.000       0.249       0.468       5.000   26.09%       4.600      5.000
+     SEX_F                 3.997      -0.763       1.200    1.45%       3.200      4.000      4.200
+              69.000       0.768       0.048       5.000   21.74%       4.400      5.000
+     FUT_F                 4.771      -1.416       3.800    2.90%       4.400      5.000      5.000
+              69.000       0.135       0.519       5.000   62.32%       5.000      5.000
+     MIST_F                1.527       2.019       1.000   50.72%       1.000      1.000      1.000
+              69.000       0.701       3.487       4.670    1.45%       1.330      1.670
+     CONST_F               1.557       1.233       1.000   30.43%       1.000      1.200      1.400
+              69.000       0.365       0.881       3.400    1.45%       1.600      2.000
+     FASZ_M                4.507      -1.668       2.000    1.45%       4.000      4.330      4.670
+              69.000       0.273       5.464       5.000   36.23%       4.670      5.000
+     ENG_M                 4.467      -0.967       2.800    1.45%       4.000      4.400      4.600
+              69.000       0.244       0.998       5.000   26.09%       4.800      5.000
+     SEX_M                 3.968      -0.629       1.600    1.45%       3.200      3.800      4.000
+              69.000       0.672      -0.205       5.000   15.94%       4.400      4.800
+     FUT_M                 4.690      -1.554       3.200    1.45%       4.400      4.800      5.000
+              69.000       0.231       1.368       5.000   59.42%       5.000      5.000
+     MIST_M                1.406       2.287       1.000   50.72%       1.000      1.000      1.000
+              69.000       0.364       6.046       4.000    1.45%       1.330      1.670
+     CONST_M               1.728       0.781       1.000   17.39%       1.200      1.400      1.600
+              69.000       0.428      -0.386       3.400    1.45%       1.800      2.200
+
+
+     THIS ANALYSIS MAY HAVE MULTIPLE SOLUTIONS.  EXPLORE THIS USING RANDOM STARTS,
+     FOR EXAMPLE, STARTS = 20.  USE A LARGE ENOUGH NUMBER OF STARTS SO THAT THE
+     BEST FIT FUNCTION VALUE IS REPLICATED SEVERAL TIMES.
+
+
+     NO CONVERGENCE.  NUMBER OF ITERATIONS EXCEEDED.
+
+
+
+MODEL RESULTS
+
+                    Estimate
+
+ TOTAL_M  BY
+    FASZ_M             1.000
+    ENG_M              0.823
+    SEX_M              0.947
+    FUT_M              0.821
+    MIST_M            -0.434
+    CONST_M           -1.074
+
+ TOTAL_F  BY
+    FASZ_F             1.000
+    ENG_F             -8.979
+    SEX_F            -16.736
+    FUT_F             -8.950
+    MIST_F            14.341
+    CONST_F           18.786
+
+ COGN_FT1 ON
+    TOTAL_F           -0.438
+    TOTAL_M           -0.615
+
+ COGN_MT1 ON
+    TOTAL_F           -0.615
+    TOTAL_M           -0.438
+
+ TOTAL_F  WITH
+    TOTAL_M           -0.003
+
+ COGN_FT1 WITH
+    COGN_MT1           0.152
+
+ CONST_M  WITH
+    CONST_F            0.039
+
+ Intercepts
+    COGN_MT1           2.299
+    COGN_FT1           2.097
+    FASZ_F             4.430
+    ENG_F              4.448
+    SEX_F              3.995
+    FUT_F              4.770
+    MIST_F             1.527
+    CONST_F            1.559
+    FASZ_M             4.506
+    ENG_M              4.466
+    SEX_M              3.965
+    FUT_M              4.689
+    MIST_M             1.407
+    CONST_M            1.729
+
+ Variances
+    TOTAL_M            0.204
+    TOTAL_F            0.001
+
+ Residual Variances
+    COGN_MT1           0.816
+    COGN_FT1           0.503
+    FASZ_F             0.222
+    ENG_F              0.207
+    SEX_F              0.605
+    FUT_F              0.089
+    MIST_F             0.573
+    CONST_F            0.168
+    FASZ_M             0.070
+    ENG_M              0.106
+    SEX_M              0.489
+    FUT_M              0.094
+    MIST_M             0.326
+    CONST_M            0.206
+
+
+MODEL COMMAND WITH FINAL ESTIMATES USED AS STARTING VALUES
+
+     total_m BY fasz_m@1;
+     total_m BY eng_m*0.82270;
+     total_m BY sex_m*0.94746;
+     total_m BY fut_m*0.82114;
+     total_m BY mist_m*-0.43391;
+     total_m BY const_m*-1.07421;
+     total_f BY fasz_f@1;
+     total_f BY eng_f*-8.97945;
+     total_f BY sex_f*-16.73631;
+     total_f BY fut_f*-8.94957;
+     total_f BY mist_f*14.34103;
+     total_f BY const_f*18.78642;
+
+     cogn_ft1 ON total_f*-0.43768 (38);
+     cogn_ft1 ON total_m*-0.61514 (39);
+     cogn_mt1 ON total_f*-0.61514 (39);
+     cogn_mt1 ON total_m*-0.43768 (38);
+
+     cogn_ft1 WITH cogn_mt1*0.15238;
+     const_m WITH const_f*0.03873;
+     total_f WITH total_m*-0.00278;
+
+     [ cogn_mt1*2.29943 ];
+     [ cogn_ft1*2.09679 ];
+     [ fasz_f*4.43012 ];
+     [ eng_f*4.44825 ];
+     [ sex_f*3.99471 ];
+     [ fut_f*4.77003 ];
+     [ mist_f*1.52665 ];
+     [ const_f*1.55945 ];
+     [ fasz_m*4.50590 ];
+     [ eng_m*4.46569 ];
+     [ sex_m*3.96530 ];
+     [ fut_m*4.68883 ];
+     [ mist_m*1.40714 ];
+     [ const_m*1.72876 ];
+
+     cogn_mt1*0.81645;
+     cogn_ft1*0.50252;
+     fasz_f*0.22163;
+     eng_f*0.20674;
+     sex_f*0.60466;
+     fut_f*0.08918;
+     mist_f*0.57273;
+     const_f*0.16782;
+     fasz_m*0.06989;
+     eng_m*0.10602;
+     sex_m*0.48921;
+     fut_m*0.09397;
+     mist_m*0.32552;
+     const_m*0.20575;
+     total_m*0.20414;
+     total_f*0.00056;
+
+
+
+     Beginning Time:  11:17:36
+        Ending Time:  11:17:36
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen

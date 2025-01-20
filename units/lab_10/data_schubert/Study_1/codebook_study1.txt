@@ -1,0 +1,54 @@
+### Codebook for the CSV-file "data_study1" ###
+
+- subject: participant ID
+- sex: participants' gender (m = male; f = female; d = diverse)
+- age: participants' age 
+- education: highest educational degree (1: no degree, 2: general school - Hauptschulabschluss, 3: middle maturity - Realschubabschluss, 4: university entrance qualification for applied sciences - Fachabitur, 
+										 5: university entrance qualification - Abitur, 6: university of applied sciences degree, 7: university degree, 8: PhD, 9: other
+- job: current occupation (1: unemployed, 2: housewife/houseman, 3: school student, 4: university student, 5: employed, 6: self employed, 7: retired, 8: voluntary service
+- BIS_V: verbal score of the Berlin intelligence structure test
+- BIS_N: numerical score of the Berlin intelligence structure test
+- BIS_F: figural score of the Berlin intelligence structure test
+- BIS_IQ: IQ score of the Berlin intelligence structure test
+- WMC_MU: MU percentage of correctly recalled items in the memory updating task
+- WMC_OpSP: percentage of correctly recalled items in the operation span task
+- WMC_SenSP: percentage of correctly recalled items in the sentence span task
+- WMC_Binding: percentage of correctly recalled items in the binding task
+- miniq_sum: sum score of the mini-q
+- miniq_1: sum score of the first parcel of the mini-q
+- miniq_2: sum score of the second parcel of the mini-q
+- miniq_3: sum score of the third parcel of the mini-q
+- miniq_odd: sum score of odd items of the mini-q
+- miniq_even: sum score of even items of the mini-q
+- SMS_RT: mean reaction time of the Sternberg memory scanning task
+- SMS_a: boundary separation parameter of the Sternberg memory scanning task
+- SMS_v: drift rate parameterof the Sternberg memory scanning task
+- SMS_t0: non-decision time parameter of the Sternberg memory scanning task
+- SMS_st0: trial-to-trial variability of the Sternberg memory scanning task
+- CRT_RT: mean reaction time of the choice reaction time task
+- CRT_a: boundary separation parameterof the choice reaction time task
+- CRT_v: drift rate parameter of the choice reaction time task
+- CRT_t0: non-decision time parameter of the choice reaction time task
+- CRT_st0: trial-to-trial variability of the non-decision time parameter of the choice reaction time task
+- PLM_RT: mean reaction time of the Posner letter matching task
+- PLM_a: boundary separation parameter of the Posner letter matching task
+- PLM_v: drift rate parameterof the Posner letter matching task
+- PLM_t0: on-decision time parameter Posner letter matching task
+- PLM_st0: trial-to-trial variability of the Posner letter matching task
+- BIS_V_z: z-standardized verbal score of the Berlin intelligence structure test
+- BIS_N_z: z-standardized numerical score of the Berlin intelligence structure test
+- BIS_F_z: z-standardized figural score of the Berlin intelligence structure test
+- WMC_MU_z: z-standardized MU percentage of correctly recalled items in the memory updating task
+- WMC_OpSP_z: z-standardized percentage of correctly recalled items in the operation span task
+- WMC_SenSP_z: z-standardized percentage of correctly recalled items in the sentence span task
+- WMC_Binding_z: z-standardized percentage of correctly recalled items in the binding task
+- miniq_1_z: z-standardized sum score of the first parcel of the mini-q
+- miniq_2_z: z-standardized sum score of the second parcel of the mini-q
+- miniq_3_Z: z-standardized sum score of the third parcel of the mini-q
+- SMS_v_z: z-standardized drift rate parameterof the Sternberg memory scanning task
+- CRT_v_z: z-standardized drift rate parameter of the choice reaction time task
+- PLM_v_z: z-standardized drift rate parameterof the Posner letter matching task
+- age_z: participants' z-standardized age 
+- SMS_RT_z: z-standardized mean reaction time of the Sternberg memory scanning task
+- CRT_RT_z: z-standardized mean reaction time of the choice reaction time task
+- PLM_RT_z: z-standardized mean reaction time of the Posner letter matching task

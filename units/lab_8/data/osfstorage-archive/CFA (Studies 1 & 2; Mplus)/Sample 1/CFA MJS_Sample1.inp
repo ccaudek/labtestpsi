@@ -1,0 +1,28 @@
+TITLE:   CFA MJS German
+
+DATA: 
+    FILE IS "MJS_Study1.txt"; 
+
+
+
+VARIABLE:
+  
+
+  NAMES ARE Gender MJS01-MJS24;
+
+  CATEGORICAL = MJS01-MJS24;
+
+  USEVAR MJS01-MJS24;
+
+
+ANALYSIS:
+  estimator is WLSMV;
+
+ 
+MODEL:
+    Cognitive by MJS01-MJS08;
+    Emotional by MJS09-MJS16;
+    Behavior by MJS17-MJS24; 
+
+OUTPUT:  
+MODINDICES STDYX;

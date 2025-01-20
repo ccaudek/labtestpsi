@@ -1,0 +1,45 @@
+---
+title: "Untitled"
+format: html
+editor: source
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+```{r class.source = "fold-show", getpackages, message=FALSE,warning=FALSE, echo=TRUE}
+if(!require("pacman")){install.packages("pacman",repos = "http://cran.us.r-project.org")}
+
+pacman::p_load(lavaan, tidyverse, here, reshape2)
+```
+
+```{r class.source = "fold-show", loaddata, message=FALSE,warning=FALSE,include=TRUE, echo = TRUE}
+path <- "/Users/njudd/projects/LGC_Workshop/" #change to the LGC_Workshop folder
+
+setwd(path)
+wisc <- read.csv(paste0(path,"wisc.csv"))[,-1]
+
+head(wisc)         #first 6 rows
+colnames(wisc)     #names of columns
+dim(wisc)          #number of rows and columns
+sapply(wisc,class) #number of each column
+
+```
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).

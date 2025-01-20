@@ -1,0 +1,173 @@
+---
+title: "Syllabus dell'insegnamento di Laboratorio di Testing Psicologico -- A.A. 2024-2025"
+date: today
+date-format: "DD MMMM, YYYY"
+author: 
+  - Corrado Caudek
+monofont: inconsolata
+monofontoptions: scaled=.95
+spacing: single
+engine: jupyter
+highlight-style: arrow
+pdf-engine: pdflatex
+format: 
+    pdf:
+      toc: true
+      toc-depth: 3
+      number-sections: false
+      bibliography: ../references.bib
+      cls: apa7.cls
+editor: 
+  render-on-save: false
+---
+
+### Descrizione sintetica
+
+Il **Laboratorio di Testing Psicologico** (B033300) è un corso pratico in cui gli studenti applicano concetti teorici di psicometria, appresi nel corso di Testing Psicologico, per costruire e validare uno strumento psicometrico. Le analisi statistiche saranno svolte utilizzando `R`, con l’obiettivo di preparare gli studenti all’uso di questo linguaggio statistico nel contesto professionale psicologico.
+
+### Obiettivi Formativi
+
+Il laboratorio guida gli studenti attraverso tutte le fasi di costruzione e validazione di un test psicometrico. Al termine del corso, gli studenti svilupperanno un progetto di gruppo in cui applicheranno le conoscenze acquisite per analizzare un dataset reale e presentare i risultati in modo chiaro e rigoroso. In linea con le linee guida di @strand2023error e @bennett2014collaboration, il progetto promuove competenze trasversali, come la collaborazione, la comunicazione e la risoluzione dei problemi. Gli studenti definiranno un problema di validazione, condurranno analisi autonomamente e presenteranno i risultati sia in forma scritta che orale, dimostrando la loro capacità di lavorare in team.
+
+### Filosofia Didattica
+
+Il corso adotta una metodologia pragmatica orientata alla pratica, rendendo `R` accessibile a studenti con livelli diversi di preparazione matematica. Il laboratorio seguirà il modello della [flipped classroom](https://it.wikipedia.org/wiki/Insegnamento_capovolto), in cui gli studenti svolgono esercitazioni guidate prima delle lezioni in aula e poi presentano i propri lavori durante gli incontri. Questo approccio permette di dedicare il tempo in classe a discussioni e risoluzione di problemi pratici, favorendo un ambiente di apprendimento interattivo.
+
+### Materiali Didattici
+
+Per prepararsi al laboratorio, è richiesto lo studio dei seguenti materiali:
+
+- *Principles of psychological assessment: With applied examples in R* di @petersen2024principles.
+- Materiali del corso di [Testing Psicologico](https://ccaudek.github.io/testing_psicologico/).
+- Articoli assegnati nei vari laboratori.
+
+### Guida allo Studio
+
+#### Metodologia: Flip Teaching
+
+L'apprendimento seguirà un approccio in due fasi: studio individuale e lavoro collaborativo in aula.
+
+**Studio Individuale**: Prima di ogni lezione, gli studenti dovranno:
+
+- Studiare il materiale assegnato;
+- Svolgere le analisi richieste;
+- Collegare teoria e pratica attraverso i testi di Petersen e il materiale di Testing Psicologico;
+- Preparare domande o chiarimenti da discutere in classe.
+
+**Lavoro di Gruppo**: Ogni studente sarà assegnato a un gruppo per discutere problemi specifici e sviluppare un progetto di gruppo che verrà presentato negli ultimi incontri.
+
+**Collaborazione Attiva**: Il laboratorio favorisce una cultura di apprendimento collaborativo tramite:
+
+- Partecipazione attiva alle lezioni;
+- Progetti pratici in cui applicare le conoscenze;
+- Tecniche collaborative come il pair programming.
+
+### Metodologia di Studio
+
+Per un apprendimento efficace, è essenziale combinare la partecipazione attiva con uno studio strutturato:
+
+1. Leggere il testo di @petersen2024principles e il materiale di Testing Psicologico.
+2. Svolgere gli esercizi in `R`.
+3. Partecipare attivamente, proponendo chiarimenti e approfondimenti.
+
+### Programmazione
+
+Il corso prevede l’uso estensivo del linguaggio `R` per le analisi psicologiche. Gli studenti sono incoraggiati a sperimentare modalità collaborative, come il [pair programming](https://it.wikipedia.org/wiki/Programmazione_in_coppia), per superare le difficoltà iniziali.
+
+L’uso di tutor virtuali come ChatGPT o Claude è consigliato per agevolare il processo di programmazione, specialmente per chi desidera una guida più precisa. Tuttavia, per un apprendimento efficace, è essenziale sviluppare una comprensione solida dei fondamenti della programmazione, poiché l’intelligenza artificiale può semplificare la sintassi ma non può sostituire la comprensione concettuale.
+
+### Sviluppo delle Abilità
+
+L’apprendimento della programmazione richiede precisione e metodo. Strumenti di intelligenza artificiale come ChatGPT offrono supporto per la risoluzione di problemi e la comprensione dei processi, ma il vero valore dell’IA si esprime quando è utilizzata come tutor attivo e non come semplice risolutore di problemi. Alcuni esempi di domande che stimolano un uso efficace dell’IA includono: "Quali alternative di implementazione sono possibili per questo codice?"; "Quali sono i vantaggi di ciascuna soluzione?"; "Come posso ristrutturare questo codice per renderlo più leggibile?" Utilizzare l’IA come supporto attivo incoraggia un apprendimento più profondo e consapevole.
+
+### Procedure di Valutazione dell'Apprendimento
+
+Il corso prevede due percorsi di valutazione:
+
+1. **Percorso di Formazione Strutturata con Supervisione**
+
+  **Laboratori settimanali**
+
+  - Ogni gruppo consegnerà un file `.Rmd` o `.qmd` con le soluzioni ai problemi assegnati prima di ogni incontro. Nell'appendice del report andrà indicato il contributo di ciascun membro del gruppo.
+  - Durante ciascun laboratorio, saranno discussi 2-3 problemi per ogni ora di lezione.
+  - Un gruppo sarà selezionato a caso per presentare la soluzione di ciascun problema alla classe.
+  - La presentazione riceverà una valutazione complessiva per il gruppo.
+
+  **Quiz Moodle**
+
+  Il quiz Moodle, utilizzato in entrambi i percorsi, coprirà tutti i contenuti del testo di Petersen e dei materiali del corso, e includerà:
+      
+  - Domande a scelta multipla, con penalità per risposte errate.
+  - Ordine sequenziale obbligatorio.
+  - Distribuzione casuale delle domande.
+  - Limite di tempo.
+      
+  Il quiz prevede sia analisi pratiche in `R` che domande teoriche. È vietato l’uso di strumenti di intelligenza artificiale durante la prova.
+
+  **Progetto di gruppo**
+
+  Gli studenti svilupperanno un progetto di validazione psicometrica, da presentare in forma scritta e orale. È consentito l'uso di IA per migliorare la qualità del progetto.
+
+  La partecipazione alle lezioni è consigliata, ma non obbligatoria. Gli studenti che superano le verifiche sono esonerati dalle prove ufficiali d'esame.
+
+2. **Percorso di Formazione Autonoma**
+
+  **Esame ufficiale:** Consiste nel Quiz Moodle. Gli studenti dovranno portare un computer portatile per l'esame, che sarà svolto a libri chiusi e senza accesso a risorse esterne.
+
+### Valutazione Finale
+
+#### Percorso Strutturato
+
+- **Quiz Moodle**: 1/3 del voto finale.
+- **Laboratori settimanali**: 1/3 del voto finale.
+- **Progetto di gruppo**: 1/3 del voto finale.
+
+#### Percorso Autonomo
+
+- **Quiz Moodle**: 100% del voto finale.
+
+
+### Esperienza di Laboratorio e Bonus
+
+Gli studenti del percorso strutturato possono ottenere un bonus di 2 punti partecipando a un’esperienza di laboratorio (circa 5 ore). L’iscrizione richiede un codice personale, composto da lettere del nome, cognome, data di nascita e numero di cellulare.
+
+Per iscriversi all'esperienza di laboratorio, è necessario utilizzare un **codice personale** che dovrà essere inserito nel modulo di iscrizione ai gruppi. Il codice sarà formato come segue:
+
+- Prime due lettere del nome,
+- Prime due lettere del cognome,
+- Data di nascita (formato: anno_mese_giorno),
+- Ultime tre cifre del numero di cellulare,
+- Genere,
+- Separatore: trattino basso.
+
+**Esempio**: Mario Rossi, nato il 6 marzo 1999, telefono 320 2294312 → Codice: ma_ro_1999_03_06_312_m.
+
+Durante il laboratorio saranno utilizzate tecniche di analisi per rilevare comportamenti negligenti (*careless responding*). In caso di rilevamento, l’esperienza sarà invalidata e lo studente dovrà sostenere un'integrazione orale.
+
+### Informazioni Supplementari
+
+#### Ricevimento
+
+Dopo le lezioni, il docente è disponibile su Moodle per organizzare incontri di gruppo o individuali tramite Google Meet.
+
+#### Comportamento in Aula
+
+La partecipazione attiva è incoraggiata. Durante le discussioni, è importante esporre le proprie idee rispettosamente e considerare prospettive diverse. Le discussioni devono essere condotte in modo costruttivo e rispettoso.
+
+#### Norme per la Posta Elettronica
+
+Prima di inviare richieste via e-mail, si consiglia di consultare il sito del corso. Per organizzare un incontro, inviare una richiesta tramite Moodle.
+
+#### Politica sulla Disonestà Accademica
+
+L’integrità accademica è fondamentale. Qualsiasi forma di plagio o comportamento scorretto sarà trattata secondo la politica dell’università.
+
+#### Politica sulle Disabilità
+
+Gli studenti con esigenze educative speciali sono invitati a contattare il docente in modo confidenziale per discutere eventuali supporti necessari.
+
+### Considerazioni Finali
+
+Il successo dipende dall’impegno durante il semestre. Gli studenti sono incoraggiati a chiedere aiuto quando necessario e a collaborare con i compagni per affrontare gli argomenti complessi.
+
+### Bibliografia

@@ -1,0 +1,34 @@
+# Le fasi del progetto di analisi dei dati {#sec-eda-proj-structure}
+
+::: callout-note 
+## In questo capitolo imparerai a
+
+- gestire il ciclo di vita di un progetto di analisi: dalla definizione della domanda di ricerca alla comunicazione dei risultati
+- organizzare i file del progetto per garantirne portabilità e condivisione
+:::
+
+::: callout-tip 
+## Prerequisiti
+
+- Leggere [Veridical Data Science](https://vdsbook.com) [@yu2024veridical] focalizzandoti sul primo capitolo, che introduce le problematiche della data science, e sul quarto capitolo, che fornisce le linee guida dettagliate sull'organizzazione di un progetto di analisi dei dati.
+:::
+
+::: callout-important 
+## Preparazione del Notebook
+
+```{r}
+# Carica il file _common.R per impostazioni di pacchetti e opzioni
+here::here("code", "_common.R") |> 
+  source()
+```
+:::
+
+## Introduzione
+
+## Informazioni sull'Ambiente di Sviluppo {.unnumbered}
+
+```{r}
+sessionInfo()
+```
+
+## Bibliografia {.unnumbered}

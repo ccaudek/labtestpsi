@@ -1,0 +1,31 @@
+---
+title: "✏️ NIRT per gli item FAI"
+format:
+  html:
+    code-fold: show
+    code-tools: true
+---
+
+
+Utilizzando le funzionalità degli script messi a disposizione da @dima2018scale, affrontare i seguenti problemi usando gli item della scala FAI.
+
+- Gli item formano una singola scala?
+- Quanti e quali rispondenti hanno modelli di risposta idiosincratici?
+- La scala è uni- o multidimensionale?
+- Gli item sono associati solo tramite la dimensione latente?
+- La probabilità di approvare un'opzione di risposta "corretta" aumenta con l'aumento dei livelli della dimensione latente?
+- L'ordine di "difficoltà/intensità" degli item è lo stesso (invariante) a tutti i livelli della dimensione latente?
+
+I pattern di risposta idiosincratici sono esaminati all'interno dell'MSA come numero di errori di Guttman e visualizzati graficamente. I coefficienti di omogeneità (H) sono esaminati per l'insieme originale degli item (per ciascun item, coppia di item e la scala complessiva). Valori >=.30 indicano scalabilità.
+
+Una Procedura Automatica di Selezione degli Item (*aisp*) viene eseguita a livelli crescenti di soglia di omogeneità (c) per esaminare la dimensionalità. Se tutti gli item appartengono alla dimensione numero 1, ciò significa che la scala è unidimensionale a quella soglia di omogeneità (indicata nei titoli delle colonne, da .05 a .80). La soglia minima per l'omogeneità è .30. Gli item con un valore di 0 non sono scalabili a quella soglia. Se a livelli di soglia più elevati gli item si separano dalla dimensione numero 1 in gruppi (ad esempio, 2 o più item "abbandonano" la dimensione 1 alla stessa soglia), ciò indica che questi item potrebbero rappresentare una dimensione separata. Se, al contrario, gli item "abbandonano" la dimensione uno alla volta e diventano non scalabili, ciò indica che esiste una singola dimensione con cui gli item sono più o meno fortemente associati. I sottoinsiemi di item unidimensionali sono selezionati basandosi sull'algoritmo *aisp* (gli item selezionati devono mostrare unidimensionalità a un livello di soglia di .30 o superiore) e su considerazioni teoriche.
+
+Questi sottoinsiemi di item sono poi testati per l'indipendenza locale, la monotonicità e l'ordinamento invariante degli item - 3 criteri per l'adattamento del modello nell'MSA.
+
+- L'indipendenza locale è riportata come valori VERO/FALSO; se tutti i valori sono VERO, gli item mostrano indipendenza locale con i parametri predefiniti; se uno qualsiasi degli item risulta FALSO, è necessaria un'ulteriore indagine.
+
+- La monotonicità è mostrata in formato tabellare (minsize predefinito). La colonna 'zsig' mostra il numero di violazioni statisticamente significative della monotonicità per item; se questo numero è >0 per uno o più item, è necessaria un'ulteriore indagine della monotonicità (per ulteriori test, è possibile specificare vari valori di minsize in test separati). La monotonicità è anche visualizzata graficamente tramite le funzioni di risposta a step degli item (ISRF; i valori di minsize possono essere modificati per fornire un numero sufficiente di gruppi di punteggi per test adeguati).
+
+- I test di ordinamento invariante degli item sono mostrati prima in formato tabellare (minsize predefinito). La colonna 'tsig' mostra il numero di violazioni statisticamente significative dell'IIO per item; se uno qualsiasi degli item non mostra 0 nella colonna #tsig, è necessaria un'ulteriore indagine dell'IIO (per ulteriori test, è possibile specificare vari valori di minsize in test separati). L'IIO è anche visualizzato graficamente tramite grafici ISRF per ciascuna coppia di item (come sopra, i valori di minsize possono essere modificati per fornire un numero sufficiente di gruppi di punteggi per test adeguati).
+
+Per i set di item che soddisfano questi criteri, si può concludere che gli item misurano lo stesso costrutto e i punteggi totali possono essere utilizzati per collocare i rispondenti sul continuum unidimensionale che rappresenta il costrutto.

@@ -1,0 +1,479 @@
+# Il modello di regressione multipla
+
+
+::: callout-note
+## In questo capitolo imparerai a
+
+- 
+:::
+
+::: callout-tip
+## Prerequisiti
+
+- Leggere *Regression and Other Stories* [@gelman2020regression].
+  - Concentrarsi sul capitolo 10 "Linear regression with multiple predictors" che fornisce una guida dettagliata al modello di regressione multipla.
+:::
+
+::: callout-important
+## Preparazione del Notebook
+
+```{r}
+here::here("code", "_common.R") |> 
+  source()
+
+# Load packages
+if (!requireNamespace("pacman")) install.packages("pacman")
+pacman::p_load(readr)
+```
+:::
+
+## Introduzione 
+
+In questo capitolo introdurremo il modello di regressione multipla mostrando come possa essere implementato in R. Ci concentreremo sull'interpretazione dei coefficienti parziali di regressione.
+
+## Regressione multipla
+
+La regressione multipla rappresenta un'estensione del modello di regressione semplice, e permette di esplorare e quantificare le relazioni tra una variabile dipendente e più variabili indipendenti. 
+
+Un modello lineare univariato può essere descritto, in forma matriciale, come
+
+$$ 
+\mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}, 
+$$ {#eq-mult-reg-model}
+
+dove $\mathbf{y} \in \mathbb{R}^n$ è il vettore delle variabili di risposta, $\mathbf{X} \in \mathbb{R}^{n \times p}$ è la matrice delle costanti note, $\boldsymbol{\beta} \in \mathbb{R}^p$ è il vettore dei parametri sconosciuti, e $\boldsymbol{\epsilon} \in \mathbb{R}^n$ è il vettore degli errori casuali non osservabili. Espanso in forma completa, il modello dell'@eq-mult-reg-model può essere espresso come
+
+$$
+\begin{pmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+x_{11} & x_{12} & \cdots & x_{1p} \\
+x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \cdots & x_{np}
+\end{pmatrix}
+\begin{pmatrix}
+\beta_1 \\
+\beta_2 \\
+\vdots \\
+\beta_p
+\end{pmatrix}
++
+\begin{pmatrix}
+\epsilon_1 \\
+\epsilon_2 \\
+\vdots \\
+\epsilon_n
+\end{pmatrix},
+$$ {#eq-mult-reg-model-matrix}
+
+dove la prima colonna di $\mathbf{X}$ è spesso un vettore di uno, denotato $\mathbf{1}_n$. Il modello dell'@eq-mult-reg-model-matrix esprime ciascuna delle $n$ osservazioni in $\mathbf{y}$ come una combinazione lineare dei parametri sconosciuti in $\boldsymbol{\beta}$ con coefficienti da $\mathbf{X}$, cioè,
+
+$$ 
+y_i = \mathbf{x}_i^\top \boldsymbol{\beta} + \epsilon_i = \sum_{j=1}^p x_{ij} \beta_j + \epsilon_i, 
+$$
+
+per $i = 1, \ldots, n$, dove $\mathbf{x}_i \in \mathbb{R}^p$ è l'ennesima riga di $\mathbf{X}$. 
+
+## Interpretazione
+
+Passando dal modello semplice $y = a + bx + \text{errore}$ al modello più generale $y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \cdots + \text{errore}$, emergono nuove complessità. Queste includono le decisioni su quali predittori $x$ includere nel modello, l'interpretazione dei coefficienti e delle loro interazioni, e la costruzione di nuovi predittori a partire dalle variabili esistenti per catturare elementi di discrezionalità e non linearità. 
+
+I coefficienti di regressione, in un contesto di regressione multipla, sono tipicamente più complicati da interpretare rispetto a quelli di un modello con un solo predittore. L'interpretazione di un dato coefficiente, infatti, è parzialmente condizionata dalle altre variabili presenti nel modello. Il coefficiente $\beta_k$ rappresenta la differenza media o attesa nella variabile risposta $y$, confrontando due individui che differiscono di un'unità nel predittore $x_k$ ma sono identici per quanto riguarda gli altri predittori. Questo concetto è talvolta sintetizzato con l'espressione "confrontare due osservazionni (o persone) che differiscono per $x_k$ a parità delle altre variabili".
+
+Dal punto di vista dell'implementazione con Stan, l'estensione del modello per includere molteplici predittori dell'intelligenza del bambino è relativamente semplice. È necessario costruire una matrice $X$ contenente le colonne che rappresentano i vari predittori che intendiamo analizzare. Per l'esempio specifico in questione, i predittori selezionati per l'intelligenza del bambino includono: la scolarità della madre (codificata come 0 o 1 a seconda che la madre abbia completato o meno le scuole superiori), l'intelligenza della madre e l'età della madre. Prima di procedere con l'analisi, è importante standardizzare tutte queste variabili per facilitare l'interpretazione dei risultati e migliorare la stabilità numerica del modello.
+
+## Un esempio pratico
+
+Per fare un esempio pratico, analizzeremo nuovamente i dati sull'intelligenza di un gruppo di bambini. In questo caso, cercheremo di predire l'intelligenza media dei bambini considerando tre fattori: se le madri hanno completato la scuola superiore, l'intelligenza della madre e l'età della madre.
+
+Importiamo i dati:
+
+```{r}
+kidiq <- rio::import(
+  here::here("data", "kidiq.dta")
+)
+glimpse(kidiq)
+```
+
+- `kid_score`: punteggio di intelligenza del bambino (variabile dipendente).
+- `mom_hs`: se la madre ha completato la scuola superiore (1 = sì, 0 = no).
+- `mom_iq`: intelligenza della madre.
+- `mom_age`: età della madre.
+
+Per riscrivere la sezione relativa al modello di regressione multipla utilizzando l'approccio frequentista con `lm()` in R, procedo a chiarire e adattare il contenuto includendo i dettagli rilevanti per un approccio basato sulla massima verosimiglianza e non sul metodo bayesiano.
+
+## Regressione Multipla con `lm()`
+
+Con R, l'implementazione è semplice utilizzando la funzione `lm()`. Di seguito forniamo un esempio basato sui dati di intelligenza del bambino utilizzati nel file.
+
+### Modello di regressione multipla
+
+Per stimare l'effetto dei predittori sul punteggio del bambino:
+
+```{r}
+# Modello di regressione multipla
+model <- lm(kid_score ~ mom_hs + mom_iq + mom_age, data = kidiq)
+
+# Risultati del modello
+summary(model)
+```
+
+Il modello stimato ha la seguente formula:
+
+$$
+\text{kid\_score} = 20.98 + 5.65 \cdot \text{mom\_hs} + 0.56 \cdot \text{mom\_iq} + 0.22 \cdot \text{mom\_age} + \varepsilon
+$$
+
+### Risultati
+
+- **Intercetta** (`Intercept`): $20.98$  
+  Questo valore rappresenta il punteggio medio del bambino quando tutte le variabili predittive (`mom_hs`, `mom_iq`, `mom_age`) assumono valore zero. Sebbene non abbia un significato pratico, dato che un'età della madre pari a zero non è realistica, l'intercetta funge da punto di riferimento matematico nel modello.
+
+- **`mom_hs` ($5.65$, errore standard $2.26$)**:  
+  Il coefficiente indica che, a parità di QI e età della madre, i bambini le cui madri hanno completato la scuola superiore ottengono un punteggio medio di $5.65$ punti superiore rispetto ai bambini le cui madri non lo hanno fatto. Il rapporto tra la stima del coefficiente e il suo errore standard ($5.65 / 2.26 \approx 2.50$) supera la soglia di 2, suggerendo che i dati contengono informazioni sufficienti per supportare questa relazione.
+
+- **`mom_iq` ($0.56$, errore standard $0.06$)**:  
+  Per ogni punto in più nel QI della madre, il punteggio medio del bambino aumenta di $0.56$, a parità di istruzione ed età della madre. Il rapporto tra stima ed errore standard ($0.56 / 0.06 = 9.28$) è molto elevato, indicando un rapporto segnale-rumore significativo che conferma la robustezza dell'evidenza fornita dai dati.
+
+- **`mom_age` ($0.22$, errore standard $0.33$)**:  
+  Per ogni anno in più di età della madre, il punteggio medio del bambino aumenta di $0.22$, a parità di QI e istruzione della madre. Tuttavia, il rapporto tra stima ed errore standard ($0.22 / 0.33 \approx 0.68$) è ben al di sotto della soglia di 2. Questo indica che i dati non forniscono informazioni sufficienti per una stima affidabile di questa relazione.
+
+In questo modello, i coefficienti associati a `mom_hs` e `mom_iq` presentano rapporti segnale-rumore adeguati, mentre quello associato a `mom_age` non soddisfa questa condizione.
+
+### Indicatori di Diagnostica del Modello
+
+- **Residual standard error (Errore standard dei residui)**: $18.1$  
+  La deviazione standard dei residui indica l'errore medio commesso dal modello nel predire i punteggi del bambino.
+
+- **R-squared (R²)**: $0.215$  
+  Il modello spiega circa il $21.5\%$ della variabilità totale del punteggio del bambino. Questo indica che i predittori inclusi non spiegano completamente il fenomeno.
+
+- **Adjusted R-squared**: $0.21$  
+  Dopo aver corretto per il numero di predittori nel modello, il $21.0\%$ della variabilità del punteggio è spiegata dalle variabili indipendenti.
+
+- **F-statistic**: $39.3$  
+  Il test F è altamente significativo ($p < 2 \cdot 10^{-16}$), suggerendo che il modello complessivo (con tutti i predittori inclusi) è migliore di un modello senza predittori.
+
+### Residui
+
+- **Distribuzione dei residui**:  
+  I residui vanno da $-53.3$ a $50.2$, con una mediana di $2.4$. La loro distribuzione dovrebbe essere verificata per accertarsi che segua approssimativamente una distribuzione normale e che non vi siano pattern particolari.
+
+## Visualizzazione
+
+È possibile visualizzare la relazione tra i predittori e la variabile dipendente con i seguenti comandi in R:
+
+```{r}
+ggplot(kidiq, aes(x = mom_iq, y = kid_score)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE)
+```
+
+
+## Standardizzazione dei predittori
+
+La standardizzazione dei predittori consiste nel trasformare ciascuna variabile predittiva in una scala con media 0 e deviazione standard 1. Questo processo consente di confrontare direttamente i coefficienti β del modello, poiché dopo la standardizzazione ogni coefficiente rappresenta l'effetto di un incremento di una deviazione standard nella variabile predittiva sulla variabile dipendente, espressa anch’essa in unità di deviazioni standard.
+
+```{r}
+# Standardizzazione delle variabili
+kid_data_scaled <- as.data.frame(scale(kidiq))
+
+# Modello con variabili standardizzate
+model_scaled <- lm(
+  kid_score ~ mom_hs + mom_iq + mom_age, data = kid_data_scaled
+)
+
+# Risultati del modello standardizzato
+summary(model_scaled)
+```
+
+### Standardizzazione dei Predittori
+
+La standardizzazione dei predittori consiste nel trasformare ciascuna variabile predittiva in una scala con media 0 e deviazione standard 1. Questo processo consente di confrontare direttamente i coefficienti $\beta$ del modello, poiché dopo la standardizzazione ogni coefficiente rappresenta l'effetto di un incremento di **una deviazione standard** nella variabile predittiva sulla variabile dipendente, espressa anch’essa in unità di deviazioni standard.
+
+Il codice per standardizzare i predittori e stimare il modello standardizzato è:
+
+```{r}
+# Standardizzazione delle variabili
+kid_data_scaled <- as.data.frame(scale(kidiq))
+
+# Modello con variabili standardizzate
+model_scaled <- lm(
+  kid_score ~ mom_hs + mom_iq + mom_age, data = kid_data_scaled
+)
+
+# Risultati del modello standardizzato
+summary(model_scaled)
+```
+
+- **Intercetta** ($-2.85 \cdot 10^{-15}$):  
+  L'intercetta è molto vicina a zero poiché, dopo la standardizzazione, tutte le variabili predittive hanno media 0. Non ha significato interpretativo in un modello standardizzato.
+
+- **`mom_hs` ($0.11$, errore standard $0.045$)**:  
+  Il coefficiente indica che, a parità di altre variabili, i bambini le cui madri hanno completato la scuola superiore ottengono, in media, un punteggio di $0.11$ deviazioni standard più alto rispetto a quelli le cui madri non lo hanno fatto. Il rapporto stima/errore standard ($0.11 / 0.045 \approx 2.50$) supera la soglia di 2, suggerendo che i dati forniscono un segnale sufficiente per sostenere questo effetto.
+
+- **`mom_iq` ($0.41$, errore standard $0.045$)**:  
+  Questo coefficiente indica che, per ogni incremento di una deviazione standard nel QI della madre, il punteggio del bambino aumenta, in media, di $0.41$ deviazioni standard, a parità di altre variabili. Il rapporto stima/errore standard ($0.41 / 0.045 \approx 9.28$) è elevato, indicando un segnale molto forte nei dati.
+
+- **`mom_age` ($0.03$, errore standard $0.044$)**:  
+  Per ogni incremento di una deviazione standard nell'età della madre, il punteggio del bambino aumenta, in media, di $0.03$ deviazioni standard. Tuttavia, il rapporto stima/errore standard ($0.03 / 0.044 \approx 0.68$) è ben al di sotto di 2, suggerendo che i dati non forniscono informazioni sufficienti per sostenere una relazione tra l'età della madre e il punteggio del bambino.
+
+Dopo la standardizzazione, i coefficienti forniscono un'indicazione chiara dell'importanza relativa dei predittori nel modello. In questo caso:
+
+- **`mom_iq` ($0.41$)** ha l'effetto più forte sulla variabile dipendente, indicando che il QI della madre è il predittore più influente per il punteggio del bambino.
+- **`mom_hs` ($0.11$)** ha un effetto positivo moderato, ma significativamente inferiore rispetto a quello di `mom_iq`.
+- **`mom_age` ($0.03$)** ha un effetto trascurabile nel contesto del modello.
+
+---
+
+#### Vantaggi della standardizzazione
+
+1. **Confrontabilità tra predittori**: Poiché i predittori sono espressi nella stessa unità (deviazioni standard), i coefficienti standardizzati permettono un confronto diretto dell'importanza relativa di ciascun predittore.
+2. **Interpretazione indipendente dalle unità originali**: La standardizzazione elimina la dipendenza dalle scale originali delle variabili, rendendo l'interpretazione dei coefficienti indipendente dalle unità di misura.
+3. **Facilitazione della comunicazione dei risultati**: I coefficienti standardizzati sono utili in contesti dove è importante comunicare l'importanza relativa dei predittori.
+
+In conclusione, la standardizzazione è particolarmente utile quando si vuole confrontare direttamente l'importanza relativa dei predittori in un modello. In questo esempio, i dati mostrano chiaramente che il QI della madre ($mom_iq$) ha un effetto molto più forte rispetto all'istruzione ($mom_hs$) o all'età ($mom_age$) della madre sul punteggio del bambino. Tuttavia, come sempre, l'interpretazione causale di questi coefficienti richiede cautela e dipende dalla correttezza delle ipotesi causali sottostanti.
+
+## Controllo degli Assunti
+
+È fondamentale controllare gli assunti della regressione lineare:
+
+- **Linearità**: la relazione tra ciascun predittore e la variabile dipendente deve essere lineare.
+- **Indipendenza degli errori**: gli errori devono essere indipendenti tra loro.
+- **Omogeneità della varianza**: la varianza degli errori deve essere costante.
+- **Normalità degli errori**: gli errori devono seguire una distribuzione normale.
+
+Per verificare questi assunti in R:
+
+```{r}
+# Verifica degli assunti
+par(mfrow = c(2, 2))
+plot(model)
+```
+## Il Controllo Statistico
+
+Nel contesto della regressione multipla, l'interpretazione dei coefficienti parziali differisce da quella della regressione bivariata. Nel modello bivariato, il coefficiente $\beta_1$ viene interpretato come il cambiamento atteso in $Y$ per un incremento unitario in $X_1$. Tuttavia, nel modello di regressione multipla, $\beta_1$ rappresenta il cambiamento atteso in $Y$ per un incremento unitario in $X_1$, **mantenendo costanti gli effetti di tutte le altre variabili** ($X_2, X_3, \ldots, X_p$). In altre parole, $\beta_1$ ci dice come varia in media $Y$ quando $X_1$ cambia, considerando anche l'interazione di $X_1$ con le altre variabili e tenendo conto di tali variazioni.
+
+Consideriamo il coefficiente associato all'intelligenza della madre ($\beta = 0.41$) in un modello che predice l'intelligenza del bambino. Questo coefficiente significa che il punteggio medio di intelligenza del bambino aumenta di 0.41 deviazioni standard per ogni deviazione standard aggiuntiva nell'intelligenza della madre, **a parità di livello di istruzione ed età della madre**. Questo implica che stiamo isolando l'impatto dell'intelligenza della madre in una popolazione in cui livello di istruzione ed età sono omogenei.
+
+Ma cosa significa mantenere costanti le altre variabili?
+
+Un esempio classico è la correlazione tra il numero di scarpe e le abilità matematiche. A prima vista, esiste una correlazione positiva tra queste due variabili. Tuttavia, questa relazione è dovuta al fatto che i bambini, con numeri di scarpe più piccoli rispetto agli adulti, hanno generalmente anche abilità matematiche inferiori. Se controlliamo per l'età (considerando solo individui della stessa età), la correlazione tra numero di scarpe e abilità matematiche scompare. In questo caso, l'età agisce come **variabile confondente**, e controllarla significa analizzare la relazione tra numero di scarpe e abilità matematiche come se tutti gli individui avessero la stessa età.
+
+Nei modelli di regressione, il controllo degli effetti delle altre variabili viene effettuato attraverso una procedura statistica che simula questa "condizione ideale". 
+
+Esaminiamo i risultati della seguente simulazione in R.
+
+```{r}
+set.seed(1)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+alpha <- 2
+beta1 <- 1.5
+beta2 <- 0.5
+y <- alpha + beta1 * x1 + beta2 * x2 + rnorm(n, 0, 1)
+
+dat <- tibble(x1, x2, y)
+```
+
+1. **Regressione di $Y$ su $X_2$:**  
+   Per rimuovere l'influenza di $X_2$ su $Y$:
+
+   ```{r}
+   fm1 <- lm(y ~ x2, data = dat)
+   e_y <- fm1$resid
+   ```
+
+2. **Regressione di $X_1$ su $X_2$:**  
+   Per rimuovere l'influenza di $X_2$ su $X_1$:
+
+   ```{r}
+   fm2 <- lm(x1 ~ x2, data = dat)
+   e_x1 <- fm2$resid
+   ```
+
+3. **Regressione dei residui di $Y$ sui residui di $X_1$:**  
+   Questo calcola il coefficiente parziale di regressione di $X_1$ su $Y$:
+
+   ```{r}
+   fm3 <- lm(e_y ~ e_x1)
+   coef(fm3)
+   ```
+
+La simulazione precedente illustra il significato di controllo statistico e ci consente di capire il significato del concetto di coefficiente parziale di regressione.
+
+Il coefficiente parziale quantifica l'effetto di una variabile esplicativa ($X_j$) sulla variabile dipendente ($Y$), depurando l'effetto di $X_j$ dall'influenza degli altri predittori. In sostanza:
+
+- Misura l'effetto puro di $X_j$ su $Y$, considerando solo la parte di $X_j$ indipendente dai rimanenti predittori.
+- Analizza la relazione tra $Y$ e $X_j$ in un contesto teorico in cui tutti gli individui hanno livelli identici per le altre variabili ($X$).
+
+### Limitazioni
+
+Questo approccio è limitato alle **relazioni lineari** tra le variabili. Non può catturare effetti non lineari o interazioni più complesse tra i predittori. Tuttavia, fornisce una base solida per isolare e interpretare gli effetti dei predittori in un modello.
+
+In conclusione, il controllo statistico nel contesto della regressione multipla consente di interpretare in modo chiaro e isolato l'effetto di ciascun predittore sulla variabile dipendente. Questo approccio permette di approssimare condizioni ideali e valutare con maggiore precisione le relazioni tra variabili in contesti complessi.
+
+## Coefficienti Parziali di Regressione e Causalità
+
+È fondamentale chiarire che il modello di regressione **non implica automaticamente una relazione causale** tra le variabili. Attribuire ai coefficienti del modello un significato causale è comune, ma spesso errato.
+
+Nel modello di regressione, il coefficiente parziale $\beta_j$ viene spesso interpretato come l'incremento atteso nella variabile dipendente $Y$ per una variazione unitaria della variabile indipendente $X_j$, mantenendo costanti gli effetti lineari delle altre variabili predittive incluse nel modello. Questa interpretazione suggerisce implicitamente una relazione causale: se $X_j$ aumenta di un'unità, la media di $Y$ cambierà di una quantità pari a $\beta_j$, tenendo conto dell'effetto lineare delle altre variabili [@westreich2013table].
+
+Tuttavia, **questa interpretazione è valida solo in condizioni specifiche** che spesso non si verificano nella pratica. Per essere valida, è necessario che:
+
+1. Il modello di regressione rappresenti accuratamente il processo generativo dei dati.
+2. Non vi siano variabili confondenti non incluse nel modello.
+3. Le relazioni tra le variabili siano correttamente specificate (ad esempio, lineari se il modello è lineare).
+4. Non vi siano errori di misura o altre fonti di bias nei dati.
+
+Nella maggior parte dei casi, i coefficienti di regressione riflettono semplicemente **relazioni descrittive** osservate nel campione di dati analizzato. La validità di queste relazioni al di fuori del campione (cioè nella popolazione generale) dipende dalla correttezza della specificazione del modello e dalla rappresentatività del campione. Se il modello è mal specificato o se vi sono variabili confondenti escluse, l'interpretazione dei coefficienti come indicazione di relazioni causali diventa altamente problematica.
+
+Un'analisi di regressione lineare **non consente di inferire direttamente relazioni causali**. L'inferenza causale richiede strumenti e conoscenze specifiche, come:
+- Esperimenti controllati randomizzati, che riducono l'effetto di confondenti non osservati.
+- Modelli di equazioni strutturali o altre tecniche basate su teorie causali, che identificano e separano gli effetti diretti e indiretti.
+
+Solo una volta stabilite le relazioni causali tramite metodi appropriati, i modelli di regressione possono essere utilizzati per quantificare la forza di tali relazioni. Non è possibile procedere nel senso opposto, cioè dedurre nessi causali direttamente dai coefficienti di regressione. Questo errore, noto come **confusione tra correlazione e causalità**, può portare a conclusioni errate e a interpretazioni fuorvianti.
+
+In conclusione, i coefficienti parziali di regressione sono strumenti utili per descrivere relazioni tra variabili nel contesto di un campione di dati, ma la loro interpretazione causale richiede cautela e metodi appropriati. Per evitare interpretazioni errate:
+
+- Si raccomanda di specificare chiaramente i limiti del modello e delle inferenze derivate.
+- Si consiglia di integrare l'analisi statistica con conoscenze del dominio e tecniche progettate per identificare relazioni causali.
+
+Si vedano le sezioni relative all'**errore di specificazione del modello** e all'**inferenza causale nei modelli di regressione** per ulteriori dettagli su come affrontare questi problemi.
+
+## Quali Predittori Includere nel Modello?
+
+Il modello di regressione multipla può essere utilizzato con due obiettivi principali:
+
+1. **Predizione**: Stimare il valore di $Y$ utilizzando una combinazione lineare delle variabili predittive $X_1, X_2, \ldots, X_p$. In questo contesto, i coefficienti $\beta_i$ vengono interpretati come pesi che ottimizzano la previsione di $Y$ sulla base dei valori delle variabili indipendenti.
+
+2. **Descrizione delle relazioni tra variabili**: Analizzare come le variabili indipendenti si associano alla variabile dipendente. Tuttavia, è essenziale ricordare che il modello di regressione multipla **non è progettato per identificare relazioni causali**. Le interpretazioni causali dei coefficienti $\beta_i$ richiedono cautela e condizioni che spesso non sono soddisfatte nella pratica.
+
+Per stimare correttamente i coefficienti di regressione parziali, il modello deve includere **tutte le variabili rilevanti** che influenzano $Y$. Quando non si includono variabili importanti (omissione di confondenti), o si includono variabili irrilevanti o mal definite, si possono generare errori di specificazione. Questo problema può compromettere sia l'accuratezza delle previsioni sia l'interpretazione delle relazioni tra le variabili.
+
+In pratica, spesso non conosciamo tutte le variabili rilevanti per il fenomeno in studio. Questo porta a una difficoltà intrinseca nella selezione dei predittori e aumenta il rischio di stime distorte dei coefficienti.
+
+### La "Insalata Causale"
+
+Tradizionalmente, si riteneva vantaggioso includere nel modello **il maggior numero possibile di variabili** per ottenere un controllo statistico più ampio. Tuttavia, come sottolineato da @McElreath_rethinking, questa strategia può condurre a quello che viene definito "insalata causale". Questo termine descrive una situazione in cui:
+
+- Si includono variabili senza una chiara comprensione della loro relazione causale con $Y$ e con le altre variabili predittive.
+- L'inclusione di variabili di controllo inappropriate può causare **distorsioni** nelle stime dei coefficienti, invece di correggerle.
+
+Ad esempio, includere una variabile che è influenzata dalla variabile dipendente (feedback causale) può introdurre un bias, peggiorando l'accuratezza del modello.
+
+L'inclusione di variabili di controllo è cruciale in alcuni casi, ma non sempre necessaria. Per evitare distorsioni:
+
+- **Includere variabili confondenti**: Le variabili che influenzano sia la variabile dipendente ($Y$) sia una o più variabili indipendenti ($X_j$) devono essere incluse per ottenere stime non distorte.
+- **Evitare variabili collocate erroneamente nella struttura causale**: Variabili che non influenzano $Y$ o che sono influenzate da $Y$ non dovrebbero essere incluse senza un’adeguata giustificazione teorica o empirica.
+- **Formulare ipotesi causali chiare**: Prima di costruire il modello, è importante definire chiaramente le relazioni causali attese tra le variabili.
+
+L'efficacia e la validità del modello di regressione dipendono strettamente dalla correttezza delle **ipotesi causali** formulate dal ricercatore. La costruzione del modello non dovrebbe limitarsi a essere guidata dai dati osservati, ma dovrebbe riflettere una comprensione teorica del fenomeno in esame. Per superare i limiti dell’“insalata causale”:
+
+- Identificare le variabili chiave che influenzano $Y$ sulla base di una solida comprensione del dominio.
+- Utilizzare strumenti come i diagrammi causali (ad esempio, i DAG - Directed Acyclic Graphs) per mappare le relazioni tra le variabili.
+- Adottare approcci basati su modelli causali, come la regressione stratificata, i modelli di equazioni strutturali o le tecniche di controllo di confondenti (ad esempio, il propensity score matching).
+
+In conclusione, la scelta delle variabili da includere in un modello di regressione multipla richiede un equilibrio tra controllo statistico e chiarezza causale. Includere troppe variabili senza una giustificazione causale può portare a stime distorte, mentre l’omissione di variabili chiave può compromettere la validità delle conclusioni. La costruzione di modelli validi e utili richiede una combinazione di conoscenza teorica, metodi statistici robusti e attenzione alle ipotesi causali sottostanti.
+
+## Considerazioni Conclusive
+
+Il modello di regressione è uno degli strumenti statistici più utilizzati in psicologia, ma spesso viene applicato con un'interpretazione ingenua e priva di considerazioni critiche. Nel suo libro *Statistical Rethinking*, @McElreath_rethinking introduce una potente metafora per i modelli statistici, paragonandoli ai Golem della mitologia antica: creature di grande forza ma prive di volontà propria, animate solo dall'intento di chi le crea. Sebbene dotati di potere, i Golem possono diventare pericolosi se non guidati con saggezza. Allo stesso modo, i modelli statistici, se usati senza una piena comprensione del contesto e delle loro limitazioni, possono portare a conclusioni errate o fuorvianti.
+
+Come sottolinea @McElreath_rethinking, i modelli statistici sono strumenti costruiti per uno scopo specifico. Essi eseguono calcoli con grande precisione ma non possiedono alcuna comprensione autonoma del contesto in cui vengono applicati. Non rappresentano verità assolute, ma semplificazioni progettate per rispondere a domande specifiche. Questo è particolarmente vero per il modello di regressione, che fornisce risultati numerici concreti ma è limitato nella sua capacità di affrontare questioni complesse, come l’inferenza causale, che richiedono un approccio più articolato e comprensivo.
+
+Come evidenziato da @carlin2023uses, il modello di regressione può essere utilizzato per tre scopi principali:
+
+1. **Descrizione delle associazioni**: Ad esempio, analizzare la prevalenza di una condizione in diverse sottopopolazioni.
+2. **Predizione**: Utilizzare un insieme di predittori per prevedere in modo affidabile il valore di \(Y\) per nuovi individui con valori noti di \(X\).
+3. **Analisi delle relazioni causali**: Valutare in che misura un intervento o una variabile predittiva influisce su un determinato esito.
+
+Un aspetto cruciale è che i ricercatori chiariscano l'obiettivo per cui applicano il modello di regressione. La mancata distinzione tra questi tre scopi può portare a un uso improprio del modello e a interpretazioni errate. Purtroppo, questa distinzione non è ancora penetrata sufficientemente nell'insegnamento e nella pratica della statistica, soprattutto nei metodi di regressione.
+
+Spesso, nei contesti accademici e applicativi, il modello di regressione viene insegnato e utilizzato come un "toolkit universale", con l'obiettivo di trovare il miglior modello per i dati disponibili e successivamente adattare un'interpretazione al modello ottenuto. Tuttavia, @carlin2023uses raccomandano un approccio diverso: insegnare e applicare i modelli di regressione in funzione dello scopo specifico della ricerca. Adottando questa prospettiva:
+
+- Gli aspetti tecnici e teorici del modello vengono introdotti solo quando pertinenti per l'obiettivo della ricerca.
+- Si evita l'applicazione indiscriminata dei modelli, riducendo il rischio di fraintendimenti e interpretazioni improprie.
+
+Questo approccio non solo promuove un uso più consapevole e mirato dei modelli, ma incoraggia anche una comprensione più profonda delle domande di ricerca e delle limitazioni degli strumenti analitici.
+
+In conclusione, il modello di regressione è uno strumento prezioso, ma la sua efficacia dipende interamente dalla saggezza e dall'intenzione di chi lo utilizza. Come affermano @McElreath_rethinking e @carlin2023uses, i ricercatori devono applicare i modelli statistici con piena consapevolezza dei loro limiti, chiarendo sempre gli obiettivi della ricerca e utilizzando il modello come strumento per rispondere a domande ben definite. Solo adottando un approccio critico e informato possiamo evitare che questi potenti strumenti si trasformino in Golem incontrollabili, assicurando invece che contribuiscano realmente alla comprensione del mondo che ci circonda.
+
+## Esercizi
+
+::: {#exr-mult-reg-1}
+
+Considera il seguente modello lineare univariato in forma matriciale:
+
+$$ \mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon} $$
+
+I valori delle variabili indipendenti ($x_1$, $x_2$ e $x_3$) per cinque osservazioni sono:
+
+  $$
+  x_1 = \begin{pmatrix} 2 \\ 1 \\ 3 \\ 4 \\ 5 \end{pmatrix}, \quad
+  x_2 = \begin{pmatrix} 11 \\ 9 \\ 12 \\ 10 \\ 11 \end{pmatrix}, \quad
+  x_3 = \begin{pmatrix} 12 \\ 9 \\ 7 \\ 8 \\ 6 \end{pmatrix}
+  $$
+
+I valori della variabile dipendente sono:
+
+$$
+  y = \begin{pmatrix} 5.7 \\ 4.7 \\ 12.6 \\ 10.8 \\ 8.5 \end{pmatrix}
+$$
+
+I coefficienti ($\beta_0$, $\beta_1$, $\beta_2$ e $\beta_3$) sono:
+
+  $$
+  \beta_0 = -1.402020, \quad \beta_1 = 0.183838, \quad \beta_2 = 1.405051, \quad \beta_3 = -0.664646
+  $$
+
+1. Determina le matrici $\mathbf{X}$, $\boldsymbol{\beta}$ e $\boldsymbol{\epsilon}$ e scrivi l'equazione completa in forma matriciale.
+2. Espandi il modello per ottenere cinque equazioni esplicite, una per ciascuna osservazione, utilizzando i valori forniti.
+3. Trova gli errori casuali ($\epsilon_1$, $\epsilon_2$ e $\epsilon_3$, $\epsilon_4$, $\epsilon_5$).
+4. Trova i valori predetti ($\hat{y}_1$, $\hat{y}_2$ e $\hat{y}_3$, $\hat{y}_4$, $\hat{y}_5$).
+:::
+
+::: {#exr-mult-reg-2}
+
+Obiettivo: calcolare i coefficienti $\beta$ del modello lineare univariato usando il metodo dei minimi quadrati.
+
+I valori delle variabili indipendenti ($x_1$, $x_2$ e $x_3$) per cinque osservazioni sono:
+
+$$
+  x_1 = \begin{pmatrix} 2 \\ 1 \\ 3 \\ 4 \\ 5 \end{pmatrix}, \quad
+  x_2 = \begin{pmatrix} 11 \\ 9 \\ 12 \\ 10 \\ 11 \end{pmatrix}, \quad
+  x_3 = \begin{pmatrix} 12 \\ 9 \\ 7 \\ 8 \\ 6 \end{pmatrix}
+$$
+
+I valori delle variabili dipendenti ($\mathbf{y}$) sono:
+
+$$
+  y = \begin{pmatrix} 5.7 \\ 4.7 \\ 12.6 \\ 10.8 \\ 8.5 \end{pmatrix}
+$$
+
+La formula dei minimi quadrati per calcolare i coefficienti $\beta$ in un modello lineare è data da:
+
+$$ \boldsymbol{\beta} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}. $$
+
+Questa formula minimizza la somma dei quadrati degli errori tra i valori osservati e quelli previsti dal modello. In altre parole, cerca di trovare i valori di $\beta$ che riducono al minimo le discrepanze tra i dati osservati e quelli stimati dal modello lineare.
+
+1. Aggiungi una colonna di 1 alla matrice $\mathbf{X}$ per includere l'intercetta.
+2. Scrivi la matrice $\mathbf{X}$ e il vettore $\mathbf{y}$ utilizzando i dati forniti.
+3. Calcola i coefficienti $\beta$ utilizzando la formula dei minimi quadrati. Implementa la formula in Python e calcola i valori di $\beta$. Controlla i risultati usando `pingouin`.
+:::
+
+## Informazioni sull'Ambiente di Sviluppo {.unnumbered} 
+
+```{r}
+sessionInfo()
+```
+
+## Bibliografia {.unnumbered}
+

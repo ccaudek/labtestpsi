@@ -1,0 +1,329 @@
+Mplus VERSION 8.8 (Mac)
+MUTHEN & MUTHEN
+04/08/2023   1:37 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:   APIM MJS German
+
+  DATA:
+      FILE IS "Data_APIM.txt";
+
+
+
+  VARIABLE:
+
+
+    NAMES ARE Cogn_MT1 Emot_MT1 Beh_MT1
+    Cogn_FT1 Emot_FT1 Beh_FT1
+    Cogn_FT2 Emot_FT2 Beh_FT2
+    Cogn_MT2 Emot_MT2 Beh_MT2
+    Fasz_F Eng_F Sex_F Fut_F
+    Mist_F Const_F
+    Fasz_M Eng_M Sex_M Fut_M
+    Mist_M Const_M;
+
+    USEVAR Beh_MT1 Beh_FT1 Sex_F
+    Sex_M;
+
+
+  ANALYSIS:
+    estimator=ml;
+    bootstrap=5000;
+
+
+  MODEL:
+   Beh_FT1 ON Sex_F (1);
+   Beh_FT1 ON Sex_M (2);
+   Beh_MT1 ON Sex_F (2);
+   Beh_MT1 ON Sex_M (1);
+
+   Beh_FT1 with Beh_MT1;
+   Sex_M with Sex_F;
+
+
+  OUTPUT:
+  cinterval (bootstrap) STDYX;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+APIM MJS German
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                          69
+
+Number of dependent variables                                    2
+Number of independent variables                                  2
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   BEH_MT1     BEH_FT1
+
+Observed independent variables
+   SEX_F       SEX_M
+
+
+Estimator                                                       ML
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Number of bootstrap draws
+    Requested                                                 5000
+    Completed                                                 5000
+
+Input data file(s)
+  Data_APIM.txt
+
+Input data format  FREE
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     BEH_MT1               1.888       1.714       1.000    4.35%       1.250      1.500      1.750
+              69.000       0.453       5.698       5.130    1.45%       1.880      2.500
+     BEH_FT1               2.008       0.595       1.000    2.90%       1.380      1.630      1.880
+              69.000       0.479      -0.520       3.750    1.45%       2.130      2.630
+     SEX_F                 3.997      -0.763       1.200    1.45%       3.200      4.000      4.200
+              69.000       0.768       0.048       5.000   21.74%       4.400      5.000
+     SEX_M                 3.968      -0.629       1.600    1.45%       3.200      3.800      4.000
+              69.000       0.672      -0.205       5.000   15.94%       4.400      4.800
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       12
+
+Loglikelihood
+
+          H0 Value                        -303.866
+          H1 Value                        -302.968
+
+Information Criteria
+
+          Akaike (AIC)                     631.732
+          Bayesian (BIC)                   658.541
+          Sample-Size Adjusted BIC         620.747
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                              1.795
+          Degrees of Freedom                     2
+          P-Value                           0.4075
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.000
+          90 Percent C.I.                    0.000  0.231
+          Probability RMSEA <= .05           0.468
+
+CFI/TLI
+
+          CFI                                1.000
+          TLI                                1.000
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                             16.476
+          Degrees of Freedom                     5
+          P-Value                           0.0056
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.049
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ BEH_FT1  ON
+    SEX_F             -0.140      0.081     -1.722      0.085
+    SEX_M              0.170      0.076      2.232      0.026
+
+ BEH_MT1  ON
+    SEX_F              0.170      0.076      2.232      0.026
+    SEX_M             -0.140      0.081     -1.722      0.085
+
+ BEH_FT1  WITH
+    BEH_MT1            0.147      0.097      1.513      0.130
+
+ SEX_M    WITH
+    SEX_F              0.261      0.122      2.141      0.032
+
+ Means
+    SEX_F              3.997      0.107     37.503      0.000
+    SEX_M              3.968      0.099     40.162      0.000
+
+ Intercepts
+    BEH_MT1            1.762      0.411      4.286      0.000
+    BEH_FT1            1.892      0.415      4.556      0.000
+
+ Variances
+    SEX_F              0.768      0.129      5.957      0.000
+    SEX_M              0.672      0.108      6.245      0.000
+
+ Residual Variances
+    BEH_MT1            0.452      0.152      2.986      0.003
+    BEH_FT1            0.435      0.078      5.588      0.000
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ BEH_FT1  ON
+    SEX_F             -0.181      0.107     -1.687      0.092
+    SEX_M              0.206      0.096      2.147      0.032
+
+ BEH_MT1  ON
+    SEX_F              0.216      0.102      2.124      0.034
+    SEX_M             -0.166      0.099     -1.679      0.093
+
+ BEH_FT1  WITH
+    BEH_MT1            0.330      0.168      1.962      0.050
+
+ SEX_M    WITH
+    SEX_F              0.363      0.139      2.605      0.009
+
+ Means
+    SEX_F              4.561      0.484      9.428      0.000
+    SEX_M              4.841      0.481     10.073      0.000
+
+ Intercepts
+    BEH_MT1            2.556      0.696      3.672      0.000
+    BEH_FT1            2.798      0.608      4.603      0.000
+
+ Variances
+    SEX_F              1.000      0.000    999.000    999.000
+    SEX_M              1.000      0.000    999.000    999.000
+
+ Residual Variances
+    BEH_MT1            0.952      0.043     22.293      0.000
+    BEH_FT1            0.952      0.043     22.280      0.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    BEH_MT1            0.048      0.043      1.130      0.258
+    BEH_FT1            0.048      0.043      1.129      0.259
+
+
+CONFIDENCE INTERVALS OF MODEL RESULTS
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ BEH_FT1  ON
+    SEX_F           -0.348      -0.296      -0.272      -0.140      -0.006       0.022       0.071
+    SEX_M           -0.033       0.022       0.046       0.170       0.295       0.320       0.363
+
+ BEH_MT1  ON
+    SEX_F           -0.033       0.022       0.046       0.170       0.295       0.320       0.363
+    SEX_M           -0.348      -0.296      -0.272      -0.140      -0.006       0.022       0.071
+
+ BEH_FT1  WITH
+    BEH_MT1         -0.052      -0.015       0.005       0.147       0.319       0.360       0.442
+
+ SEX_M    WITH
+    SEX_F           -0.025       0.037       0.066       0.261       0.475       0.513       0.591
+
+ Means
+    SEX_F            3.719       3.783       3.817       3.997       4.174       4.203       4.261
+    SEX_M            3.707       3.768       3.797       3.968       4.125       4.157       4.212
+
+ Intercepts
+    BEH_MT1          0.654       0.915       1.079       1.762       2.437       2.586       2.841
+    BEH_FT1          0.766       1.034       1.199       1.892       2.557       2.725       3.024
+
+ Variances
+    SEX_F            0.472       0.523       0.552       0.768       0.981       1.023       1.104
+    SEX_M            0.418       0.463       0.491       0.672       0.847       0.887       0.944
+
+ Residual Variances
+    BEH_MT1          0.205       0.233       0.250       0.452       0.728       0.782       0.924
+    BEH_FT1          0.232       0.275       0.297       0.435       0.551       0.578       0.623
+
+
+CONFIDENCE INTERVALS OF STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+ BEH_FT1  ON
+    SEX_F           -0.458      -0.391      -0.364      -0.181      -0.007       0.026       0.082
+    SEX_M           -0.036       0.026       0.054       0.206       0.371       0.406       0.461
+
+ BEH_MT1  ON
+    SEX_F           -0.042       0.029       0.059       0.216       0.390       0.426       0.508
+    SEX_M           -0.425      -0.367      -0.329      -0.166      -0.007       0.027       0.090
+
+ BEH_FT1  WITH
+    BEH_MT1         -0.154      -0.049       0.015       0.330       0.566       0.600       0.663
+
+ SEX_M    WITH
+    SEX_F           -0.040       0.065       0.109       0.363       0.572       0.604       0.658
+
+ Means
+    SEX_F            3.644       3.822       3.922       4.561       5.533       5.715       6.075
+    SEX_M            3.914       4.110       4.210       4.841       5.786       5.975       6.327
+
+ Intercepts
+    BEH_MT1          0.966       1.343       1.548       2.556       3.813       4.054       4.546
+    BEH_FT1          1.191       1.586       1.796       2.798       3.797       4.004       4.389
+
+ Variances
+    SEX_F            1.000       1.000       1.000       1.000       1.000       1.000       1.000
+    SEX_M            1.000       1.000       1.000       1.000       1.000       1.000       1.000
+
+ Residual Variances
+    BEH_MT1          0.766       0.829       0.853       0.952       0.987       0.992       0.998
+    BEH_FT1          0.784       0.832       0.853       0.952       0.989       0.993       0.998
+
+
+     Beginning Time:  13:37:59
+        Ending Time:  13:38:03
+       Elapsed Time:  00:00:04
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen
